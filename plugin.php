@@ -21,7 +21,6 @@ function jh_portfolio_init() {
 include_once('jhp.functions.php');
 include_once('jhp.template-redirect.php');
 include_once('jhp.classes.php');
-include_once('extensions/media-uploader.extensions.php');
 include_once('templates/hooks.php');
 include_once('admin/admin.php');
 include_once('jhp.hooks.php');
@@ -29,8 +28,5 @@ include_once('phpthumb/plugin.php');
 
 //Widgets etc
 include_once('jhp.widgets.php');
-
-//Shrink the web
-include_once( 'extensions/shrink_the_web_php4.php' );
 
 ?>
