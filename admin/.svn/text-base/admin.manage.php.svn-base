@@ -1,0 +1,50 @@
+<?php 
+if( $_GET['delete_post'] ) { JH_Portfolio::delete_post( $_GET['delete_post'] ); }
+?>
+
+<?php $portfolio = new JH_Portfolio('showposts=20'); ?>
+<div class="wrap">
+	<h2><?php echo $title ?></h2>
+	<form method="post">
+		<table class="widefat post fixed" cellspacing="0">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Category</th>
+					<th>Date</th>
+					<th>Status</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>Title</th>
+					<th>Category</th>
+					<th>Date</th>
+					<th>Status</th>
+				</tr>
+			</tfoot>
+			<tbody>
+				<?php if( $portfolio->is_posts() ): while( $portfolio->have_posts() ): ?>
+					<tr>
+						<td>
+							<a class="row-title" href="<?php echo JH_PORTFOLIO_EDIT_URL ?>&post_id=<?php echo $portfolio->get_ID() ; ?>"><?php echo $portfolio->get_title() ?></a>
+							<div class="row-actions">
+								<a href="<?php echo JH_PORTFOLIO_EDIT_URL ?>&post_id=<?php echo $portfolio->get_ID() ; ?>">Edit</a> |
+								<a href="<?php echo $portfolio->get_permalink() ?>">View<a/> | 
+								<a href="<?php echo JH_PORTFOLIO_MANAGE_URL ?>&delete_post=<?php echo $portfolio->get_ID() ?>">Delete</a>
+							</div>
+						</td>
+						<td><?php $terms = wp_get_object_terms( $portfolio->get_ID(), 'jh-portfolio-category' ); echo $terms[0]->name ?> &nbsp; </td>
+						<td><?php echo $portfolio->get_date() ?></td>
+						<td><?php echo $portfolio->post->post_status ?></td>
+					</tr>
+				<?php endwhile; else: ?>
+				<tr>
+					<td colspan="4" style="text-align: center"><p>No Portfolio Entries Found | <a href="<?php echo JH_PORTFOLIO_EDIT_URL ?>">Add New<a/></p></td>
+				</tr>
+				<?php endif; ?>
+			</tbody>
+		</table>
+	</form>
+</div>
+

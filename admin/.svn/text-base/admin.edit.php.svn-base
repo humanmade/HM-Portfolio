@@ -1,0 +1,75 @@
+<?php if( $_POST['save'] || $_POST['publish'] ) { 
+	$_GET['post_id'] = JH_Portfolio::insert_post( array( 
+		'ID' 			=> $_POST['post_id'],
+		'post_title' 	=> $_POST['post_title'], 
+		'post_content' 	=> $_POST['content'], 
+		'brief'			=> $_POST['jh_portfolio_brief'],
+		'category' 		=> $_POST['jh_portfolio_category'],
+		'url'			=> $_POST['url'],
+		'related_work'	=> $_POST['related_work'],
+		'byline'		=> $_POST['byline'],
+		'extra_taxonomy'=> $_POST['extra_taxonomy'],
+		'post_date'		=> (int) $_POST['aa'] . '-' . (int) $_POST['mm'] . '-' . (int) $_POST['jj'] . ' ' . (int) $_POST['hh'] . ':' . (int) $_POST['mn'] . ':' . (int) $_POST['ss'],
+		
+	) ); } ?>
+<?php global $jh_portfolio; $jh_portfolio = new JH_Portfolio('empty=true'); ?>
+<?php if($_GET['post_id']) { global $jh_portfolio; $jh_portfolio = new JH_Portfolio('p=' . $_GET['post_id']); global $post; $post = get_post($_GET['post_id']); } ?>
+<?php
+
+
+
+
+include_once( 'meta-boxes/extra-taxonomy.php' );
+include_once( 'meta-boxes/additional-info.php' );
+include_once( 'meta-boxes/post-submit.php' );
+include_once( 'meta-boxes/main-image.php' );
+include_once( 'meta-boxes/additional-images.php' );
+include_once( 'meta-boxes/brief.php' );
+include_once( 'meta-boxes/category.php' );
+
+add_meta_box('submitdiv', __('Publish'), 'post_submit_meta_box', 'portfolio', 'side', 'core');
+add_meta_box('briefdiv', __('The Brief'), 'jh_portfolio_brief_meta_box', 'portfolio', 'normal', 'core');
+add_meta_box('mainimagediv', __('Main Image'), 'jh_portfolio_main_image_meta_box', 'portfolio', 'normal', 'core');
+add_meta_box('additionalimagesdiv', __('Additional Images'), 'jh_portfolio_additional_images_meta_box', 'portfolio', 'normal', 'core');
+add_meta_box('categorydiv', __('Category'), 'jh_portfolio_category_meta_box', 'portfolio', 'side', 'core');
+add_meta_box('additionalinfodiv', __('Additional Info'), 'jh_portfolio_additional_info_meta_box', 'portfolio', 'side', 'core');
+add_meta_box('extrataxonomydiv', __('Extra Taxonomy'), 'jh_portfolio_extra_taxonomy_meta_box', 'portfolio', 'side', 'core');
+
+?>
+<script type="text/javascript">var actionsUrl = '<?php bloginfo('wpurl') ?>/wp-content/plugins/jh-portfolio/ajax-actions.php'; </script>
+<div class="wrap">
+	<h2>Add New Portfolio Entry</h2>
+	<form name="post" action="" method="post" id="post" enctype="multipart/form-data">
+		
+		<div id="poststuff" class="metabox-holder has-right-sidebar">
+			<div id="side-info-column" class="inner-sidebar">
+			    <div class="meta-box-sortables ui-sortable" id="side-sortables">
+			    	<?php $side_meta_boxes = do_meta_boxes('portfolio', 'side', $post); ?>
+			    </div>
+			</div>
+			
+					
+			<div id="post-body">
+				<div id="post-body-content">
+					<div id="titlediv">
+						<div id="titlewrap">
+							<input type="text" name="post_title" size="30" tabindex="1" value="<?php echo attribute_escape( htmlspecialchars( $post->post_title ) ); ?>" id="title" autocomplete="off" />
+						</div>
+						<label for="byline">Entry Byline</label>
+						<input type="text" name="byline" style="width: 300px;" value="<?php echo $jh_portfolio->get_byline() ?>" />
+					</div>
+					
+					<div id="<?php echo user_can_richedit() ? 'postdivrich' : 'postdiv'; ?>" class="postarea">
+						<?php the_editor($post->post_content); ?>
+					</div>
+					
+					<?php do_meta_boxes('portfolio', 'normal', $post); ?>
+				</div>
+			</div>
+		</div>
+		
+	</form>
+	
+</div>
+
+
