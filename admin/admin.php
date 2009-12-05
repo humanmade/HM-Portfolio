@@ -13,12 +13,14 @@ function jhp_admin_setup() {
 	$manage->set_table_column( 'cb' );
 	$manage->set_table_column( 'title', 'Entry Name' );
 	$manage->set_table_column( 'jh-portfolio-category', 'Category', 'edit=Categories' );
+	$manage->set_table_column( 'jh-portfolio-tag', 'Tags', 'edit=Tags' );
 	$manage->set_table_column( 'date', 'Publish Date' );
 	$manage->add_filter( 'type=taxonomy&taxonomy=jh-portfolio-category&single=category&multiple=categories' );
 	
 	$edit = $admin->add_page( 'edit', 'Add Entry', false, 'single=Entry&multiple=Entries' );
 	
 	$edit->add_meta_box( 'publish' );
+	$edit->add_meta_box( 'taxonomy', null, null, null, 'title=Tags&taxonomy=jh-portfolio-tag' );
 	$edit->add_meta_box( 'brief', 'The Brief', 'normal', 'jhp_brief_meta_box' );
 	$edit->add_meta_box( 'main-image', 'Main Image', 'normal', 'jhp_main_image_meta_box' );
 	$edit->add_meta_box( 'additional-images', 'Gallery', 'normal', 'jhp_gallery_meta_box' );
@@ -29,7 +31,8 @@ function jhp_admin_setup() {
 	$edit->enqueue_script( 'jhp-common.js', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/common.js', array( 'jquery' ) );
 	
 	$cats = $admin->add_page( 'taxonomy', 'Categories', false, 'single=Category&multiple=Categories&taxonomy=jh-portfolio-category' );
-	
+	$cats = $admin->add_page( 'taxonomy', 'Tags', false, 'single=Tag&multiple=Tags&taxonomy=jh-portfolio-tag' );
+
 	$settings = $admin->add_page( 'settings', 'JH Portfolio', false, 'callback=jhp_settings_page' );
 	$settings->register_setting( 'jhp_url_base' );
 	$settings->add_settings_section( 'general', 'General Settings' );
@@ -37,20 +40,4 @@ function jhp_admin_setup() {
 	
 	$admin->check_for_submitted();
 }
-
-function jhp_settings_page( $page ) {
-	?>
-	<h4><?php _e('General'); ?></h4>
-	<table class="form-table">
-		<tr valign="top">
-			<th scope="row"><label for="jh_portfolio_base"><?php _e('Portfolio base'); ?></label></th>
-			<td><input name="jh_portfolio_base" type="text" id="jh_portfolio_base" value="<?php echo get_option('jh_portfolio_base', 'portfolio'); ?>" class="regular-text code" />
-				<span class="description"><?php _e('Default is <code>portfolio</code>'); ?></span><br />
-				<small>The portfolio base is the url to the portfolio home page, you can use multiple "/". E.g <code>web/portfolio</code></small>
-			</td>
-		</tr>
-	</table>
-	<?php
-}
-
 ?>
