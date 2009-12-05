@@ -16,17 +16,16 @@
 		
 		?>
 		<!-- Additional Info -->
-		<?php if( jh_portfolio_has_additional_info( 'url,related_work' ) ) : ?>
+		<?php if( jhp_has_info( null, 'url,related_work' ) ) : ?>
 			<h4>Additional Information</h4>
-			<?php if( $url = jh_portfolio_get_url() ) : ?>
+			<?php if( $url = jhp_get_url() ) : ?>
 				<p><strong>Visit</strong><br /><a href="<?php echo $url ?>"><?php echo $url ?></a></p>
 			<?php endif; ?>
-			<?php if( $related_work = jh_portfolio_get_related_work() ) : ?>
+			<?php if( $related_work = jhp_get_related_work() ) : ?>
 				<p><strong>Related Work</strong></p>
 				<ul id="related-work">
 					<?php foreach( $related_work as $post_id ) : ?>
-						<?php $post = new JH_Portfolio('p=' . $post_id); ?>
-						<li><a href="<?php echo $post->get_permalink() ?>" rel="<?php echo $post->get_id() ?>"><?php echo $post->get_title() ?></a></li>
+						<li><a href="<?php echo get_permalink($post_id) ?>"><?php echo get_the_title($post_id) ?></a></li>
 					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>

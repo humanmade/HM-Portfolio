@@ -16,7 +16,14 @@
 		?>
 		
 		<div id="jh-portfolio-content">
-			<?php //get_the_content() ?>
+			<?php 
+			
+			add_filter( 'get_the_content', 'wptexturize'        );
+			add_filter( 'get_the_content', 'convert_smilies'    );
+			add_filter( 'get_the_content', 'convert_chars'      );
+			add_filter( 'get_the_content', 'wpautop'            );
+			add_filter( 'get_the_content', 'prepend_attachment' );
+			echo apply_filters('get_the_content', get_the_content() ); ?>
 		</div>
 		<?php
 		echo $after_widget;

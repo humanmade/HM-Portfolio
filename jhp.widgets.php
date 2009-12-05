@@ -9,7 +9,7 @@ function jh_portfolio_register_sidebar() {
         'after_widget' 	=> '</div>',
         'before_title' 	=> '<h2>',
         'after_title' 	=> '</h2>',
-        'name'			=> 'Portfolio',
+        'name'			=> 'Portfolio Home',
         'id'			=> 'jh-portfolio'
 	));
 	register_sidebar( array(

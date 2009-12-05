@@ -11,11 +11,11 @@
 	function widget( $args, $instance ) {
 		extract( $args, EXTR_SKIP );
 		extract( $instance );
-						
+		$height = (int) $height;
 		echo $before_widget;
 		?>
 		<div id="jh-portfolio-main-image">
-			<?php if( $image = jhp_get_main_image( null, $width, $height, true ) ) : ?>
+			<?php if( $image = jhp_get_main_image( null, $width, $height, ($height ? true : false ) ) ) : ?>
 			    <img id="main-image" src="<?php echo $image ?>" />
 			<?php endif; ?>
 		</div>	

@@ -15,17 +15,13 @@
 		
 		?>
 		<!-- Additional Images -->
-		<?php if( $images = jhp_get_gallery_images( null, 80, 60 ) ) : ?>
+		<?php if( $images = jhp_get_gallery_images( null, 100, 60, true ) ) : ?>
 			<h4>Gallery</h4>
+			<script type="text/javascript">jQuery().ready( function() { jQuery("a[rel=lightbox]").lightBox(); });</script>
 			<div id="jh-portfolio-additional-images">
-				<div id="jh-portfolio-additional-image-holder">
-					<img src="<?php echo jhp_get_gallery_image( key($images), 200, 140)?> " id="jh-portfolio-addiotnal-image" />
-				</div>
-				<div id="jh-portfolio-additional-images-holder">
-					<?php foreach( $images as $id => $image ) : ?>
-						<img src="<?php echo $image ?>" rel="<?php echo $id ?>" />
-					<?php endforeach; ?>
-				</div>
+			<?php foreach( $images as $id => $image ) : ?>
+			    <a rel="lightbox" href="<?php echo jhp_get_gallery_image( $id, 800, 600 ) ?>"><img src="<?php echo $image ?>" rel="<?php echo $id ?>" /></a>
+			<?php endforeach; ?>
 			</div>
 		<?php endif; ?>
 		

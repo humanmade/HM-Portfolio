@@ -9,12 +9,14 @@ Version: 0.9.1
 Author URI: http://www.joehoyle.co.uk/
 */
 
+define( 'JHPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
+
 //Add Rewrite rules
 add_action('init', 'jh_portfolio_init', 0, 0);
 function jh_portfolio_init() {
 	//register extra taxonomy
 	register_taxonomy( 'jh-portfolio-category', 'jh-portfolio', array( 'hierarchical' => false ) );
-	register_taxonomy( 'jh_portfolio_extra_taxonomy', 'jh-portfolio' );
+	register_taxonomy( 'jh-portfolio-tag', 'jh-portfolio' );
 }
 
 //Template rewrite

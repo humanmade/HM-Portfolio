@@ -37,7 +37,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 			
 			<?php if( $show_main_image ) : ?>
 				<div id="main-image-holder">
-					<?php if( $image = jh_portfolio_get_main_image( $width, $height ) ) : ?>
+					<?php if( $image = jhp_get_main_image( null, $width, $height ) ) : ?>
 						<img id="main-image" src="<?php echo $image ?>" />
 					<?php endif; ?>
 				</div>
@@ -58,16 +58,15 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 		$instance['sort_by'] = strip_tags( $new_instance['sort_by'] );
 
 		global $jh_portfolio;
-		$jh_portfolio = new JH_Portfolio('showposts=-1');
 		$hidden_cats = array();
-		foreach( $jh_portfolio->get_portfolio_categories() as $cat ) {
+		foreach( get_terms('jh-portfolio-category') as $cat ) {
 			$instance['cat_' . $cat->term_id] = (int) strip_tags( $new_instance['cat_' . $cat->term_id] );
 			if( $new_instance['show_cat_' . $cat->term_id] !== 'on' )
-				$hidden_cats[] = (int) $cat->term_id;
+				$hidden_cats[(int) $cat->term_id] = (int) $cat->term_id;
 						
 			update_post_meta( $cat->term_id, 'menu_order', $new_instance['cat_' . $cat->term_id] );
 		}
-		update_option( 'jh_portfolio_hidden_categories', $hidden_cats );
+		$instance['hidden_cats'] = $hidden_cats;
 		return $instance;
 	}
 
@@ -108,7 +107,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 			<label><strong><?php _e('Category Order:'); ?></strong></label><br />
 			<?php foreach( get_terms('jh-portfolio-category') as $cat ) : ?>
 				<label for="<?php echo $this->get_field_id('cat_' . $cat->term_id); ?>" style="clear: both; display: block;">
-					<input type="checkbox" name="<?php echo $this->get_field_name('show_cat_' . $cat->term_id); ?>" id="<?php echo $this->get_field_id('show_cat_' . $cat->term_id); ?>"  />
+					<input type="checkbox" <?php if( !$instance['hidden_cats'][$cat->term_id] ) echo 'checked="checked"'; ?> name="<?php echo $this->get_field_name('show_cat_' . $cat->term_id); ?>" id="<?php echo $this->get_field_id('show_cat_' . $cat->term_id); ?>" />
 					<?php _e($cat->name); ?>
 					<?php $var_name = 'cat_' . $cat->term_id; ?>
 					<input style="width: 40px; float:right" type="text" name="<?php echo $this->get_field_name('cat_' . $cat->term_id); ?>" id="<?php echo $this->get_field_id('cat_' . $cat->term_id); ?>" value="<?php echo (int) $instance[$var_name] ?>" />
