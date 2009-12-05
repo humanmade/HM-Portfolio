@@ -35,9 +35,15 @@ function jhp_admin_setup() {
 
 	$settings = $admin->add_page( 'settings', 'JH Portfolio', false, 'callback=jhp_settings_page' );
 	$settings->register_setting( 'jhp_url_base' );
+	$settings->register_setting( 'jhp_add_page_link' );
+	$settings->register_setting( 'jhp_use_styles' );
+	$settings->register_setting( 'jhp_use_scripts' );
 	$settings->add_settings_section( 'general', 'General Settings' );
 	$settings->add_settings_field( 'jhp_url_base', 'Portfolio Base', '<br />The portfolio base is the url to the portfolio home page, you can use multiple "/". E.g <code>web/portfolio</code>', 'general', 'portfolio' );
-	
+	$settings->add_settings_field( 'jhp_add_page_link', 'Add Link to Portfolio in menu', 'Controls whether to hook into your themes menu and show a link to the Portfolio', 'general', 'on', 'type=checkbox' );
+	$settings->add_settings_field( 'jhp_use_styles', 'Use JH Portfolio CSS Styles', 'The JH Portfolio default styles will not be added if you are using custom temaplte files.', 'general', 'on', 'type=checkbox' );
+	$settings->add_settings_field( 'jhp_use_scripts', 'Use JH Portfolio Javascript', 'The Javascript adds effects such as Ligthbox to the Entry Gallery widgets', 'general', 'on', 'type=checkbox' );
+
 	$admin->check_for_submitted();
 }
 ?>

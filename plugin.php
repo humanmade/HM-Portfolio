@@ -23,7 +23,6 @@ function jh_portfolio_init() {
 include_once('jhp.functions.php');
 include_once('jhp.template-redirect.php');
 include_once('jhp.classes.php');
-include_once('templates/hooks.php');
 include_once('admin/admin.php');
 include_once('jhp.hooks.php');
 include_once('phpthumb/plugin.php');

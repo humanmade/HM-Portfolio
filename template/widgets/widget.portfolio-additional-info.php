@@ -19,7 +19,7 @@
 		<?php if( jhp_has_info( null, 'url,related_work' ) ) : ?>
 			<h4>Additional Information</h4>
 			<?php if( $url = jhp_get_url() ) : ?>
-				<p><strong>Visit</strong><br /><a href="<?php echo $url ?>"><?php echo $url ?></a></p>
+				<p><strong>Visit</strong><br /><a target="_blank" href="<?php echo $url ?>"><?php echo $url ?></a></p>
 			<?php endif; ?>
 			<?php if( $related_work = jhp_get_related_work() ) : ?>
 				<p><strong>Related Work</strong></p>

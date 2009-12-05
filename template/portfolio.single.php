@@ -12,7 +12,11 @@ function jhp_single_content( $content ) {
 }
 ?>
 <?php 
-wp_enqueue_style( 'jh-portfolio', JHPURL . 'template/styles/style.css' );
-wp_enqueue_style( 'lightbox.css', JHPURL . 'template/styles/jquery.lightbox-0.5.css' );
-wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
+if( get_option( 'jhp_use_styles', 'on' ) ) {
+	wp_enqueue_style( 'jh-portfolio', JHPURL . 'template/styles/style.css' );
+	wp_enqueue_style( 'lightbox.css', JHPURL . 'template/styles/jquery.lightbox-0.5.css' );
+}
+if( get_option( 'jhp_use_scripts', 'on' ) ) {
+	wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
+}
 include( get_template_directory() . '/single.php' ) ?>
