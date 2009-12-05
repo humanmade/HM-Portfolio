@@ -29,7 +29,7 @@ function jhp_get_brief( $post = null ) {
  */
 function jhp_get_url( $post = null ) {
 	if( $post === null ) global $post;
-	return (string) get_post_meta( $post-ID, 'url', true );
+	return (string) get_post_meta( $post->ID, 'url', true );
 }
 
 // image functions

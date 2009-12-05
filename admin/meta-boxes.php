@@ -36,7 +36,7 @@ function jhp_main_image_meta_box( $post ) {
 			<span class="image-wrapper" id="<?php echo $id ?>"><img src="<?php echo $image ?>" />
 			<a class="delete_custom_image" rel="jhp_main_image:<?php echo $id ?>">Delete</a> | </span>
 		<?php else: ?>
-			<p class="empty-message">No Main Image Added</p>
+			<p class="empty-message">No Main Image Added <?php if( $url = jhp_get_url( $post ) ) : ?>| <a href="<?php echo $url ?>" target="_blank">Screenshot your site now</a><?php endif; ?></p>
 		<?php endif; ?>
 	</div>
 	<div style="clear: both;" /></div>
@@ -75,7 +75,7 @@ function jhp_gallery_meta_box( $post ) {
 			<?php endforeach; ?>
 		
 		<?php else: ?>
-			<p class="empty-message">No Gallery Images Added</p>
+			<p class="empty-message">No Gallery Images Added <?php if( $url = jhp_get_url( $post ) ) : ?>| <a href="<?php echo $url ?>" target="_blank">Screenshot your site now</a><?php endif; ?></p>
 		<?php endif; ?>
 	</div>
 	<div style="clear: both;" /></div>
@@ -125,6 +125,6 @@ function jhp_additional_information_meta_box( $post ) {
 }
 function jhp_additional_information_meta_box_submitted( $post ) {
 	update_post_meta( $post->ID, 'url', esc_html($_POST['url']));
-	update_post_meta( $post->ID, 'related_work', esc_html($_POST['url']) );
+	update_post_meta( $post->ID, 'related_work', esc_html($_POST['related_work']) );
 }
 ?>

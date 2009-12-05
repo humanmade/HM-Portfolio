@@ -2,6 +2,7 @@
 
 include('cwp-framework/cwp-framework.php');
 include('meta-boxes.php');
+include_once( 'media-uploader.extensions.php' );
 
 add_action( 'init', 'jhp_admin_setup' );
 function jhp_admin_setup() {
@@ -30,6 +31,9 @@ function jhp_admin_setup() {
 	$cats = $admin->add_page( 'taxonomy', 'Categories', false, 'single=Category&multiple=Categories&taxonomy=jh-portfolio-category' );
 	
 	$settings = $admin->add_page( 'settings', 'JH Portfolio', false, 'callback=jhp_settings_page' );
+	$settings->register_setting( 'jhp_url_base' );
+	$settings->add_settings_section( 'general', 'General Settings' );
+	$settings->add_settings_field( 'jhp_url_base', 'Portfolio Base', '<br />The portfolio base is the url to the portfolio home page, you can use multiple "/". E.g <code>web/portfolio</code>', 'general', 'portfolio' );
 	
 	$admin->check_for_submitted();
 }
