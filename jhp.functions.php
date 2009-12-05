@@ -32,6 +32,33 @@ function jhp_get_url( $post = null ) {
 	return (string) get_post_meta( $post->ID, 'url', true );
 }
 
+/**
+ * Gets the current posts related work array (post ids).
+ * 
+ * @param object $post. (default: global $post)
+ * @return array (post ids)
+ */
+function jhp_get_related_work( $post = null) {
+	if( $post === null ) global $post;
+	return array_filter((array) get_post_meta( $post->ID, 'related_work', true ));
+}
+/**
+ * Checks whether the post has a set of meta info e.g. brief, url, related_work
+ *
+ * @param $post Post Object, default global $post; 
+ * @param string comma seperated list of meta info. (default: 'url,related_work')
+ * @return bool
+ */
+function jhp_has_info( $post = null, $string = 'url,related_work' ) {
+	if( $post === null ) global $post;
+	$infos = explode( ',', $string );
+	$return = false;
+	foreach( $infos as $meta_key ) {
+	    return (bool) get_post_meta( $post->ID, $meta_key, true );
+	}	
+	return false;
+}
+	
 // image functions
 function jhp_get_main_image( $post = null, $w = 0, $h = 0, $crop = false ) {
 	if( $post === null ) global $post;
