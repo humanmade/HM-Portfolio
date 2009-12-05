@@ -125,6 +125,6 @@ function jhp_additional_information_meta_box( $post ) {
 }
 function jhp_additional_information_meta_box_submitted( $post ) {
 	update_post_meta( $post->ID, 'url', esc_html($_POST['url']));
-	update_post_meta( $post->ID, 'related_work', esc_html($_POST['related_work']) );
+	update_post_meta( $post->ID, 'related_work', explode( ',', esc_html($_POST['related_work']) ) );
 }
 ?>
