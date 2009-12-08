@@ -4,7 +4,7 @@
 	// Constructor
 	function WP_Widget_JH_Portfolio_Brief() {
 		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s brief', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_brief', __( 'JH Portfolio Entry Brief' ), $widget_ops );
+		$this->WP_Widget( 'jh_portfolio_brief', __( 'JHP Entry Brief' ), $widget_ops );
 	}
  
 	// Display Widget

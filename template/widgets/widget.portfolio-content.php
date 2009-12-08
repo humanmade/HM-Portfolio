@@ -4,7 +4,7 @@
 	// Constructor
 	function WP_Widget_JH_Portfolio_Content() {
 		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s content', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_content', __( 'JH Portfolio Entry Content' ), $widget_ops );
+		$this->WP_Widget( 'jh_portfolio_content', __( 'JHP Entry Content' ), $widget_ops );
 	}
  
 	// Display Widget

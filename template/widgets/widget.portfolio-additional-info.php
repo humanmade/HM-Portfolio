@@ -3,8 +3,8 @@
  class WP_Widget_JH_Portfolio_Additional_Info extends WP_Widget {
 	// Constructor
 	function WP_Widget_JH_Portfolio_Additional_Info() {
-		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s additional info', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_additional_info', __( 'JH Portfolio Entry Additional Info' ), $widget_ops );
+		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s additional info (URL and Related Work)', 'table_rss_news' ) );
+		$this->WP_Widget( 'jh_portfolio_additional_info', __( 'JHP Entry Additional Info' ), $widget_ops );
 	}
  
 	// Display Widget

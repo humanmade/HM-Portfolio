@@ -4,7 +4,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 	// Constructor
 	function WP_Widget_JH_Portfolio_Selector() {
 		$widget_ops = array( 'description' => __( 'Show a list of all portfolio entries', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_selector', __( 'JH Portfolio Selector' ), $widget_ops );
+		$this->WP_Widget( 'jh_portfolio_selector', __( 'JHP Selector' ), $widget_ops );
 	}
  
 	// Display Widget
@@ -26,7 +26,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 			 ?>
 				<?php $jh_portfolio = new WP_Query( array( 'taxonomy' => 'jh-portfolio-category', 'term' => $cat->slug, 'showposts' => -1, 'orderby' => $sort_by, 'post_type' => 'jh-portfolio') );
 				 ?>
-				<ul class="title" id="<?php echo $cat->slug ?>">
+				<ul id="<?php echo $cat->slug ?>">
 					<li><strong><?php echo $cat->name ?></strong></li>
 					<?php while( $jh_portfolio->have_posts() ): $jh_portfolio->the_post(); ?>
 						<li><a class="<?php if( $orig->post->ID == get_the_id() ) echo 'active' ?>" href="<?php the_permalink() ?>" rel="<?php echo get_the_id() ?>"><?php the_title() ?></a></li>

@@ -4,7 +4,7 @@
 	// Constructor
 	function WP_Widget_JHP_Gallery() {
 		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s gallery', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_gallery', __( 'JH Portfolio Gallery' ), $widget_ops );
+		$this->WP_Widget( 'jh_portfolio_gallery', __( 'JHP Gallery' ), $widget_ops );
 	}
  
 	// Display Widget

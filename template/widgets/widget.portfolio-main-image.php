@@ -4,7 +4,7 @@
 	// Constructor
 	function WP_Widget_JH_Portfolio_Main_Image() {
 		$widget_ops = array( 'description' => __( 'Shows the main image', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_main_image', __( 'JH Portfolio Main Image' ), $widget_ops );
+		$this->WP_Widget( 'jh_portfolio_main_image', __( 'JHP Main Image' ), $widget_ops );
 	}
  
 	// Display Widget

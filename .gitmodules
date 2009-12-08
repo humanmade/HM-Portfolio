@@ -1,0 +1,3 @@
+[submodule "admin/cwp-framework"]
+	path = admin/cwp-framework
+	url = /Users/Joe/Work/projects/cwp-framework/

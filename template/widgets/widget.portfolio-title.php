@@ -4,7 +4,7 @@
 	// Constructor
 	function WP_Widget_JH_Portfolio_Title() {
 		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s title', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_title', __( 'JH Portfolio Entry Title' ), $widget_ops );
+		$this->WP_Widget( 'jh_portfolio_title', __( 'JHP Entry Title' ), $widget_ops );
 	}
  
 	// Display Widget
