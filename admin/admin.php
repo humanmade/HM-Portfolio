@@ -1,8 +1,5 @@
 <?php
-
-include('cwp-framework/cwp-framework.php');
 include('meta-boxes.php');
-include_once( 'media-uploader.extensions.php' );
 
 add_action( 'init', 'jhp_admin_setup' );
 function jhp_admin_setup() {
