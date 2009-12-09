@@ -25,7 +25,7 @@ include_once('jhp.template-redirect.php');
 include_once('jhp.classes.php');
 include_once('admin/admin.php');
 include_once('jhp.hooks.php');
-include_once('phpthumb/plugin.php');
+include_once('helper/helper.php')
 
 //Widgets etc
 include_once('jhp.widgets.php');
