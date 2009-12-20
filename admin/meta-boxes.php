@@ -23,7 +23,7 @@ function jhp_main_image_meta_box( $post ) {
 	?>
 	<p style="display: block; float: right">
 		<?php
-		register_custom_media_button( 'jhp_main_image', 'Main Image' );
+		tj_register_custom_media_button( 'jhp_main_image', 'Main Image' );
 		?>
 		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_main_image&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197">
 			<?php echo $image ? 'Change' : 'Add' ?> Main Image
@@ -58,7 +58,7 @@ function jhp_gallery_meta_box( $post ) {
 	</style>
 	<p style="display: block; float: right">
 		<?php
-		register_custom_media_button( 'jhp_gallery_images', 'Gallery Image' );
+		tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image' );
 		?>
 		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_gallery_images&amp;multiple=yes&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197">
 			Add Gallery Image
@@ -120,7 +120,7 @@ function jhp_additional_information_meta_box( $post ) {
 	<p><label>URL</label></p>
 	<input id="website_url" type="text" name="url" value="<?php echo jhp_get_url($post) ?>" />
 	<p><label>Related Work (post ID)</label></p>
-	<input type="text" name="related_work" value="<?php echo get_post_meta( $post->ID, 'related_work', true ); ?>" />
+	<input type="text" name="related_work" value="<?php echo implode( ', ', get_post_meta( $post->ID, 'related_work', true ) ); ?>" />
 	<?php
 }
 function jhp_additional_information_meta_box_submitted( $post ) {

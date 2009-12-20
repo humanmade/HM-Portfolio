@@ -65,7 +65,7 @@ function jhp_get_main_image( $post = null, $w = 0, $h = 0, $crop = false ) {
 	$attachment_id = jhp_get_main_image_id($post);
 	if( !$attachment_id )
 		return null;
-	return tw_phpthumb_it( get_attached_file( $attachment_id ), $w, $h, $crop );
+	return tj_phpthumb_it( get_attached_file( $attachment_id ), $w, $h, $crop );
 }
 
 function jhp_get_main_image_id( $post = null ) {
@@ -79,13 +79,13 @@ function jhp_get_gallery_images( $post = null, $w = 0, $h = 0, $crop = false ) {
 	if( !$attachment_ids )
 		return array();
 	foreach( $attachment_ids as $id ) {
-		$images[$id] = tw_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
+		$images[$id] = tj_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
 	}
 	return $images;
 }
 
 function jhp_get_gallery_image( $id, $w = 0, $h = 0, $crop = false ) {
-	return tw_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
+	return tj_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
 }
 
 function jhp_get_gallery_ids( $post = null ) {
