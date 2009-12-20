@@ -5,7 +5,7 @@ Requires at least: 2.9
 Tested up to: 2.9
 Stable tag: 0.9.0.1
 
-JH Portfolio adds a Portfolio section to the WP-Admin and provides default template style
+JH Portfolio adds a Portfolio section to the WP-Admin and provides portfolio temaplateing either via widgets or tmeplate files.
 
 == Description ==
 
@@ -20,8 +20,7 @@ Report any issues/feature requests here: http://code.google.com/p/jh-portfolio/ 
 
 * Assign entries to their own categories and tags
 * Ability to add additional image gallery for each entry
-* Whole new admin section for managing your portgolio
-* A 
+* Whole new admin section for managing your portfolio
 * Pretty permalinks
 
 
@@ -38,6 +37,8 @@ Report any issues/feature requests here: http://code.google.com/p/jh-portfolio/ 
 * Added Options to change the url of your portfolio
 * Rewrote Images to be less buggy
 * Replaced "Additional Images" for "Gallery"
+* Added the ability to edit Entry slugs
+* Added option to change the Portfolio title (in page menu etc)
 
 = 0.9.0.1 =
 * Fixed action of settings page
