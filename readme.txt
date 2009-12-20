@@ -1,8 +1,8 @@
 === JH Portfolio ===
 Contributors: joehoyle
 Tags: portfolio, jh-portfolio, jh
-Requires at least: 2.8
-Tested up to: 2.8.6
+Requires at least: 2.9
+Tested up to: 2.9
 Stable tag: 0.9.0.1
 
 JH Portfolio adds a Portfolio section to the WP-Admin and provides default template style
@@ -18,15 +18,26 @@ Report any issues/feature requests here: http://code.google.com/p/jh-portfolio/ 
 
 = Features =
 
-* Assign entries to categories
-* Integration with ShrinkTheWeb for automatic thumbnail generation
+* Assign entries to their own categories and tags
 * Ability to add additional image gallery for each entry
-* Built in Ajax switching of entries (still works with Javascript disabled)
-* Template functions for creating completely custom portfolio design themes
+* Whole new admin section for managing your portgolio
+* A 
 * Pretty permalinks
 
 
 == Changelog ==
+
+= 0.9.5 =
+* Removed need for Portfolio page
+* Separated into "Portfolio Home" and "Portfolio Single" the same as WordPress (no more problematic ajax failing in IE!).
+* Rewrote the whole admin side of the plugin using the CWP Framework, so there is now Bulk Edit, cleaner admin pages / less buggy. New Main Image and Gallery meta boxes.
+* Added Portfolio Tags and JHP Tags Widget
+* Also added Manage Tags admin page to JH Portfolio menu.
+* Removed ShrinkTheWeb - This wasn't a very streamlined process, and I don't think many people were using it.
+* Added Options to remove the default CSS and Javascript if you want to use the Portfolio's widgets but your own styles.
+* Added Options to change the url of your portfolio
+* Rewrote Images to be less buggy
+* Replaced "Additional Images" for "Gallery"
 
 = 0.9.0.1 =
 * Fixed action of settings page
