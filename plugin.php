@@ -10,6 +10,7 @@ Author URI: http://www.joehoyle.co.uk/
 */
 
 define( 'JHPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
+define( 'JHPPATH', dirname( __FILE__ ) );  
 
 //Add Rewrite rules
 add_action('init', 'jh_portfolio_init', 0, 0);
@@ -26,8 +27,12 @@ include_once('jhp.classes.php');
 include_once('admin/admin.php');
 include_once('jhp.hooks.php');
 include_once('helper/helper.php');
+include_once('jhp.upgrade.php');
 
 //Widgets etc
 include_once('jhp.widgets.php');
+
+// upgrade old data
+register_activation_hook( __FILE__, 'jhp_upgrade' );
 
 ?>
