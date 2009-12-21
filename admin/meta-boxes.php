@@ -58,7 +58,7 @@ function jhp_gallery_meta_box( $post ) {
 	</style>
 	<p style="display: block; float: right">
 		<?php
-		tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image' );
+		tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image', true, true );
 		?>
 		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_gallery_images&amp;multiple=yes&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197">
 			Add Gallery Image
