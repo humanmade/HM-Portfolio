@@ -32,6 +32,7 @@ function jhp_admin_setup() {
 
 	$settings = $admin->add_page( 'settings', 'JH Portfolio', false, 'callback=jhp_settings_page' );
 	$settings->register_setting( 'jhp_url_base' );
+	$settings->register_setting( 'jhp_single_base' );
 	$settings->register_setting( 'jhp_add_page_link' );
 	$settings->register_setting( 'jhp_use_styles' );
 	$settings->register_setting( 'jhp_use_scripts' );
@@ -40,7 +41,8 @@ function jhp_admin_setup() {
 	$settings->register_setting( 'jhp_template_home' );
 	
 	$settings->add_settings_section( 'general', 'General Settings' );
-	$settings->add_settings_field( 'jhp_url_base', 'Portfolio Base', '<br />The portfolio base is the url to the portfolio home page, you can use multiple "/". E.g <code>web/portfolio</code>', 'general', 'portfolio' );
+	$settings->add_settings_field( 'jhp_url_base', 'Portfolio URL', '<br />The portfolio base is the url to the portfolio home page, you can use multiple "/". E.g <code>web/portfolio</code>', 'general', 'portfolio' );
+	$settings->add_settings_field( 'jhp_single_base', 'Single URL', '<br />Relative to the Portfolio URL. Use <code>%category%</code> for the category name.', 'general', '%category%' );
 	$settings->add_settings_field( 'jhp_title', 'Portfolio Title', 'The portfolio title in the page menu etc.', 'general', 'Portfolio' );
 
 	$settings->add_settings_field( 'jhp_add_page_link', 'Add Link to Portfolio in menu', 'Controls whether to hook into your themes menu and show a link to the Portfolio', 'general', 'on', 'type=checkbox' );
