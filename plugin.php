@@ -5,7 +5,7 @@ Plugin Name: JH Portfolio
 Plugin URI: http://github.com/joehoyle/JH-Portfolio
 Description: Web/Print Portfolio plugin
 Author: Joe Hoyle
-Version: 0.9.5 Beta 1
+Version: 0.9.5 Beta 3
 Author URI: http://www.joehoyle.co.uk/
 */
 

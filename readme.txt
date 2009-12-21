@@ -23,6 +23,10 @@ Report any issues/feature requests here: http://code.google.com/p/jh-portfolio/ 
 * Whole new admin section for managing your portfolio
 * Pretty permalinks
 
+== Upgrade Notice ==
+
+= 0.9.5 =
+Some of your old data will be lost: Main Images, Additional Images and your Portfolio Widgets will need setting up. Not compatible with pre 0.9.5 custom templates. See: http://wiki.github.com/joehoyle/JH-Portfolio/0901-and-under-upgrade-to-095 for details.
 
 == Changelog ==
 
@@ -91,6 +95,11 @@ Report any issues/feature requests here: http://code.google.com/p/jh-portfolio/ 
 * Added options to show main image and main image size for the portfolio selector widget 
 * Minor CSS fixes
 
+== Screenshots ==
+
+1. The Manage Entries admin page
+2. The Add New/Edit Entry page - adding Main Image, Gallery, Brief data etc.
+3. The JH Portfolio Settings page
 
 == Installation ==
 
