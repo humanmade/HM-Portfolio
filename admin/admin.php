@@ -1,8 +1,16 @@
 <?php
 include('meta-boxes.php');
 
+
 add_action( 'init', 'jhp_admin_setup' );
 function jhp_admin_setup() {
+	global $current_user;
+	
+	//spoof wordpress into think we can publish the custom post type for portfolio items to show post date edit
+	if( current_user_can( 'publish_posts' ) ) {
+		$current_user->allcaps['publish_jh-portfolios'] = true;
+	}
+	
 	$admin = new Admin_Section( 'Portfolio', __FILE__, 'menu_order=6&icon=' . str_replace( ABSPATH , trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) . '/icon.png') );
 	
 	$manage = $admin->add_page( 'manage', 'Manage Entries', $parent = true, 'single=Entry&multiple=Entries&title=Manage Entries&edit=Add Entry' );
