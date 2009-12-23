@@ -21,3 +21,6 @@
 
 #jh-portfolio-main-image { margin: 10px 0; text-align: center; }
 #jh-portfolio-main-image img { border: 1px solid #E7E7E7; padding: 5px; }
+
+/* hide unwanted content on defaults */
+.jh-portfolio .postmetadata { display: none; }
