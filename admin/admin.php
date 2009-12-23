@@ -48,8 +48,8 @@ function jhp_admin_setup() {
 	$settings->add_settings_field( 'jhp_use_scripts', 'Use JH Portfolio Javascript', 'The Javascript adds effects such as Ligthbox to the Entry Gallery widgets', 'general', 'on', 'type=checkbox' );
 	
 	$settings->add_settings_section( 'template', 'Custom Templtes' );
-	$settings->add_settings_field( 'jhp_template_home', 'Home Template', 'Relative to your theme folder ', 'template', 'portfolio.home.php' );
-	$settings->add_settings_field( 'jhp_template_single', 'Single Template', 'Relative to your theme folder ', 'template', 'portfolio.single.php' );
+	$settings->add_settings_field( 'jhp_template_home', 'Home Template', 'Relative to your theme folder ', 'template', 'portfolio-home.php' );
+	$settings->add_settings_field( 'jhp_template_single', 'Single Template', 'Relative to your theme folder ', 'template', 'portfolio-single.php' );
 	
 	$admin->check_for_submitted();
 }
