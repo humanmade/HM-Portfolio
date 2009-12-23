@@ -24,9 +24,7 @@ function jhp_admin_setup() {
 	$edit->add_meta_box( 'category', 'Category', 'side', 'jhp_category_meta_box' );
 	$edit->add_meta_box( 'additional-info', 'Additional Information', 'side', 'jhp_additional_information_meta_box' );
 	$edit->add_post_arg( 'post_type', 'jh-portfolio' );
-	
-	$edit->enqueue_script( 'jhp-common.js', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/common.js', array( 'jquery' ) );
-	
+		
 	$cats = $admin->add_page( 'taxonomy', 'Categories', false, 'single=Category&multiple=Categories&taxonomy=jh-portfolio-category' );
 	$cats = $admin->add_page( 'taxonomy', 'Tags', false, 'single=Tag&multiple=Tags&taxonomy=jh-portfolio-tag' );
 
