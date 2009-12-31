@@ -21,6 +21,8 @@ function jhp_admin_setup() {
 	$manage->set_table_column( 'jh-portfolio-tag', 'Tags', 'edit=Tags' );
 	$manage->set_table_column( 'date', 'Publish Date' );
 	$manage->add_filter( 'type=taxonomy&taxonomy=jh-portfolio-category&single=category&multiple=categories' );
+	$manage->add_post_stati( 'publish', 'Published' );
+	$manage->add_post_stati( 'trash', 'Trash' );
 	
 	$edit = $admin->add_page( 'edit', 'Add Entry', false, 'single=Entry&multiple=Entries' );
 	

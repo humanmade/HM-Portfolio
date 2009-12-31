@@ -26,8 +26,11 @@ include_once('jhp.template-redirect.php');
 include_once('jhp.classes.php');
 include_once('admin/admin.php');
 include_once('jhp.hooks.php');
-include_once('helper/helper.php');
 include_once('jhp.upgrade.php');
+
+//helper setup
+define( 'TJ_ENABLE_ACCOUNTS', false );
+include_once('helper/helper.php');
 
 //Widgets etc
 include_once('jhp.widgets.php');
