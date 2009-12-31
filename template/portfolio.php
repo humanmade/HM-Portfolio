@@ -15,11 +15,10 @@ function jhp_portfolio_content( $content ) {
 
 add_filter( 'the_title', 'jhp_portfolio_title' );
 function jhp_portfolio_title( $title ) {
-	global $done_jhp_portfolio_title;
-	if( $done_jhp_portfolio_title || !in_the_loop() ) {
+	global $wp_query, $wp_the_query;
+	if( $wp_query !== $wp_the_query || !in_the_loop() ) {
 		return $title;
 	} 
-	$done_jhp_portfolio_title = true;
 	return get_option( 'jhp_title', 'Portfolio' );
 }
 

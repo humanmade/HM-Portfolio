@@ -28,8 +28,8 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 				 ?>
 				<ul id="<?php echo $cat->slug ?>">
 					<li><strong><?php echo $cat->name ?></strong></li>
-					<?php while( $jh_portfolio->have_posts() ): $jh_portfolio->the_post(); ?>
-						<li><a class="<?php if( $orig->post->ID == get_the_id() ) echo 'active' ?>" href="<?php the_permalink() ?>" rel="<?php echo get_the_id() ?>"><?php the_title() ?></a></li>
+					<?php while( $jh_portfolio->have_posts() ): $jh_portfolio->the_post(); global $post; ?>
+						<li><a class="<?php if( $orig->post->ID == get_the_id() ) echo 'active' ?>" href="<?php the_permalink() ?>" rel="<?php echo get_the_id() ?>"><?php echo $post->post_title ?></a></li>
 					<?php endwhile; ?>
 				</ul>
 			<?php endforeach; ?>
