@@ -1,7 +1,6 @@
 <?php
 include('meta-boxes.php');
 
-
 add_action( 'init', 'jhp_admin_setup' );
 function jhp_admin_setup() {
 	global $current_user;
@@ -61,6 +60,44 @@ function jhp_admin_setup() {
 	$settings->add_settings_field( 'jhp_template_home', 'Home Template', 'Relative to your theme folder ', 'template', 'portfolio-home.php' );
 	$settings->add_settings_field( 'jhp_template_single', 'Single Template', 'Relative to your theme folder ', 'template', 'portfolio-single.php' );
 	
+	add_action( 'cwp_settings_page_below_form_' . $settings->get_page_id(), 'jhp_add_error_report_button' );
+	
+	// debug
+	$debug = $admin->add_page( 'debug', 'Debug', null, array( 'email' => 'info@joehoyle.co.uk' ) );
+	$debug->add_debug_info( array(
+		'options' => array( 
+			'jhp_url_base' => get_option('jhp_url_base'),
+			'jhp_single_base' => get_option('jhp_single_base'),
+			'jhp_title' => get_option('jhp_title'),
+			'jhp_add_page_link' => get_option('jhp_add_page_link'),
+			'jhp_use_styles' => get_option( 'jhp_use_styles' ),
+			'jhp_use_scripts' => get_option( 'jhp_use_scripts' ),
+			'jhp_template_home' => get_option( 'jhp_template_home', 'portfolio-home.php' ),
+			'jhp_template_single' => get_option( 'jhp_template_single', 'portfolio-single.php' )
+		),
+		'template' => array( 
+		    'home_exists' => file_exists( get_template_directory() . '/' . get_option( 'jhp_template_home', 'portfolio-home.php' ) ),
+		    'single_exists' => file_exists( get_template_directory() . '/' . get_option( 'jhp_template_single', 'portfolio-single.php' ) ),
+		),
+		'data' => array(
+		    'categories' => get_terms( 'jh-portfolio-category', array('hide_empty' => false) ),
+		    'tags' => get_terms( 'jh-portfolio-tag', array('hide_empty' => false) ),
+		    'entries' => get_posts( 'post_type=jh-portfolio&post_status=any' ),
+		),
+	));
+	
 	$admin->check_for_submitted();
+}
+
+function jhp_add_error_report_button( $page ) {
+	?>
+	<p>
+	<a href="<?php echo $page->admin_section->pages['cwp_debug_page_debug']->get_remote_send_report_url() ?>" class="button">Submit Error Report</a>
+	</p>
+	<p>
+		<small>By clicking the above link you agree to sending an email to the author of JH Portfolio container information on your JH Portfolio setup, data and options. To view the error report without sending click <a href="<?php echo $page->admin_section->pages['cwp_debug_page_debug']->get_page_url() ?>">here.</small>
+
+	</p>
+	<?php
 }
 ?>
