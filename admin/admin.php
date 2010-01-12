@@ -12,7 +12,7 @@ function jhp_admin_setup() {
 	
 	$admin = new Admin_Section( 'Portfolio', __FILE__, 'menu_order=6&icon=' . str_replace( ABSPATH , trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) . '/icon.png') );
 	
-	$manage = $admin->add_page( 'manage', 'Manage Entries', $parent = true, 'single=Entry&multiple=Entries&title=Manage Entries&edit=Add Entry' );
+	$manage = $admin->add_page( 'manage', 'Edit', $parent = true, 'single=Entry&multiple=Entries&title=Manage Entries&edit=Add New' );
 	$manage->query( 'post_type=jh-portfolio' );
 	$manage->set_table_column( 'cb' );
 	$manage->set_table_column( 'title', 'Entry Name' );
@@ -23,7 +23,7 @@ function jhp_admin_setup() {
 	$manage->add_post_stati( 'publish', 'Published' );
 	$manage->add_post_stati( 'trash', 'Trash' );
 	
-	$edit = $admin->add_page( 'edit', 'Add Entry', false, 'single=Entry&multiple=Entries' );
+	$edit = $admin->add_page( 'edit', 'Add New', false, 'single=Entry&multiple=Entries' );
 	
 	$edit->add_meta_box( 'publish' );
 	$edit->add_meta_box( 'taxonomy', null, null, null, 'title=Tags&taxonomy=jh-portfolio-tag' );
@@ -35,8 +35,8 @@ function jhp_admin_setup() {
 	$edit->add_post_arg( 'post_type', 'jh-portfolio' );
 	$edit->add_post_arg( 'comment_status', 'closed' );
 	
-	$cats = $admin->add_page( 'taxonomy', 'Categories', false, 'single=Category&multiple=Categories&taxonomy=jh-portfolio-category' );
 	$cats = $admin->add_page( 'taxonomy', 'Tags', false, 'single=Tag&multiple=Tags&taxonomy=jh-portfolio-tag' );
+	$cats = $admin->add_page( 'taxonomy', 'Categories', false, 'single=Category&multiple=Categories&taxonomy=jh-portfolio-category' );
 
 	$settings = $admin->add_page( 'settings', 'JH Portfolio', false, 'callback=jhp_settings_page' );
 	$settings->register_setting( 'jhp_url_base' );
