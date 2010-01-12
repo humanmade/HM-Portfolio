@@ -92,4 +92,27 @@ function jhp_get_gallery_ids( $post = null ) {
 	if( $post === null ) global $post;
 	return array_filter( (array) get_post_meta( $post->ID, 'jhp_gallery_images', true ) );
 }
-?>
+
+/**
+ * Get the array of wp_query vars that jh portfolio uses
+ * 
+ * @return array
+ */
+function jhp_default_query_vars() {
+	$vars = array( 'post_type' => 'jh-portfolio' );
+	return $vars;
+}
+
+function jhp_is_home() {
+	global $wp_query;
+	return (bool) $wp_query->is_portfolio;
+}
+
+function jhp_is_single() {
+	global $wp_query;
+	return (bool) $wp_query->is_portfolio_single;
+}
+
+function jhp_is_portfolio() {
+	return jhp_is_home() || jhp_is_single();
+}
