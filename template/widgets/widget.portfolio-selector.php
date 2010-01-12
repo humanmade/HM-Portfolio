@@ -8,12 +8,16 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 	}
  
 	// Display Widget
-	function widget( $args, $instance ) {
+	function widget( $args, $instance ) {	
+		global $jh_portfolio, $post, $wp_query;
+		$post_backup = $post;
+		$wp_query_backup = $wp_query;
+		
 		extract( $args, EXTR_SKIP );
 		extract( $instance );
 						
 		echo $before_widget;
-		global $jh_portfolio;
+		
 		
 		//Modify the global jh_portfolio to respect the order in the widget
 		$query_vars = $jh_portfolio->query_vars;
@@ -46,6 +50,10 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 		<?php $jh_portfolio = $orig; ?>
 		<?php
 		echo $after_widget;
+		
+		//restore old data
+		$post = $post_backup;
+		$wp_query = $wp_query_backup;
 	
 	}
 	
