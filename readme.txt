@@ -11,10 +11,8 @@ JH Portfolio adds a Portfolio section to the WP-Admin and provides portfolio tem
 
 Add a fully functionality integrated Portfolio to your WordPress site. JH Portfolio comes with a set of widgets for visually creating your portfolio layout, or custom page templates can be used if you want that extra level control over your portfolio design.
 
-The plugin has Ajax built in for faster switching between portfolio entries, but also caters for user with javascript disabled and search engines using a "HiJax" method.
 
-
-Report any issues/feature requests here: http://code.google.com/p/jh-portfolio/ or you can twitter #jhportfolio for feedback etc.
+Report any issues/feature requests here: http://github.com/joehoyle/JH-Portfolio/issues or you can twitter #jhportfolio for feedback etc.
 
 = Features =
 
@@ -22,6 +20,7 @@ Report any issues/feature requests here: http://code.google.com/p/jh-portfolio/ 
 * Ability to add additional image gallery for each entry
 * Whole new admin section for managing your portfolio
 * Pretty permalinks
+* Automatic server-side thumbnail generation for all/any image sizes
 
 == Upgrade Notice ==
 
