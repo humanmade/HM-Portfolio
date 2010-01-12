@@ -108,11 +108,17 @@ function jhp_category_meta_box( $post ) {
 	<input name="jh_portfolio_new_category" type="text" />
 	<?php
 }
-function jhp_category_meta_box_submitted( $post ) {
+function jhp_category_meta_box_submitted( $post, $args = array() ) {
+	
+	
+	
 	if( $_POST['jh_portfolio_new_category'] )
 		wp_set_object_terms( $post->ID, (string) $_POST['jh_portfolio_new_category'], 'jh-portfolio-category' );
 	elseif( $_POST['jh_portfolio_category'] )
 		wp_set_object_terms( $post->ID, (int) $_POST['jh_portfolio_category'], 'jh-portfolio-category' );
+	elseif( $args['default'] ) {
+		wp_set_object_terms( $post->ID, $args['default'], 'jh-portfolio-category' );
+	}
 }
 
 function jhp_additional_information_meta_box( $post ) {
