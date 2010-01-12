@@ -7,7 +7,6 @@ function jhp_single_content( $content ) {
 	dynamic_sidebar('Portfolio Single');
 	$sidebar = ob_get_contents();
 	ob_end_clean(); 
-	
 	return $sidebar;
 }
 ?>

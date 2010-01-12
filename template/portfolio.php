@@ -13,10 +13,16 @@ function jhp_portfolio_content( $content ) {
 	return $sidebar;
 }
 
-add_filter( 'the_title', 'jhp_portfolio_title' );
-function jhp_portfolio_title( $title ) {
-	global $wp_query, $wp_the_query;
-	if( $wp_query !== $wp_the_query || !in_the_loop() ) {
+add_filter( 'the_title', 'jhp_portfolio_title', 10, 2 );
+function jhp_portfolio_title( $title, $post_id = null ) {
+	
+	//if the post id is not set, it is not coming from get_the_title (nasty hack but works)
+	if( $post_id === null )
+		return $title;
+
+	global $wp_query, $wp_the_query, $post;
+		
+	if( $wp_query !== $wp_the_query || !in_the_loop() || $post->post_type !== 'jh-portfolio' ) {
 		return $title;
 	} 
 	return get_option( 'jhp_title', 'Portfolio' );
@@ -40,4 +46,7 @@ if( get_option( 'jhp_use_scripts', 'on' ) ) {
 	wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
 }
 
-include( get_template_directory() . '/archive.php' ); ?>
+if( file_exists( get_template_directory() . '/archive.php' ) )
+	include( get_template_directory() . '/archive.php' );
+else
+	include( get_template_directory() . '/index.php' );
