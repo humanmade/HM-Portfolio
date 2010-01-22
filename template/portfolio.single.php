@@ -18,4 +18,9 @@ if( get_option( 'jhp_use_styles', 'on' ) ) {
 if( get_option( 'jhp_use_scripts', 'on' ) ) {
 	wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
 }
-include( get_template_directory() . '/single.php' ) ?>
+if( file_exists( $file = get_template_directory() . '/single.php' ) ) {
+	include( $file );  
+} else {
+	include( get_template_directory() . '/index.php' );
+}
+?>
