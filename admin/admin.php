@@ -47,6 +47,7 @@ function jhp_admin_setup() {
 	$settings->register_setting( 'jhp_title' );
 	$settings->register_setting( 'jhp_template_single' );
 	$settings->register_setting( 'jhp_template_home' );
+	$settings->register_setting( 'jhp_portfolio_menu_order' );
 	
 	$settings->add_settings_section( 'general', 'General Settings' );
 	$settings->add_settings_field( 'jhp_url_base', 'Portfolio URL', '<br />The portfolio base is the url to the portfolio home page, you can use multiple "/". E.g <code>web/portfolio</code>', 'general', 'portfolio' );
@@ -54,6 +55,7 @@ function jhp_admin_setup() {
 	$settings->add_settings_field( 'jhp_title', 'Portfolio Title', 'The portfolio title in the page menu etc.', 'general', 'Portfolio' );
 
 	$settings->add_settings_field( 'jhp_add_page_link', 'Add Link to Portfolio in menu', 'Controls whether to hook into your themes menu and show a link to the Portfolio', 'general', 'on', 'type=checkbox' );
+	$settings->add_settings_field( 'jhp_portfolio_menu_order', 'Portfolio Menu Order', 'The order in the menu where the Portfolio link appears', 'general', '0');
 	$settings->add_settings_field( 'jhp_use_styles', 'Use JH Portfolio CSS Styles', 'The JH Portfolio default styles will not be added if you are using custom template files.', 'general', 'on', 'type=checkbox' );
 	$settings->add_settings_field( 'jhp_use_scripts', 'Use JH Portfolio Javascript', 'The Javascript adds effects such as Ligthbox to the Entry Gallery widgets', 'general', 'on', 'type=checkbox' );
 	

@@ -20,28 +20,48 @@ function jhp_post_link( $permalink, $post ) {
 
 //add the portfoli link to wp_list_pages
 if( get_option( 'jhp_add_page_link', 'on' ) )
-	add_filter( 'wp_list_pages', 'jhp_add_link_to_wp_list_pages', 10, 2);
+	add_filter( 'get_pages', 'jhp_add_link_to_wp_list_pages', 10, 2);
 	
-function jhp_add_link_to_wp_list_pages( $data, $args ) {
+function jhp_add_link_to_wp_list_pages( $data, $arg ) {
+	
+	foreach( debug_backtrace() as $call ) {
+		if( $call['function'] == 'wp_list_pages' ) {
+			$found = true;
+			break;
+		}
+	}
+	
+	if( !$found )
+		return $data;
+	
+	$menu_order = (int) get_option('jhp_portfolio_menu_order', 0);
 
+	$item = (object) array( 
+		'ID' => 987654321,
+		'post_name' => 'portfolio',
+		'post_title' => 'Portfolio',
+		'menu_order' => $menu_order
+	);
+	
+	if( $menu_order === 0 ) {
+		array_unshift( $data, $item );
+	} else {
+		$data = array_merge( array_slice( $data, 0, $menu_order ), array( $item ), array_slice( $data, $menu_order ) );
+	}
+
+	return $data;
+}
+
+
+add_filter( 'page_link', 'jhp_add_link_to_wp_list_pages_link', 10, 2 );
+function jhp_add_link_to_wp_list_pages_link( $link, $id ) {
+	if( $id !== 987654321 )
+		return $link;
 	$portfolio_base = get_option('jhp_url_base', 'portfolio');
 	if( $portfolio_base != '' )
 		 $portfolio_base .= '/';
-		
-	$class = jhp_is_portfolio() ? 'current_page_item' : '';
-		 
-	$li = '<li class="' . $class . ' page_item"><a href="' . trailingslashit(get_bloginfo('url')) . $portfolio_base . '">' . get_option('jhp_title', 'Portfolio') . '</a></li>';
-	
-	if( strrpos( $data, '</ul></li>' ) === (strlen( $data ) - 10) ) {
-		$data = substr( $data, 0, strrpos( $data, '</ul></li>' ) );
-		return $data . $li . '</ul></li>';
-	} else if( strrpos( $data, '</ul>' ) === (strlen( $data ) - 5) ) {
-		$data = substr( $data, 0, strrpos( $data, '</ul>' ) );
-		return $data . $li . '</ul>';
-	}
-	
-	return $data . $li;
-	
-	
+	return trailingslashit( get_bloginfo('url') ) . $portfolio_base;
 }
+return apply_filters('page_link', $link, $id);
+
 ?>
