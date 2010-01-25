@@ -58,7 +58,124 @@ function jhp_has_info( $post = null, $string = 'url,related_work' ) {
 	}	
 	return false;
 }
+
+// terms
+/**
+ * @see get_the_category()
+*/
+function jhp_get_the_category( $post = null ) {
+	if( $post === null ) global $post;
 	
+	$categories = get_object_term_cache( $post->ID, 'jh-portfolio-category' );
+	if ( false === $categories ) {
+		$categories = wp_get_object_terms( $post->ID, 'jh-portfolio-category' );
+		wp_cache_add($post->ID, $categories, 'jh-portfolio-category_relationships');
+	}
+
+	if ( !empty( $categories ) )
+		usort( $categories, '_usort_terms_by_name' );
+	else
+		$categories = array();
+
+	foreach ( (array) array_keys( $categories ) as $key ) {
+		_make_cat_compat( $categories[$key] );
+	}
+
+	return $categories;
+}
+
+/**
+ * @see get_category_link()
+*/
+function jhp_get_category_link( $id ) {
+	return get_term_link( $id, 'jh-portfolio-category' );
+}
+
+
+/**
+ * @see in_category()
+*/
+function jhp_in_category( $category, $post = null ) {
+	if( $post === null ) global $post;
+	
+	$r = is_object_in_term( $post->ID, 'jh-portfolio-category', $category );
+	if ( is_wp_error( $r ) )
+		return false;
+	
+	return $r;
+}
+
+/**
+ * @see the_category()
+*/
+function jhp_the_category(  $separator = '', $parents='', $post = null ) {
+	if( $post === null ) global $post;
+	$categories = jhp_get_the_category( $post );
+	
+	$thelist = '';
+	if ( '' == $separator ) {
+		$thelist .= '<ul class="post-categories">';
+		foreach ( $categories as $category ) {
+			$thelist .= "\n\t<li>";
+			switch ( strtolower( $parents ) ) {
+				case 'single':
+					$thelist .= '<a href="' . jhp_get_category_link( $category->term_id ) . '" title="' . esc_attr( sprintf( __( "View all entries in %s" ), $category->name ) ) . '">';
+					if ( $category->parent )
+						$thelist .= get_category_parents( $category->parent, false, $separator );
+					$thelist .= $category->name.'</a></li>';
+					break;
+				case '':
+				default:
+					$thelist .= '<a href="' . jhp_get_category_link( $category->term_id ) . '" title="' . esc_attr( sprintf( __( "View all entries in %s" ), $category->name ) ) . '">' . $category->cat_name.'</a></li>';
+			}
+		}
+		$thelist .= '</ul>';
+	} else {
+		$i = 0;
+		foreach ( $categories as $category ) {
+			if ( 0 < $i )
+				$thelist .= $separator . ' ';
+			switch ( strtolower( $parents ) ) {
+				case 'single':
+					$thelist .= '<a href="' . jhp_get_category_link( $category->term_id ) . '" title="' . esc_attr( sprintf( __( "View all entries in %s" ), $category->name ) ) . '">';
+					$thelist .= "$category->cat_name</a>";
+					break;
+				case '':
+				default:
+					$thelist .= '<a href="' . jhp_get_category_link( $category->term_id ) . '" title="' . esc_attr( sprintf( __( "View all entries in %s" ), $category->name ) ) . '">' . $category->name.'</a>';
+			}
+			++$i;
+		}
+	}
+	
+	return apply_filters( 'the_category', $thelist, $separator, $parents );
+	
+}
+
+/**
+ * @see get_the_tags
+ */
+function jhp_get_the_tags( $id = 0 ) {
+	return apply_filters( 'get_the_tags', get_the_terms( $id, 'jh-portfolio-tag' ) );
+}
+
+/**
+ * @see get_the_tag_list
+ */
+function jhp_get_the_tag_list( $before = '', $sep = '', $after = '' ) {
+	return apply_filters( 'the_tags', get_the_term_list( 0, 'jh-portfolio-tag', $before, $sep, $after ), $before, $sep, $after);
+}
+
+/**
+ * @see the_tags
+ */
+function jhp_the_tags( $before = null, $sep = ', ', $after = '' ) {
+	if ( null === $before )
+		$before = __('Tags: ');
+	echo jhp_get_the_tag_list($before, $sep, $after);
+}
+
+
 // image functions
 function jhp_get_main_image( $post = null, $w = 0, $h = 0, $crop = false ) {
 	if( $post === null ) global $post;
