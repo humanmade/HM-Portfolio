@@ -2,8 +2,8 @@
 Contributors: joehoyle
 Tags: portfolio, jh-portfolio, jh
 Requires at least: 2.9
-Tested up to: 2.9
-Stable tag: 0.9.0.1
+Tested up to: 2.9.1
+Stable tag: 0.9.5
 
 JH Portfolio adds a Portfolio section to the WP-Admin and provides portfolio temaplateing either via widgets or tmeplate files.
 
@@ -28,6 +28,10 @@ Report any issues/feature requests here: http://github.com/joehoyle/JH-Portfolio
 Some of your old data will be lost: Main Images, Additional Images and your Portfolio Widgets will need setting up. Not compatible with pre 0.9.5 custom templates. See: http://wiki.github.com/joehoyle/JH-Portfolio/0901-and-under-upgrade-to-095 for details.
 
 == Changelog ==
+
+= 0.9.6 =
+* Fixed bug with images not showing with WordPress installed in a subdir
+* Added functions: jhp_get_the_category, jhp_get_category_link, jhp_in_category, jhp_the_category, jhp_get_the_tags, jhp_get_the_tag_list, jhp_the_tags
 
 = 0.9.5 =
 * Removed need for Portfolio page
