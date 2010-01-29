@@ -24,13 +24,14 @@ if( get_option( 'jhp_add_page_link', 'on' ) )
 	
 function jhp_add_link_to_wp_list_pages( $data, $arg ) {
 	
+	$found = false;
 	foreach( debug_backtrace() as $call ) {
 		if( $call['function'] == 'wp_list_pages' ) {
 			$found = true;
 			break;
 		}
 	}
-	
+		
 	if( !$found )
 		return $data;
 	
