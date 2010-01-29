@@ -2,14 +2,16 @@
 add_filter( 'the_content', 'jhp_portfolio_content' );
 function jhp_portfolio_content( $content ) {
 	global $post, $done_jhp_selector_widget;
+		
 	if( $done_jhp_selector_widget === true || !in_the_loop() )
 		return $content;
 	ob_start();
 	dynamic_sidebar('Portfolio Home');
 	$sidebar = ob_get_contents();
 	ob_end_clean(); 
-	
+		
 	$done_jhp_selector_widget = true;
+
 	return $sidebar;
 }
 
@@ -46,7 +48,9 @@ if( get_option( 'jhp_use_scripts', 'on' ) ) {
 	wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
 }
 
-if( file_exists( get_template_directory() . '/archive.php' ) )
+if( file_exists( get_template_directory() . '/archive.php' ) ) {
 	include( get_template_directory() . '/archive.php' );
-else
+}
+else {
 	include( get_template_directory() . '/index.php' );
+}
