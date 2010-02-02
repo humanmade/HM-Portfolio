@@ -41,7 +41,8 @@ function jhp_add_link_to_wp_list_pages( $data, $arg ) {
 		'ID' => 987654321,
 		'post_name' => 'portfolio',
 		'post_title' => 'Portfolio',
-		'menu_order' => $menu_order
+		'menu_order' => $menu_order,
+		'post_parent' => 0
 	);
 	
 	if( $menu_order === 0 ) {
