@@ -1,6 +1,6 @@
 <?php
-add_filter( 'post_link', 'jhp_post_link', 10, 2);
-function jhp_post_link( $permalink, $post ) {	
+add_filter( 'post_link', 'jhp_post_link', 10, 3);
+function jhp_post_link( $permalink, $post, $leavename = false ) {	
 	if( $post->post_type !== 'jh-portfolio' )
 		return $permalink;
 		
@@ -13,7 +13,7 @@ function jhp_post_link( $permalink, $post ) {
 	if( $single_base != '' )
 		 $single_base .= '/';
 		 
-	$link = trailingslashit(get_bloginfo('url')) . $portfolio_base . $single_base . $post->post_name . '/';
+	$link = trailingslashit(get_bloginfo('url')) . $portfolio_base . $single_base . ( $leavename ? '%postname%' : $post->post_name ) . '/';
 	return $link;
 
 }
