@@ -2,7 +2,7 @@
 Contributors: joehoyle
 Tags: portfolio, jh-portfolio, jh
 Requires at least: 2.9
-Tested up to: 2.9.1
+Tested up to: 2.9.2
 Stable tag: 0.9.5
 
 JH Portfolio adds a Portfolio section to the WP-Admin and provides portfolio temaplateing either via widgets or tmeplate files.
