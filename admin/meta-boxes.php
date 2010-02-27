@@ -20,12 +20,16 @@ function jhp_brief_meta_box_submitted( $post ) {
 function jhp_main_image_meta_box( $post ) {
 	$image = jhp_get_main_image( $post, 150, 150, true );
 	$id = jhp_get_main_image_id( $post );
+	
+	global $temp_ID;
+    $post_image_id = $post->ID ? $post->ID : $temp_ID;
+        
 	?>
 	<p style="display: block; float: right">
 		<?php
 		tj_register_custom_media_button( 'jhp_main_image', 'Main Image', true, false, 150, 150 );
 		?>
-		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_main_image&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197">
+		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_main_image&amp;post_id=<?php echo $post_image_id ?><?php echo $post_image_id > 0 ? "&amp;tab=gallery" : '' ?>&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197&amp;">
 			<?php echo $image ? 'Change' : 'Add' ?> Main Image
 		</a>
 		<input type="hidden" name="jhp_main_image" id="jhp_main_image" value="<?php echo jhp_get_main_image_id( $post ) ?>" />
@@ -135,4 +139,3 @@ function jhp_additional_information_meta_box_submitted( $post ) {
 	update_post_meta( $post->ID, 'url', esc_html($_POST['url']));
 	update_post_meta( $post->ID, 'related_work', $related );
 }
-?>
