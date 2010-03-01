@@ -24,6 +24,9 @@ Report any issues/feature requests here: http://github.com/joehoyle/JH-Portfolio
 
 == Upgrade Notice ==
 
+= 0.9.6 =
+Fixes images breaking on sites with WordPress in stalled in subdir, adds some more template functions, does not break any backwards compatibility.
+
 = 0.9.5 =
 Some of your old data will be lost: Main Images, Additional Images and your Portfolio Widgets will need setting up. Not compatible with pre 0.9.5 custom templates. See: http://wiki.github.com/joehoyle/JH-Portfolio/0901-and-under-upgrade-to-095 for details.
 
@@ -32,6 +35,9 @@ Some of your old data will be lost: Main Images, Additional Images and your Port
 = 0.9.6 =
 * Fixed bug with images not showing with WordPress installed in a subdir
 * Added functions: jhp_get_the_category, jhp_get_category_link, jhp_in_category, jhp_the_category, jhp_get_the_tags, jhp_get_the_tag_list, jhp_the_tags
+* Fixed bug with images uploaded on new entry not being attached to the post
+* Fixed bug with single entries returning a 404 header
+* Fixed bug with an empty single base permalink structure breaking templates
 
 = 0.9.5 =
 * Removed need for Portfolio page
