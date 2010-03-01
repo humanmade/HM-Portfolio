@@ -55,6 +55,9 @@ function jhp_main_image_meta_box_submitted( $post ) {
 function jhp_gallery_meta_box( $post ) {
 	$images = jhp_get_gallery_images( $post, 150, 150, true );
 	$image_ids = jhp_get_gallery_ids( $post );
+	
+	global $temp_ID;
+    $post_image_id = $post->ID ? $post->ID : $temp_ID;
 	?>
 	<style>
 		.image-wrapper { text-align: center; display: block; padding: 5px; border: 1px solid #DFDFDF; float: left; margin-right: 7px; margin-bottom: 7px; }
@@ -64,9 +67,10 @@ function jhp_gallery_meta_box( $post ) {
 		<?php
 		tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image', true, true, 150, 150 );
 		?>
-		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_gallery_images&amp;multiple=yes&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197">
+		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_gallery_images&amp;post_id=<?php echo $post_image_id ?><?php echo $post_image_id > 0 ? "&amp;tab=gallery" : '' ?>&amp;multiple=yes&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197">
 			Add Gallery Image
 		</a>
+
 		<input type="hidden" name="jhp_gallery_images" id="jhp_gallery_images" value="<?php echo implode( ',', jhp_get_gallery_ids( $post ) ) ?>" />
 	</p>
 	
