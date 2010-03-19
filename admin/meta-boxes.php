@@ -18,33 +18,19 @@ function jhp_brief_meta_box_submitted( $post ) {
 }
 
 function jhp_main_image_meta_box( $post ) {
-	$image = jhp_get_main_image( $post, 150, 150, true );
-	$id = jhp_get_main_image_id( $post );
-	
+	$ids = array_filter( array( jhp_get_main_image_id( $post ) ) );
+		
 	global $temp_ID;
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
-        
-	?>
-	<p style="display: block; float: right">
-		<?php
-		tj_register_custom_media_button( 'jhp_main_image', 'Main Image', true, false, 150, 150 );
-		?>
-		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_main_image&amp;post_id=<?php echo $post_image_id ?><?php echo $post_image_id > 0 ? "&amp;tab=gallery" : '' ?>&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197&amp;">
-			<?php echo $image ? 'Change' : 'Add' ?> Main Image
-		</a>
-		<input type="hidden" name="jhp_main_image" id="jhp_main_image" value="<?php echo jhp_get_main_image_id( $post ) ?>" />
-	</p>
+        	
+	global $temp_ID;
+    $post_image_id = $post->ID ? $post->ID : $temp_ID;
+
+	tj_register_custom_media_button( 'jhp_main_image', 'Main Image', true, false, 150, 150 );
+	$non_added_text = "No Main Image Added " .  ($url = jhp_get_url( $post ) ? '| <a href="' . $url . '" target="_blank">Screenshot your site now</a>' : '' );
 	
-	<div style="padding: 0 10px; float: left;" id="jhp_main_image_container">
-		<?php if( $image ) : ?>
-			<span class="image-wrapper" id="<?php echo $id ?>"><img src="<?php echo $image ?>" />
-			<a class="delete_custom_image" rel="jhp_main_image:<?php echo $id ?>">Delete</a> | </span>
-		<?php else: ?>
-			<p class="empty-message">No Main Image Added <?php if( $url = jhp_get_url( $post ) ) : ?>| <a href="<?php echo $url ?>" target="_blank">Screenshot your site now</a><?php endif; ?></p>
-		<?php endif; ?>
-	</div>
-	<div style="clear: both;" /></div>
-	<?php
+	tj_add_image_html_custom( 'jhp_main_image', ($ids ? 'Change' : 'Add') . ' Main Image', $post_image_id, $ids, $classes, 'width=150&height=150&crop=1', $non_added_text );
+
 }
 
 function jhp_main_image_meta_box_submitted( $post ) {
@@ -53,41 +39,15 @@ function jhp_main_image_meta_box_submitted( $post ) {
 
 
 function jhp_gallery_meta_box( $post ) {
-	$images = jhp_get_gallery_images( $post, 150, 150, true );
 	$image_ids = jhp_get_gallery_ids( $post );
 	
 	global $temp_ID;
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
-	?>
-	<style>
-		.image-wrapper { text-align: center; display: block; padding: 5px; border: 1px solid #DFDFDF; float: left; margin-right: 7px; margin-bottom: 7px; }
-		.image-wrapper img { display: block; }
-	</style>
-	<p style="display: block; float: right">
-		<?php
-		tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image', true, true, 150, 150 );
-		?>
-		<a class="add-image button thickbox" onclick="return false;" title="Add Image" href="media-upload.php?button=jhp_gallery_images&amp;post_id=<?php echo $post_image_id ?><?php echo $post_image_id > 0 ? "&amp;tab=gallery" : '' ?>&amp;multiple=yes&amp;type=image&amp;TB_iframe=true&amp;width=640&amp;height=197">
-			Add Gallery Image
-		</a>
 
-		<input type="hidden" name="jhp_gallery_images" id="jhp_gallery_images" value="<?php echo implode( ',', jhp_get_gallery_ids( $post ) ) ?>" />
-	</p>
+	tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image', true, true, 150, 150 );
+	$non_added_text = "No Gallery Images Added " .  ($url = jhp_get_url( $post ) ? '| <a href="' . $url . '" target="_blank">Screenshot your site now</a>' : '' );
 	
-	<div style="padding: 0 10px; float: left;" id="jhp_gallery_images_container">
-		<?php if( $image_ids ) : ?>
-		
-			<?php foreach( $image_ids as $id ) : ?>
-				<span class="image-wrapper" id="<?php echo $id ?>"><img src="<?php echo $images[$id] ?>" />
-				<a class="delete_custom_image" rel="jhp_gallery_images:<?php echo $id ?>">Delete</a> | </span>
-			<?php endforeach; ?>
-		
-		<?php else: ?>
-			<p class="empty-message">No Gallery Images Added <?php if( $url = jhp_get_url( $post ) ) : ?>| <a href="<?php echo $url ?>" target="_blank">Screenshot your site now</a><?php endif; ?></p>
-		<?php endif; ?>
-	</div>
-	<div style="clear: both;" /></div>
-	<?php
+	tj_add_image_html_custom( 'jhp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, $classes, 'width=150&height=150&crop=1', $non_added_text );
 }
 
 function jhp_gallery_meta_box_submitted( $post ) {
