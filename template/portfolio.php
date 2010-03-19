@@ -48,8 +48,8 @@ if( get_option( 'jhp_use_scripts', 'on' ) ) {
 	wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
 }
 
-if( file_exists( get_template_directory() . '/archive.php' ) ) {
-	include( get_template_directory() . '/archive.php' );
+if( file_exists( get_template_directory() . '/page.php' ) ) {
+	include( get_template_directory() . '/page.php' );
 }
 else {
 	include( get_template_directory() . '/index.php' );
