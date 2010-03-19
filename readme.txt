@@ -38,6 +38,7 @@ Some of your old data will be lost: Main Images, Additional Images and your Port
 * Fixed bug with images uploaded on new entry not being attached to the post
 * Fixed bug with single entries returning a 404 header
 * Fixed bug with an empty single base permalink structure breaking templates
+* Improved Adding Gallery Images so Thickbox does not need to reload on every addition
 
 = 0.9.5 =
 * Removed need for Portfolio page
