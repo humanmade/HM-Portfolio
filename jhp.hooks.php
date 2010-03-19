@@ -3,7 +3,11 @@ add_filter( 'post_link', 'jhp_post_link', 10, 3);
 function jhp_post_link( $permalink, $post, $leavename = false ) {	
 	if( $post->post_type !== 'jh-portfolio' )
 		return $permalink;
-		
+	
+	//hack for drafts have no post_name
+	if( $post->post_title && !$post->post_name )
+		$post->post_name = sanitize_title( $post->post_title );
+				
 	$portfolio_base = get_option('jhp_url_base', 'portfolio');
 	if( $portfolio_base != '' )
 		 $portfolio_base .= '/';
@@ -20,9 +24,9 @@ function jhp_post_link( $permalink, $post, $leavename = false ) {
 
 //add the portfoli link to wp_list_pages
 if( get_option( 'jhp_add_page_link', 'on' ) )
-	add_filter( 'get_pages', 'jhp_add_link_to_wp_list_pages', 10, 2);
+	add_filter( 'get_pages', 'jhp_add_link_to_get_pages', 10, 2);
 	
-function jhp_add_link_to_wp_list_pages( $data, $arg ) {
+function jhp_add_link_to_get_pages( $data, $arg ) {
 	
 	$found = false;
 	foreach( debug_backtrace() as $call ) {
@@ -50,7 +54,15 @@ function jhp_add_link_to_wp_list_pages( $data, $arg ) {
 	} else {
 		$data = array_merge( array_slice( $data, 0, $menu_order ), array( $item ), array_slice( $data, $menu_order ) );
 	}
-
+	
+	//set the queried object for wp_query here to make current_page work in wp_list_pages
+	global $wp_query;
+	
+	if( $wp_query->is_portfolio || $wp_query->is_portfolio_single ) {
+		$wp_query->queried_object = $item;
+		$wp_query->queried_object_id = $item->ID;
+	}
+	
 	return $data;
 }
 
