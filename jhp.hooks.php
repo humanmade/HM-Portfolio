@@ -30,8 +30,12 @@ function jhp_add_link_to_get_pages( $data, $arg ) {
 	
 	$found = false;
 	foreach( debug_backtrace() as $call ) {
+				
 		if( $call['function'] == 'wp_list_pages' ) {
-			$found = true;
+			$args = wp_parse_args( $call['args'][0] );
+
+			if( !isset( $args['child_of'] ) || !$args['child_of'] )
+				$found = true;
 			break;
 		}
 	}
