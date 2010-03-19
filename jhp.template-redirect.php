@@ -28,7 +28,7 @@ function jhp_template_redirect() {
 			
 	// add the rewrites
 	tj_add_page_rule( "^/$portfolio_base(/page/([0-9]*))?/?", $portfolio_files, 'Portfolio', null, false, array('is_page' => '1', 'is_portfolio' => '1'), $portfolio_query );
-	tj_add_page_rule( "^/$portfolio_base" . ( $single_base ? "/$single_base" : "" ) . "/([^\/]*)/?", $portfolio_single_files, 'Portfolio Single', null, false, array( 'is_single' => '1', 'is_portfolio_single' => '1' ), array( 'name' => 0, 'post_type' => 'jh-portfolio' ) );
+	tj_add_page_rule( "^/$portfolio_base" . ( $single_base ? "/$single_base" : "" ) . "/([^\/]*)/?", $portfolio_single_files, 'Portfolio Single', null, false, array( 'is_single' => '1', 'is_page' => '1', 'is_portfolio_single' => '1' ), array( 'name' => 0, 'post_type' => 'jh-portfolio' ) );
 	tj_add_page_rule( "^/$portfolio_base/([^/]*)/?", $portfolio_files, 'Portfolio', null, false, array('is_page' => '1', 'is_portfolio' => '1'), array( 'taxonomy' => 'jh-portfolio-category', 'term' => 0, 'post_type' => 'jh-portfolio' ) );
 }
 ?>
