@@ -32,6 +32,8 @@ function jhp_admin_setup() {
 	$edit->add_meta_box( 'additional-images', 'Gallery', 'normal', 'jhp_gallery_meta_box' );
 	$edit->add_meta_box( 'category', 'Category', 'side', 'jhp_category_meta_box', 'default=Uncategorized' );
 	$edit->add_meta_box( 'additional-info', 'Additional Information', 'side', 'jhp_additional_information_meta_box' );
+	$edit->add_meta_box( 'postcustom', __('Custom Fields'), 'normal', 'post_custom_meta_box' );
+	
 	$edit->add_post_arg( 'post_type', 'jh-portfolio' );
 	$edit->add_post_arg( 'comment_status', 'closed' );
 	
