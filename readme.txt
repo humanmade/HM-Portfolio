@@ -20,7 +20,7 @@ Report any issues/feature requests here: http://github.com/joehoyle/JH-Portfolio
 * Ability to add additional image gallery for each entry
 * Whole new admin section for managing your portfolio
 * Pretty permalinks
-* Automatic server-side thumbnail generation for all/any image sizes
+* Automatic server-side thumbnail generation for all image sizes
 
 == Upgrade Notice ==
 
@@ -39,6 +39,8 @@ Some of your old data will be lost: Main Images, Additional Images and your Port
 * Fixed bug with single entries returning a 404 header
 * Fixed bug with an empty single base permalink structure breaking templates
 * Improved Adding Gallery Images so Thickbox does not need to reload on every addition
+* Fixed bug with Portfolio link not getting "current_page_item" class
+* Added option to select Portfolio Menu Order in JH Portfolio settings page
 
 = 0.9.5 =
 * Removed need for Portfolio page

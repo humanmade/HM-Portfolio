@@ -94,7 +94,7 @@ function jhp_additional_information_meta_box( $post ) {
 	<p><label>URL</label></p>
 	<input id="website_url" type="text" name="url" value="<?php echo jhp_get_url($post) ?>" />
 	<p><label>Related Work (post ID)</label></p>
-	<input type="text" name="related_work" value="<?php echo implode( ', ', (array) get_post_meta( $post->ID, 'related_work', true ) ); ?>" />
+	<input type="text" name="related_work" value="<?php echo implode( ', ', (array) get_post_meta( $post->ID, '_related_work', true ) ); ?>" />
 	<?php
 }
 function jhp_additional_information_meta_box_submitted( $post ) {

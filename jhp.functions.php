@@ -7,7 +7,7 @@
  */
 function jhp_get_byline( $post = null ) {
 	global $post;
-	return (string) get_post_meta( $post->ID, 'byline', true );
+	return (string) get_post_meta( $post->ID, '_byline', true );
 }
 
 /**
@@ -18,7 +18,7 @@ function jhp_get_byline( $post = null ) {
  */
 function jhp_get_brief( $post = null ) {
 	if( $post === null ) global $post;
-	return (string) get_post_meta( $post->ID, 'brief', true );
+	return (string) get_post_meta( $post->ID, '_brief', true );
 }
 
 /**
@@ -29,7 +29,7 @@ function jhp_get_brief( $post = null ) {
  */
 function jhp_get_url( $post = null ) {
 	if( $post === null ) global $post;
-	return (string) get_post_meta( $post->ID, 'url', true );
+	return (string) get_post_meta( $post->ID, '_url', true );
 }
 
 /**
@@ -40,7 +40,7 @@ function jhp_get_url( $post = null ) {
  */
 function jhp_get_related_work( $post = null) {
 	if( $post === null ) global $post;
-	return array_filter((array) get_post_meta( $post->ID, 'related_work', true ));
+	return array_filter((array) get_post_meta( $post->ID, '_related_work', true ));
 }
 /**
  * Checks whether the post has a set of meta info e.g. brief, url, related_work
@@ -49,11 +49,16 @@ function jhp_get_related_work( $post = null) {
  * @param string comma seperated list of meta info. (default: 'url,related_work')
  * @return bool
  */
-function jhp_has_info( $post = null, $string = 'url,related_work' ) {
+function jhp_has_info( $post = null, $string = '_url,_related_work' ) {
 	if( $post === null ) global $post;
 	$infos = explode( ',', $string );
 	$return = false;
 	foreach( $infos as $meta_key ) {
+		//backwards compat for no underscores on meta_keys
+		if( in_array( $meta_key, array( 'brief', 'byline', 'url', 'related_work', 'jhp_main_image', 'jhp_gallery_images' ) ) ) {
+			$meta_key = '_' . $meta_key;
+		}
+		
 	    return (bool) get_post_meta( $post->ID, $meta_key, true );
 	}	
 	return false;
@@ -187,7 +192,7 @@ function jhp_get_main_image( $post = null, $w = 0, $h = 0, $crop = false ) {
 
 function jhp_get_main_image_id( $post = null ) {
 	if( $post === null ) global $post;
-	return (int) get_post_meta( $post->ID, 'jhp_main_image', true );
+	return (int) get_post_meta( $post->ID, '_jhp_main_image', true );
 }
 function jhp_get_gallery_images( $post = null, $w = 0, $h = 0, $crop = false ) {
 	if( $post === null ) global $post;
@@ -207,7 +212,7 @@ function jhp_get_gallery_image( $id, $w = 0, $h = 0, $crop = false ) {
 
 function jhp_get_gallery_ids( $post = null ) {
 	if( $post === null ) global $post;
-	return array_filter( (array) get_post_meta( $post->ID, 'jhp_gallery_images', true ) );
+	return array_filter( (array) get_post_meta( $post->ID, '_jhp_gallery_images', true ) );
 }
 
 /**
