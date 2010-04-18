@@ -14,7 +14,7 @@ function jhp_brief_meta_box( $post ) {
 	<?php
 }
 function jhp_brief_meta_box_submitted( $post ) {
-	update_post_meta( $post->ID, 'brief', esc_html($_POST['brief']) );
+	update_post_meta( $post->ID, '_brief', esc_html($_POST['brief']) );
 }
 
 function jhp_main_image_meta_box( $post ) {
@@ -34,7 +34,7 @@ function jhp_main_image_meta_box( $post ) {
 }
 
 function jhp_main_image_meta_box_submitted( $post ) {
-	update_post_meta( $post->ID, 'jhp_main_image', (int) $_POST['jhp_main_image'] );
+	update_post_meta( $post->ID, '_jhp_main_image', (int) $_POST['jhp_main_image'] );
 }
 
 
@@ -52,7 +52,7 @@ function jhp_gallery_meta_box( $post ) {
 
 function jhp_gallery_meta_box_submitted( $post ) {
 	$images = array_filter( explode( ',', $_POST['jhp_gallery_images'] ) );
-	update_post_meta( $post->ID, 'jhp_gallery_images', $images );
+	update_post_meta( $post->ID, '_jhp_gallery_images', $images );
 }
 
 function jhp_category_meta_box( $post ) {
@@ -100,6 +100,6 @@ function jhp_additional_information_meta_box( $post ) {
 function jhp_additional_information_meta_box_submitted( $post ) {
 	$related = explode( ',', esc_html($_POST['related_work']) );
 	$related = array_map( 'absint', $related );
-	update_post_meta( $post->ID, 'url', esc_html($_POST['url']));
-	update_post_meta( $post->ID, 'related_work', $related );
+	update_post_meta( $post->ID, '_url', esc_html($_POST['url']));
+	update_post_meta( $post->ID, '_related_work', $related );
 }
