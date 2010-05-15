@@ -12,25 +12,17 @@ Author URI: http://www.joehoyle.co.uk/
 define( 'JHPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
 define( 'JHPPATH', dirname( __FILE__ ) );  
 
-//Add Rewrite rules
-add_action('init', 'jh_portfolio_init', 0, 0);
-function jh_portfolio_init() {
-	//register extra taxonomy
-	register_taxonomy( 'jh-portfolio-category', 'jh-portfolio', array( 'hierarchical' => false ) );
-	register_taxonomy( 'jh-portfolio-tag', 'jh-portfolio' );
-}
-
-//Template rewrite
-include_once('jhp.functions.php');
-include_once('jhp.template-redirect.php');
-include_once('jhp.classes.php');
-include_once('admin/admin.php');
-include_once('jhp.hooks.php');
-include_once('jhp.upgrade.php');
 
 //helper setup
 define( 'TJ_ENABLE_ACCOUNTS', false );
 include_once('helper/helper.php');
+
+//Template rewrite
+include_once('jhp.functions.php');
+include_once('jhp.template-redirect.php');
+include_once('admin/admin.php');
+include_once('jhp.hooks.php');
+include_once('jhp.upgrade.php');
 
 //Widgets etc
 include_once('jhp.widgets.php');
@@ -38,4 +30,56 @@ include_once('jhp.widgets.php');
 // upgrade old data
 register_activation_hook( __FILE__, 'jhp_upgrade' );
 
+add_action( 'init', 'jhp_register_post_types' );
+function jhp_register_post_types() {
+	//register extra taxonomy
+	register_taxonomy( 'jh-portfolio-category', 'jh-portfolio', array( 
+		'hierarchical' => true,
+		'show-ui' => true,
+		'labels' => array( 
+			'name' => 'Categories',
+			'singular_name' => 'Category',
+			'search_items' => 'Search Categories',
+			'edit_item' => 'Edit Category',
+			'all_items' => 'All Categories',
+			'add_new_item' => 'Add Category',
+			'new_item_name' => 'New Category Name',
+			'view' => 'View Entry' ),
+			
+		));
+		
+	register_taxonomy( 'jh-portfolio-tag', 'jh-portfolio', array( 
+		'hierarchical' => false,
+		'show-ui' => true,
+		'labels' => array( 
+			'name' => 'Tags',
+			'singular_name' => 'Tag',
+			'search_items' => 'Search Tags',
+			'edit_item' => 'Edit Tag',
+			'all_items' => 'All Tags',
+			'add_new_item' => 'Add Tag',
+			'new_item_name' => 'New Tag Name',
+			'view' => 'View Entry' ),
+		));
+	
+	register_post_type( 'jh-portfolio', array( 
+			'singular_label' => 'Report',
+			'public' => true,
+			'inherit_type' => 'post',
+			'taxonomies' => array( 'jh-portfolio-category', 'jh-portfolio-tag' ),
+			'supports' => array( 'editor', 'title', 'revisions', 'custom-fields' ),
+			'labels' => array( 
+				'name' => 'Portfolio',
+				'singular_name' => 'Entry',
+				'not_found' => 'No entries found',
+				'not_found_in_trash' => 'No entries found in Trash',
+				'search_items' => 'Search Entries',
+				'edit_item' => 'Edit Entry',
+				'add_new_item' => 'Add New Entry' ),
+			'menu_icon' => str_replace( ABSPATH , trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) . '/admin/icon.png' ),
+			'rewrite' => array( 'slug' => jhp_get_single_permalink_structure() )
+		
+		)
+	);
+}
 ?>
