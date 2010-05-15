@@ -1,28 +1,6 @@
 <?php
-add_filter( 'post_link', 'jhp_post_link', 10, 3);
-function jhp_post_link( $permalink, $post, $leavename = false ) {	
-	if( $post->post_type !== 'jh-portfolio' )
-		return $permalink;
-	
-	//hack for drafts have no post_name
-	if( $post->post_title && !$post->post_name )
-		$post->post_name = sanitize_title( $post->post_title );
-				
-	$portfolio_base = get_option('jhp_url_base', 'portfolio');
-	if( $portfolio_base != '' )
-		 $portfolio_base .= '/';
-	
-	$single_base = untrailingslashit(get_option('jhp_single_base', '%category%'));
-	$single_base = str_ireplace( '%category%', array_shift(wp_get_object_terms( $post->ID, 'jh-portfolio-category' ))->slug, $single_base );
-	if( $single_base != '' )
-		 $single_base .= '/';
-		 
-	$link = trailingslashit(get_bloginfo('url')) . $portfolio_base . $single_base . ( $leavename ? '%postname%' : $post->post_name ) . '/';
-	return $link;
 
-}
-
-//add the portfoli link to wp_list_pages
+//add the portfolio link to wp_list_pages
 if( get_option( 'jhp_add_page_link', 'on' ) )
 	add_filter( 'get_pages', 'jhp_add_link_to_get_pages', 10, 2);
 	
@@ -48,7 +26,7 @@ function jhp_add_link_to_get_pages( $data, $arg ) {
 	$item = (object) array( 
 		'ID' => 987654321,
 		'post_name' => 'portfolio',
-		'post_title' => 'Portfolio',
+		'post_title' => get_option( 'jhp_title', 'Portfolio' ) ,
 		'menu_order' => $menu_order,
 		'post_parent' => 0
 	);
@@ -80,6 +58,33 @@ function jhp_add_link_to_wp_list_pages_link( $link, $id ) {
 		 $portfolio_base .= '/';
 	return trailingslashit( get_bloginfo('url') ) . $portfolio_base;
 }
-return apply_filters('page_link', $link, $id);
 
+
+
+add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
+
+function jhp_post_link( $link, $post_id ) {
+	
+	if( strpos( $link, '%jh-portfolio-category%' ) === false )
+		return $link;
+	
+	$terms = wp_get_object_terms( $post_id, 'jh-portfolio-category' );
+	$new_parent = $terms[0];
+	
+	foreach( $terms as $term ) {
+	    if( $term->parent == 0 ) {
+	    	$new_parent = $term;
+	    	break;
+	    }
+	}
+
+	$new_parent = $new_parent ? $new_parent : $terms[0];
+	
+	$category_string = $new_parent->slug;
+	
+	$category_string = trim( $category_string, '/' );
+	
+	return str_replace( '%jh-portfolio-category%', $category_string, $link );
+	
+}
 ?>
