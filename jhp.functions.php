@@ -238,3 +238,13 @@ function jhp_is_single() {
 function jhp_is_portfolio() {
 	return jhp_is_home() || jhp_is_single();
 }
+
+function jhp_get_single_permalink_structure() {
+	
+	$single_base = get_option( 'jhp_single_base', '/%category%/' );
+	$single_base = '/' . trim( $single_base, '/' );
+	
+	$single_base = str_replace( array( '%category%' ), '%jh-portfolio-category%', $single_base );
+	
+	return get_option('jhp_url_base', 'portfolio') . $single_base;
+}
