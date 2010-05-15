@@ -26,7 +26,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 
 		$orig = $jh_portfolio; ?>
 		<div id="jh-portfolio-selector">
-			<?php foreach( get_terms( 'jh-portfolio-category' ) as $cat ) :
+			<?php foreach( get_terms( 'jh-portfolio-category', array( 'parent' => 0 ) ) as $cat ) :
 			 ?>
 				<?php $jh_portfolio = new WP_Query( array( 'taxonomy' => 'jh-portfolio-category', 'term' => $cat->slug, 'showposts' => -1, 'orderby' => $sort_by, 'post_type' => 'jh-portfolio') );
 				 ?>
