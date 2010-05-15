@@ -23,11 +23,11 @@ function jhp_portfolio_title( $title, $post_id = null ) {
 		return $title;
 
 	global $wp_query, $wp_the_query, $post;
-		
-	if( $wp_query !== $wp_the_query || !in_the_loop() || $post->post_type !== 'jh-portfolio' ) {
-		return $title;
-	} 
-	return get_option( 'jhp_title', 'Portfolio' );
+
+	if( $wp_query->query_vars['is_portfolio'] )
+		return get_option( 'jhp_title', 'Portfolio' );
+	
+	return $title;
 }
 
 add_filter( 'the_time', 'jhp_portfolio_time' );
