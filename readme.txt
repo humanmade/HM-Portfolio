@@ -3,7 +3,7 @@ Contributors: joehoyle
 Tags: portfolio, jh-portfolio, jh
 Requires at least: 3.0-beta2
 Tested up to: 3.0-beta2
-Stable tag: 0.9.5
+Stable tag: 0.9.6
 
 JH Portfolio adds a Portfolio section to the WP-Admin and provides portfolio templating either via widgets or template files.
 
@@ -23,6 +23,11 @@ Report any issues/feature requests here: http://github.com/joehoyle/JH-Portfolio
 * Automatic server-side thumbnail generation for all image sizes
 
 == Upgrade Notice ==
+
+= 0.9.7 =
+* Rewrote plugin backend to use new WordPress 3.0 custom post types API
+* Rewrote url handling which saves excess queries
+* Fixed Preview Entry in WordPress admin
 
 = 0.9.6 =
 Fixes images breaking on sites with WordPress in stalled in subdir, adds some more template functions, does not break any backwards compatibility.
