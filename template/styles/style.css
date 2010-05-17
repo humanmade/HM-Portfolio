@@ -24,3 +24,11 @@
 
 /* hide unwanted content on defaults */
 .jh-portfolio .postmetadata { display: none; }
+
+/* Portfolio Grid */
+#jh-portfolio-grid { overflow: hidden; clear: both; margin: 10px 0; }
+#jh-portfolio-grid ul { list-style: none; margin: 0 0 25px 0; padding: 0; clear: both; overflow: hidden; }
+#jh-portfolio-grid ul li { font-size: 1.2em; }
+#jh-portfolio-grid ul li ul { margin: 10px 0 5px 0; }
+#jh-portfolio-grid ul li ul li { float: left; margin: 5px 10px 5px 0; border: 1px solid #ddd; background: #f2f2f2; padding: 5px 5px 1px 5px; overflow: hidden; font-size: .7em; text-align: center }
+#jh-portfolio-grid ul li ul li img { clear: both; display: block; }

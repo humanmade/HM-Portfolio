@@ -24,6 +24,7 @@ function jh_portfolio_register_sidebar() {
 
 //widgets
 include_once('template/widgets/widget.portfolio-selector.php');
+include_once('template/widgets/widget.portfolio-grid.php');
 include_once('template/widgets/widget.portfolio-title.php');
 include_once('template/widgets/widget.portfolio-brief.php');
 include_once('template/widgets/widget.portfolio-content.php');
