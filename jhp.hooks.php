@@ -3,7 +3,14 @@
 //add the portfolio link to wp_list_pages
 if( get_option( 'jhp_add_page_link', 'on' ) )
 	add_filter( 'get_pages', 'jhp_add_link_to_get_pages', 10, 2);
-	
+
+/**
+ * Hooks into get_pages to spoof a link to the Portfolio page when using wp_list_pages().
+ * 
+ * @param array $data - pages
+ * @param mixed $arg
+ * @return array
+ */
 function jhp_add_link_to_get_pages( $data, $arg ) {
 	
 	$found = false;
@@ -62,12 +69,11 @@ function jhp_add_link_to_wp_list_pages_link( $link, $id ) {
 
 
 add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
-
 function jhp_post_link( $link, $post_id ) {
 	
 	if( strpos( $link, '%jh-portfolio-category%' ) === false )
 		return $link;
-	
+		
 	$terms = wp_get_object_terms( $post_id, 'jh-portfolio-category' );
 	$new_parent = $terms[0];
 	
@@ -77,12 +83,15 @@ function jhp_post_link( $link, $post_id ) {
 	    	break;
 	    }
 	}
-
+	
 	$new_parent = $new_parent ? $new_parent : $terms[0];
 	
 	$category_string = $new_parent->slug;
 	
 	$category_string = trim( $category_string, '/' );
+	
+	$category_string = $category_string ? $category_string : 'uncategorized';
+	
 	
 	return str_replace( '%jh-portfolio-category%', $category_string, $link );
 	
