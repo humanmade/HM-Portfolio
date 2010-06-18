@@ -6,16 +6,16 @@ if( get_option( 'jhp_add_page_link', 'on' ) )
 
 /**
  * Hooks into get_pages to spoof a link to the Portfolio page when using wp_list_pages().
- * 
+ *
  * @param array $data - pages
  * @param mixed $arg
  * @return array
  */
 function jhp_add_link_to_get_pages( $data, $arg ) {
-	
+
 	$found = false;
 	foreach( debug_backtrace() as $call ) {
-				
+
 		if( $call['function'] == 'wp_list_pages' ) {
 			$args = wp_parse_args( $call['args'][0] );
 
@@ -24,34 +24,34 @@ function jhp_add_link_to_get_pages( $data, $arg ) {
 			break;
 		}
 	}
-		
+
 	if( !$found )
 		return $data;
-	
+
 	$menu_order = (int) get_option('jhp_portfolio_menu_order', 0);
 
-	$item = (object) array( 
+	$item = (object) array(
 		'ID' => 987654321,
 		'post_name' => 'portfolio',
 		'post_title' => get_option( 'jhp_title', 'Portfolio' ) ,
 		'menu_order' => $menu_order,
 		'post_parent' => 0
 	);
-	
+
 	if( $menu_order === 0 ) {
 		array_unshift( $data, $item );
 	} else {
 		$data = array_merge( array_slice( $data, 0, $menu_order ), array( $item ), array_slice( $data, $menu_order ) );
 	}
-	
+
 	//set the queried object for wp_query here to make current_page work in wp_list_pages
 	global $wp_query;
-	
+
 	if( $wp_query->is_portfolio || $wp_query->is_portfolio_single ) {
 		$wp_query->queried_object = $item;
 		$wp_query->queried_object_id = $item->ID;
 	}
-	
+
 	return $data;
 }
 
@@ -69,31 +69,34 @@ function jhp_add_link_to_wp_list_pages_link( $link, $id ) {
 
 
 add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
-function jhp_post_link( $link, $post_id ) {
-	
-	if( strpos( $link, '%jh-portfolio-category%' ) === false )
+function jhp_post_link( $link, $post ) {
+
+	if ( strpos( $link, '%jh-portfolio-category%' ) === false )
 		return $link;
-		
-	$terms = wp_get_object_terms( $post_id, 'jh-portfolio-category' );
-	$new_parent = $terms[0];
-	
-	foreach( $terms as $term ) {
-	    if( $term->parent == 0 ) {
-	    	$new_parent = $term;
-	    	break;
-	    }
-	}
-	
-	$new_parent = $new_parent ? $new_parent : $terms[0];
-	
-	$category_string = $new_parent->slug;
-	
-	$category_string = trim( $category_string, '/' );
-	
-	$category_string = $category_string ? $category_string : 'uncategorized';
-	
-	
+
+	$terms = wp_get_object_terms( $post->ID, 'jh-portfolio-category' );
+
+	if ( current( $terms ) ) :
+
+		$new_parent = current( $terms );
+
+		foreach ( $terms as $term ) {
+		    if ( $term->parent == 0 ) {
+		    	$new_parent = $term;
+		    	break;
+		    }
+		}
+
+		$new_parent = $new_parent ? $new_parent : $terms[0];
+
+		$category_string = $new_parent->slug;
+
+		$category_string = trim( $category_string, '/' );
+
+	endif;
+
+	$category_string = ( isset( $category_string ) && $category_string ) ? $category_string : 'uncategorized';
+
 	return str_replace( '%jh-portfolio-category%', $category_string, $link );
-	
-}
-?>
+
+} ?>
