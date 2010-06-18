@@ -14,7 +14,8 @@ function jhp_brief_meta_box( $post ) {
 	<?php
 }
 function jhp_brief_meta_box_submitted( $post ) {
-	update_post_meta( $post->ID, '_brief', esc_html($_POST['brief']) );
+	if ( isset( $_POST['brief'] ) )
+		update_post_meta( $post->ID, '_brief', esc_html($_POST['brief']) );
 }
 
 function jhp_main_image_meta_box( $post ) {
@@ -27,9 +28,9 @@ function jhp_main_image_meta_box( $post ) {
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
 
 	tj_register_custom_media_button( 'jhp_main_image', 'Main Image', true, false, 150, 150 );
-	$non_added_text = "No Main Image Added " .  ($url = jhp_get_url( $post ) ? '| <a href="' . $url . '" target="_blank">Screenshot your site now</a>' : '' );
+	$non_added_text = "No Main Image Added " .  ( ($jh_url = jhp_get_url( $post ) ) ? '| <a href="' . esc_url( $jh_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
 	
-	tj_add_image_html_custom( 'jhp_main_image', ($ids ? 'Change' : 'Add') . ' Main Image', $post_image_id, $ids, $classes, 'width=150&height=150&crop=1', $non_added_text );
+	tj_add_image_html_custom( 'jhp_main_image', ($ids ? 'Change' : 'Add') . ' Main Image', $post_image_id, $ids, false, 'width=150&height=150&crop=1', $non_added_text );
 
 }
 
@@ -45,9 +46,9 @@ function jhp_gallery_meta_box( $post ) {
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
 
 	tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image', true, true, 150, 150 );
-	$non_added_text = "No Gallery Images Added " .  ($url = jhp_get_url( $post ) ? '| <a href="' . $url . '" target="_blank">Screenshot your site now</a>' : '' );
+	$non_added_text = "No Gallery Images Added " .  ( ( $jh_url = jhp_get_url( $post ) ) ? '| <a href="' . esc_url( $jh_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
 	
-	tj_add_image_html_custom( 'jhp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, $classes, 'width=150&height=150&crop=1', $non_added_text );
+	tj_add_image_html_custom( 'jhp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, false, 'width=150&height=150&crop=1', $non_added_text );
 }
 
 function jhp_gallery_meta_box_submitted( $post ) {
