@@ -16,4 +16,10 @@ tj_add_rewrite_rule( "^$portfolio_base" . ( $single_base ? "/$single_base" : "" 
 
 tj_add_rewrite_rule( "^$portfolio_base/([^/]*)/?", 'is_portfolio=1&taxonomy=jh-portfolio-category&term=$matches[1]&post_type=jh-portfolio', $portfolio_file );
 
+function jhp_get_single_permastruct() {
+
+	return get_bloginfo( 'url' ) . '/' . get_option('jhp_url_base', 'portfolio') . '/' . trim( get_option('jhp_single_base', '%category%'), '/' ) . '/%post_name%/'; 
+
+}
+
 ?>
