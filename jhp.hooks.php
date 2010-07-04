@@ -67,13 +67,18 @@ function jhp_add_link_to_wp_list_pages_link( $link, $id ) {
 }
 
 
-
-add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
+/**
+ * jhp_post_link function.
+ * 
+ * @param string $link - supposed permalinks
+ * @param object $post
+ * @return string - new permalink
+ */
 function jhp_post_link( $link, $post ) {
 
 	if ( strpos( $link, '%jh-portfolio-category%' ) === false )
 		return $link;
-
+		
 	$terms = wp_get_object_terms( $post->ID, 'jh-portfolio-category' );
 
 	if ( current( $terms ) ) :
@@ -96,7 +101,13 @@ function jhp_post_link( $link, $post ) {
 	endif;
 
 	$category_string = ( isset( $category_string ) && $category_string ) ? $category_string : 'uncategorized';
+	
+	$link = jhp_get_single_permastruct();
+	
+	$link = str_replace( '%category%', $category_string, $link );
+	$link = str_replace( '%post_name%', $post->post_name, $link );
+	
+	return $link;
 
-	return str_replace( '%jh-portfolio-category%', $category_string, $link );
-
-} ?>
+}
+add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
