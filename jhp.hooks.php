@@ -112,6 +112,26 @@ function jhp_post_link( $link, $post ) {
 }
 add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
 
+
+/**
+ * jhp_term_link function.
+ * 
+ * @param string $termlink
+ * @param object $term
+ * @param string $taxonomy
+ * @return string - new term link
+ */
+function jhp_term_link(  $termlink, $term, $taxonomy ) {
+
+	if( $taxonomy != 'jh-portfolio-tag' )
+		return $termlink;
+	
+	return trailingslashit( get_bloginfo( 'portfolio_url', true ) ) . 'tag/' . $term->slug . '/';
+
+}
+add_filter( 'term_link', 'jhp_term_link', 10, 3 );
+
+
 function jhp_activate_plugin() {
 	global $wp_rewrite;
 	$wp_rewrite->flush_rules();
