@@ -227,12 +227,12 @@ function jhp_default_query_vars() {
 
 function jhp_is_home() {
 	global $wp_query;
-	return (bool) $wp_query->is_portfolio;
+	return (bool) $wp_query->is_portfolio || $wp_query->query['is_portfolio'];
 }
 
 function jhp_is_single() {
 	global $wp_query;
-	return (bool) $wp_query->is_portfolio_single;
+	return (bool) $wp_query->is_portfolio_single || $wp_query->query['is_portfolio_single'];
 }
 
 function jhp_is_portfolio() {
