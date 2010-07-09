@@ -10,7 +10,28 @@ Author URI: http://www.joehoyle.co.uk/
 */
 
 define( 'JHPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
-define( 'JHPPATH', dirname( __FILE__ ) );  
+define( 'JHPPATH', dirname( __FILE__ ) );
+
+//check comaptibility before anything
+jhp_check_plugin_compatibility();
+
+function jhp_check_plugin_compatibility() {
+
+	// check compatibility
+	global $wp_version;
+	$php_version = phpversion();
+	
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );  
+	
+	if( version_compare( $wp_version, '3.0', '<') ) {
+		deactivate_plugins(JHPPATH . '/plugin.php'); 
+		die('JH Portfolio 0.9.7+ requires WordPress 3.0+, please download JH Portfolio 0.9.6 <a href="http://downloads.wordpress.org/plugin/jh-portfolio.0.9.6.zip">here</a> for older versions of WordPress. ');
+  	} elseif( version_compare( $php_version, '5', '<') ) {
+  		deactivate_plugins(JHPPATH . '/plugin.php'); 
+		die('JH Portfolio requires PHP 5+');
+  	}
+  	
+}
 
 
 //helper setup
@@ -29,6 +50,7 @@ include_once('jhp.widgets.php');
 
 // upgrade old data
 register_activation_hook( __FILE__, 'jhp_upgrade' );
+register_activation_hook( __FILE__, 'jhp_activate_plugin' );
 
 add_action( 'init', 'jhp_register_post_types' );
 function jhp_register_post_types() {
