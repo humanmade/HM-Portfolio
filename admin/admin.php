@@ -36,6 +36,8 @@ function jhp_register_settings() {
 	register_setting( 'jhp-settings', 'jhp_title' );
 	register_setting( 'jhp-settings', 'jhp_template_single' );
 	register_setting( 'jhp-settings', 'jhp_template_home' );
+	register_setting( 'jhp-settings', 'jhp_template_category' );
+	register_setting( 'jhp-settings', 'jhp_template_tag' );
 	register_setting( 'jhp-settings', 'jhp_portfolio_menu_order' );
 	
 }
@@ -103,6 +105,14 @@ function jhp_options_page() {
 							<input type="text" name="jhp_template_single" value="<?php echo get_option('jhp_template_single', 'portfolio-single.php'); ?>" />
 							<span class="description">Single Template</span>
 						</p>
+						<p>
+							<input type="text" name="jhp_template_category" value="<?php echo get_option('jhp_template_category', 'portfolio-category.php'); ?>" />
+							<span class="description">Category Template</span>
+						</p>
+						<p>
+							<input type="text" name="jhp_template_tag" value="<?php echo get_option('jhp_template_tag', 'portfolio-tag.php'); ?>" />
+							<span class="description">Tag Template</span>
+						</p>
 					</td>
 				</tr>
 				
@@ -121,51 +131,12 @@ function jhp_options_page() {
 			do_settings_sections('jhp-settings'); 
 			?>
 		</form>
+		
+		<div id="message">
+			<p><small>If you are having any issue with JH Portfolio please file a bug or question <a href="http://github.com/joehoyle/JH-Portfolio/issues" target="_blank">here.</a><small></small></p>
+		</div>
 	</div>
 	<?php
 }
 
-
-//add_action( 'init', 'jhp_admin_setup' );
-function jhp_admin_setup() {
-	
-	add_action( 'cwp_settings_page_below_form_' . $settings->get_page_id(), 'jhp_add_error_report_button' );
-	
-	// debug
-	$debug = $admin->add_page( 'debug', 'Debug', null, array( 'email' => 'info@joehoyle.co.uk' ) );
-	$debug->add_debug_info( array(
-		'options' => array( 
-			'jhp_url_base' => get_option('jhp_url_base'),
-			'jhp_single_base' => get_option('jhp_single_base'),
-			'jhp_title' => get_option('jhp_title'),
-			'jhp_add_page_link' => get_option('jhp_add_page_link'),
-			'jhp_use_styles' => get_option( 'jhp_use_styles' ),
-			'jhp_use_scripts' => get_option( 'jhp_use_scripts' ),
-			'jhp_template_home' => get_option( 'jhp_template_home', 'portfolio-home.php' ),
-			'jhp_template_single' => get_option( 'jhp_template_single', 'portfolio-single.php' )
-		),
-		'template' => array( 
-		    'home_exists' => file_exists( get_template_directory() . '/' . get_option( 'jhp_template_home', 'portfolio-home.php' ) ),
-		    'single_exists' => file_exists( get_template_directory() . '/' . get_option( 'jhp_template_single', 'portfolio-single.php' ) ),
-		),
-		'data' => array(
-		    'categories' => get_terms( 'jh-portfolio-category', array('hide_empty' => false) ),
-		    'tags' => get_terms( 'jh-portfolio-tag', array('hide_empty' => false) ),
-		    'entries' => get_posts( 'post_type=jh-portfolio&post_status=any' ),
-		),
-	));
-	
-}
-
-function jhp_add_error_report_button( $page ) {
-	?>
-	<p>
-	<a href="<?php echo $page->admin_section->pages['cwp_debug_page_debug']->get_remote_send_report_url() ?>" class="button">Submit Error Report</a>
-	</p>
-	<p>
-		<small>By clicking the above link you agree to sending an email to the author of JH Portfolio container information on your JH Portfolio setup, data and options. To view the error report without sending click <a href="<?php echo $page->admin_section->pages['cwp_debug_page_debug']->get_page_url() ?>">here.</small>
-
-	</p>
-	<?php
-}
 ?>
