@@ -111,3 +111,25 @@ function jhp_post_link( $link, $post ) {
 
 }
 add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
+
+function jhp_activate_plugin() {
+	global $wp_rewrite;
+	$wp_rewrite->flush_rules();
+}
+
+function jhp_bloginfo_filters( $arg, $arg2 ) {
+	
+	
+	switch( $arg2 ) :
+	
+		case 'portfolio_url' :
+			return get_bloginfo( 'url' ) . '/' . ( get_option('jhp_url_base', 'portfolio') ? trailingslashit( get_option('jhp_url_base', 'portfolio') ) : '' );
+			break;
+			
+	endswitch;
+	
+	return $arg;
+
+}
+add_filter( 'bloginfo', 'jhp_bloginfo_filters', 10, 2 ); 
+add_filter( 'bloginfo_url', 'jhp_bloginfo_filters', 10, 2 );
