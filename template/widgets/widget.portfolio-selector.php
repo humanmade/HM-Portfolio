@@ -17,19 +17,13 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 		extract( $instance );
 						
 		echo $before_widget;
-		
-		
-		//Modify the global jh_portfolio to respect the order in the widget
-		$query_vars = $jh_portfolio->query_vars;
-		$query_vars['orderby'] = $sort_by;
-		$jh_portfolio = new WP_Query( $query_vars );
-
-		$orig = $jh_portfolio; ?>
+		?>
 		<div id="jh-portfolio-selector">
 			<?php foreach( get_terms( 'jh-portfolio-category', array( 'parent' => 0 ) ) as $cat ) :
 			 ?>
-				<?php $jh_portfolio = new WP_Query( array( 'taxonomy' => 'jh-portfolio-category', 'term' => $cat->slug, 'showposts' => -1, 'orderby' => $sort_by, 'post_type' => 'jh-portfolio') );
-				 ?>
+				<?php 
+				$jh_portfolio = new WP_Query( array( 'taxonomy' => 'jh-portfolio-category', 'term' => $cat->slug, 'showposts' => -1, 'orderby' => $sort_by, 'post_type' => 'jh-portfolio') );
+				?>
 				<ul id="<?php echo $cat->slug ?>">
 					<li><strong><?php echo $cat->name ?></strong></li>
 					<?php while( $jh_portfolio->have_posts() ): $jh_portfolio->the_post(); global $post; ?>
