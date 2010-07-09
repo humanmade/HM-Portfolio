@@ -14,19 +14,24 @@ $single_base = trim( str_ireplace( '%category%', '[^\/]*', $single_base ), '/' )
 
 //portfolio category
 if( file_exists( $category_file = get_template_directory() . '/' . get_option( 'jhp_template_category', 'portfolio-category.php' ) ) );
-else $single_file = dirname( __FILE__ ) . '/template/portfolio.php';
+else $category_file = dirname( __FILE__ ) . '/template/portfolio.php';
 
 //portfolio tag
-if( file_exists( $category_file = get_template_directory() . '/' . get_option( 'jhp_template_tag', 'portfolio-tag.php' ) ) );
-else $single_file = dirname( __FILE__ ) . '/template/portfolio.php';
-
-//single
-tj_add_rewrite_rule( "^$portfolio_base" . ( $single_base ? "/$single_base" : "" ) . "/([^\/]*)/?$", 'is_portfolio_single=1&name=$matches[1]&post_type=jh-portfolio', $category_file );
+if( file_exists( $tag_file = get_template_directory() . '/' . get_option( 'jhp_template_tag', 'portfolio-tag.php' ) ) );
+else $tag_file = dirname( __FILE__ ) . '/template/portfolio.php';
 
 //category
-tj_add_rewrite_rule( "^$portfolio_base/([^/]*)(/page/([0-9]*))?/?", 'is_portfolio=1&taxonomy=jh-portfolio-category&term=$matches[1]&post_type=jh-portfolio&paged=$matches[3]', $portfolio_file );
+tj_add_rewrite_rule( "^$portfolio_base/([^/]*)(/page/([0-9]*))?/?$", 'is_portfolio=1&is_portfolio_category=1&taxonomy=jh-portfolio-category&term=$matches[1]&post_type=jh-portfolio&paged=$matches[3]', $category_file );
+
 
 //tag
+tj_add_rewrite_rule( "^$portfolio_base/tag/([^/]*)(/page/([0-9]*))?/?$", 'is_portfolio=1&is_portfolio_tag=1&taxonomy=jh-portfolio-tag&term=$matches[1]&post_type=jh-portfolio&paged=$matches[3]', $tag_file );
+
+
+//single
+tj_add_rewrite_rule( "^$portfolio_base" . ( $single_base ? "/$single_base" : "" ) . "/([^\/]*)/?$", 'is_portfolio_single=1&name=$matches[1]&post_type=jh-portfolio', $single_file );
+
+
 
 
 function jhp_get_single_permastruct() {
