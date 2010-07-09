@@ -1,17 +1,6 @@
 <?php
 
 function jhp_upgrade() {
-
-	// check compatibility
-	global $wp_version;
-	$php_version = phpversion(); 
-	if( version_compare( $wp_version, '2.9', '<') ) {
-		deactivate_plugins(JHPPATH . '/plugin.php'); 
-		die('JH Portfolio requires WordPress 2.9+');
-  	} elseif( version_compare( $php_version, '5', '<') ) {
-  		deactivate_plugins(JHPPATH . '/plugin.php'); 
-		die('JH Portfolio requires PHP 5+');
-  	}
   
 	jhp_upgrade_extra_taxonomy_to_tags();
 	jhp_upgrade_post_meta_to_prepend_underscores();
