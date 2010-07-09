@@ -15,14 +15,19 @@ $single_base = trim( str_ireplace( '%category%', '[^\/]*', $single_base ), '/' )
 //portfolio category
 if( file_exists( $category_file = get_template_directory() . '/' . get_option( 'jhp_template_category', 'portfolio-category.php' ) ) );
 else $single_file = dirname( __FILE__ ) . '/template/portfolio.php';
-$single_base = untrailingslashit(get_option('jhp_single_base', '%category%'));
-$single_base = trim( str_ireplace( '%category%', '[^\/]*', $single_base ), '/' );
+
+//portfolio tag
+if( file_exists( $category_file = get_template_directory() . '/' . get_option( 'jhp_template_tag', 'portfolio-tag.php' ) ) );
+else $single_file = dirname( __FILE__ ) . '/template/portfolio.php';
 
 //single
 tj_add_rewrite_rule( "^$portfolio_base" . ( $single_base ? "/$single_base" : "" ) . "/([^\/]*)/?$", 'is_portfolio_single=1&name=$matches[1]&post_type=jh-portfolio', $category_file );
 
 //category
 tj_add_rewrite_rule( "^$portfolio_base/([^/]*)(/page/([0-9]*))?/?", 'is_portfolio=1&taxonomy=jh-portfolio-category&term=$matches[1]&post_type=jh-portfolio&paged=$matches[3]', $portfolio_file );
+
+//tag
+
 
 function jhp_get_single_permastruct() {
 
