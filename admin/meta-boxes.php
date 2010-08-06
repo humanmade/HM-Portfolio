@@ -27,7 +27,7 @@ function jhp_main_image_meta_box( $post ) {
 	global $temp_ID;
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
 
-	tj_register_custom_media_button( 'jhp_main_image', 'Main Image', true, false, 150, 150 );
+	tj_register_custom_media_button( 'jhp_main_image', 'Use as Main Image', true, false, 150, 150 );
 	$non_added_text = "No Main Image Added " .  ( ($jh_url = jhp_get_url( $post ) ) ? '| <a href="' . esc_url( $jh_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
 
 	tj_add_image_html_custom( 'jhp_main_image', ($ids ? 'Change' : 'Add') . ' Main Image', $post_image_id, $ids, false, 'width=150&height=150&crop=1', $non_added_text );
@@ -46,18 +46,16 @@ function jhp_gallery_meta_box( $post ) {
 	global $temp_ID;
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
 
-	tj_register_custom_media_button( 'jhp_gallery_images', 'Gallery Image', true, true, 150, 150 );
+	tj_register_custom_media_button( 'jhp_gallery_images', 'Add to Gallery', true, true, 150, 150 );
 	$non_added_text = "No Gallery Images Added " .  ( ( $jh_url = jhp_get_url( $post ) ) ? '| <a href="' . esc_url( $jh_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
 
-	tj_add_image_html_custom( 'jhp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, false, 'width=150&height=150&crop=1', $non_added_text );
+	tj_add_image_html_custom( 'jhp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, 'sortable', 'width=150&height=150&crop=1', $non_added_text );
 }
 
 function jhp_gallery_meta_box_submitted( $post ) {
 
-	$images = array_filter( explode( ',', $_POST['jhp_gallery_images'] ) );
-
 	if ( isset( $_POST['jhp_gallery_images'] ) )
-		update_post_meta( $post->ID, '_jhp_gallery_images', $images );
+		update_post_meta( $post->ID, '_jhp_gallery_images', array_filter( explode( ',', $_POST['jhp_gallery_images'] ) ) );
 }
 
 function jhp_category_meta_box( $post ) {
@@ -101,12 +99,14 @@ function jhp_additional_information_meta_box( $post ) {
 	<?php
 }
 function jhp_additional_information_meta_box_submitted( $post ) {
-	$related = explode( ',', esc_attr( $_POST['related_work'] ) );
-	$related = array_map( 'absint', $related );
 
 	if ( isset( $_POST['url'] ) )
 		update_post_meta( $post->ID, '_url', esc_url($_POST['url']));
 
-	if ( isset( $_POST['related_work'] ) )
+	if ( isset( $_POST['related_work'] ) ) :
+		$related = explode( ',', esc_attr( $_POST['related_work'] ) );
+		$related = array_map( 'absint', $related );
 		update_post_meta( $post->ID, '_related_work', $related );
+	endif;
+
 } ?>
