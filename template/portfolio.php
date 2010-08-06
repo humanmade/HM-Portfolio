@@ -23,8 +23,8 @@ function jhp_portfolio_title( $title, $post_id = null ) {
 		return $title;
 
 	global $wp_query, $wp_the_query, $post;
-
-	if( $wp_query->query_vars['is_portfolio'] )
+	
+	if( $wp_query->query_vars['is_portfolio'] && $wp_query->in_the_loop && $wp_query == $wp_the_query )
 		return get_option( 'jhp_title', 'Portfolio' );
 	
 	return $title;
