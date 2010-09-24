@@ -10,21 +10,14 @@ class WP_Widget_JH_Portfolio_Grid extends WP_Widget {
 	// Display Widget
 	function widget( $args, $instance ) {	
 		global $post, $wp_query;
-		$post_backup = $post;
-		$wp_query_backup = $wp_query;
 		
 		extract( $args, EXTR_SKIP );
 		extract( $instance );
 						
 		echo $before_widget;
-		
-		
-		//Modify the global jh_portfolio to respect the order in the widget
-		$query_vars = $jh_portfolio->query_vars;
-		$query_vars['orderby'] = $sort_by;
-		$jh_portfolio = new WP_Query( $query_vars );
 
-		$orig = $jh_portfolio; ?>
+
+		?>
 		<div id="jh-portfolio-grid">
 			<?php foreach( get_terms( 'jh-portfolio-category', array( 'parent' => 0 ) ) as $cat ) :
 			 ?>
@@ -56,8 +49,8 @@ class WP_Widget_JH_Portfolio_Grid extends WP_Widget {
 		echo $after_widget;
 		
 		//restore old data
-		$post = $post_backup;
-		$wp_query = $wp_query_backup;
+		wp_reset_query();
+		wp_reset_postdata();
 	
 	}
 	
