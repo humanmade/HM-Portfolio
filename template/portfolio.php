@@ -38,8 +38,6 @@ function jhp_portfolio_time( $time ) {
 	return '';
 }
 
-?>
-<?php 
 if( get_option( 'jhp_use_styles', 'on' ) ) {
 	wp_enqueue_style( 'jh-portfolio', JHPURL . 'template/styles/style.css' );
 	wp_enqueue_style( 'lightbox.css', JHPURL . 'template/styles/jquery.lightbox-0.5.css' );
