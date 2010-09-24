@@ -47,7 +47,7 @@ function jhp_add_link_to_get_pages( $data, $arg ) {
 	//set the queried object for wp_query here to make current_page work in wp_list_pages
 	global $wp_query;
 
-	if( $wp_query->is_portfolio || $wp_query->is_portfolio_single ) {
+	if( !empty($wp_query->is_portfolio) || !empty($wp_query->is_portfolio_single) ) {
 		$wp_query->queried_object = $item;
 		$wp_query->queried_object_id = $item->ID;
 	}
@@ -123,10 +123,14 @@ add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
  */
 function jhp_term_link(  $termlink, $term, $taxonomy ) {
 
-	if( $taxonomy != 'jh-portfolio-tag' )
+	if( !in_array( $taxonomy, array( 'jh-portfolio-tag', 'jh-portfolio-category' ) ) )
 		return $termlink;
 	
-	return trailingslashit( get_bloginfo( 'portfolio_url', true ) ) . 'tag/' . $term->slug . '/';
+	if( $taxonomy == 'jh-portfolio-tag' )
+		return trailingslashit( get_bloginfo( 'portfolio_url', true ) ) . 'tag/' . $term->slug . '/';
+	
+	else
+		return trailingslashit( get_bloginfo( 'portfolio_url', true ) ) . $term->slug . '/';
 
 }
 add_filter( 'term_link', 'jhp_term_link', 10, 3 );
