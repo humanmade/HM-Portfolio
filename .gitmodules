@@ -1,0 +1,3 @@
+[submodule "helper"]
+	path = helper
+	url = ssh://hmdomains@beta.wpremote.com/~/git.humanmade.co.uk/helper/
