@@ -35,7 +35,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 			
 			<?php if( $show_main_image ) : ?>
 				<div id="main-image-holder">
-					<?php if( $image = jhp_get_main_image( null, $width, $height ) ) : ?>
+					<?php if( $image = hmp_get_main_image( null, $width, $height ) ) : ?>
 						<img id="main-image" src="<?php echo $image ?>" />
 					<?php endif; ?>
 				</div>

@@ -16,7 +16,7 @@
 		
 		?>
 		<!-- Brief -->
-		<?php if( $brief = jhp_get_brief() ) : ?>
+		<?php if( $brief = hmp_get_brief() ) : ?>
 			<div id="jh-portfolio-brief">
 				<h4>The Brief</h4>
 				<p><?php echo $brief ?></p>

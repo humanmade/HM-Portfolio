@@ -1,6 +1,6 @@
 <?php 
-add_filter( 'the_content', 'jhp_single_content' );
-function jhp_single_content( $content ) {
+add_filter( 'the_content', 'hmp_single_content' );
+function hmp_single_content( $content ) {
 	global $post;
 	
 	ob_start();
@@ -11,11 +11,11 @@ function jhp_single_content( $content ) {
 }
 ?>
 <?php 
-if( get_option( 'jhp_use_styles', 'on' ) ) {
+if( get_option( 'hmp_use_styles', 'on' ) ) {
 	wp_enqueue_style( 'jh-portfolio', JHPURL . 'template/styles/style.css' );
 	wp_enqueue_style( 'lightbox.css', JHPURL . 'template/styles/jquery.lightbox-0.5.css' );
 }
-if( get_option( 'jhp_use_scripts', 'on' ) ) {
+if( get_option( 'hmp_use_scripts', 'on' ) ) {
 	wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
 }
 if( file_exists( $file = get_template_directory() . '/single.php' ) ) {

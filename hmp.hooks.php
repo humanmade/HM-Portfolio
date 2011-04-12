@@ -1,8 +1,8 @@
 <?php
 
 //add the portfolio link to wp_list_pages
-if( get_option( 'jhp_add_page_link', 'on' ) )
-	add_filter( 'get_pages', 'jhp_add_link_to_get_pages', 10, 2);
+if( get_option( 'hmp_add_page_link', 'on' ) )
+	add_filter( 'get_pages', 'hmp_add_link_to_get_pages', 10, 2);
 
 /**
  * Hooks into get_pages to spoof a link to the Portfolio page when using wp_list_pages().
@@ -11,7 +11,7 @@ if( get_option( 'jhp_add_page_link', 'on' ) )
  * @param mixed $arg
  * @return array
  */
-function jhp_add_link_to_get_pages( $data, $arg ) {
+function hmp_add_link_to_get_pages( $data, $arg ) {
 
 	$found = false;
 	foreach( debug_backtrace() as $call ) {
@@ -28,12 +28,12 @@ function jhp_add_link_to_get_pages( $data, $arg ) {
 	if( !$found )
 		return $data;
 
-	$menu_order = (int) get_option('jhp_portfolio_menu_order', 0);
+	$menu_order = (int) get_option('hmp_portfolio_menu_order', 0);
 
 	$item = (object) array(
 		'ID' => 987654321,
 		'post_name' => 'portfolio',
-		'post_title' => get_option( 'jhp_title', 'Portfolio' ) ,
+		'post_title' => get_option( 'hmp_title', 'Portfolio' ) ,
 		'menu_order' => $menu_order,
 		'post_parent' => 0
 	);
@@ -56,11 +56,11 @@ function jhp_add_link_to_get_pages( $data, $arg ) {
 }
 
 
-add_filter( 'page_link', 'jhp_add_link_to_wp_list_pages_link', 10, 2 );
-function jhp_add_link_to_wp_list_pages_link( $link, $id ) {
+add_filter( 'page_link', 'hmp_add_link_to_wp_list_pages_link', 10, 2 );
+function hmp_add_link_to_wp_list_pages_link( $link, $id ) {
 	if( $id !== 987654321 )
 		return $link;
-	$portfolio_base = get_option('jhp_url_base', 'portfolio');
+	$portfolio_base = get_option('hmp_url_base', 'portfolio');
 	if( $portfolio_base != '' )
 		 $portfolio_base .= '/';
 	return trailingslashit( get_bloginfo('url') ) . $portfolio_base;
@@ -68,13 +68,13 @@ function jhp_add_link_to_wp_list_pages_link( $link, $id ) {
 
 
 /**
- * jhp_post_link function.
+ * hmp_post_link function.
  * 
  * @param string $link - supposed permalinks
  * @param object $post
  * @return string - new permalink
  */
-function jhp_post_link( $link, $post ) {
+function hmp_post_link( $link, $post ) {
 
 	if ( strpos( $link, '%jh-portfolio-category%' ) === false )
 		return $link;
@@ -102,7 +102,7 @@ function jhp_post_link( $link, $post ) {
 
 	$category_string = ( isset( $category_string ) && $category_string ) ? $category_string : 'uncategorized';
 	
-	$link = jhp_get_single_permastruct();
+	$link = hmp_get_single_permastruct();
 	
 	$link = str_replace( '%category%', $category_string, $link );
 	$link = str_replace( '%post_name%', $post->post_name, $link );
@@ -110,18 +110,18 @@ function jhp_post_link( $link, $post ) {
 	return $link;
 
 }
-add_filter( 'post_type_link', 'jhp_post_link', 10, 2 );
+add_filter( 'post_type_link', 'hmp_post_link', 10, 2 );
 
 
 /**
- * jhp_term_link function.
+ * hmp_term_link function.
  * 
  * @param string $termlink
  * @param object $term
  * @param string $taxonomy
  * @return string - new term link
  */
-function jhp_term_link(  $termlink, $term, $taxonomy ) {
+function hmp_term_link(  $termlink, $term, $taxonomy ) {
 
 	if( !in_array( $taxonomy, array( 'jh-portfolio-tag', 'jh-portfolio-category' ) ) )
 		return $termlink;
@@ -133,21 +133,21 @@ function jhp_term_link(  $termlink, $term, $taxonomy ) {
 		return trailingslashit( get_bloginfo( 'portfolio_url', true ) ) . $term->slug . '/';
 
 }
-add_filter( 'term_link', 'jhp_term_link', 10, 3 );
+add_filter( 'term_link', 'hmp_term_link', 10, 3 );
 
 
-function jhp_activate_plugin() {
+function hmp_activate_plugin() {
 	global $wp_rewrite;
 	$wp_rewrite->flush_rules();
 }
 
-function jhp_bloginfo_filters( $arg, $arg2 ) {
+function hmp_bloginfo_filters( $arg, $arg2 ) {
 	
 	
 	switch( $arg2 ) :
 	
 		case 'portfolio_url' :
-			return get_bloginfo( 'url' ) . '/' . ( get_option('jhp_url_base', 'portfolio') ? trailingslashit( get_option('jhp_url_base', 'portfolio') ) : '' );
+			return get_bloginfo( 'url' ) . '/' . ( get_option('hmp_url_base', 'portfolio') ? trailingslashit( get_option('hmp_url_base', 'portfolio') ) : '' );
 			break;
 			
 	endswitch;
@@ -155,5 +155,5 @@ function jhp_bloginfo_filters( $arg, $arg2 ) {
 	return $arg;
 
 }
-add_filter( 'bloginfo', 'jhp_bloginfo_filters', 10, 2 ); 
-add_filter( 'bloginfo_url', 'jhp_bloginfo_filters', 10, 2 );
+add_filter( 'bloginfo', 'hmp_bloginfo_filters', 10, 2 ); 
+add_filter( 'bloginfo_url', 'hmp_bloginfo_filters', 10, 2 );

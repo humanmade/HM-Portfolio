@@ -1,21 +1,21 @@
 <?php
 
 /*
-Plugin Name: JH Portfolio
-Plugin URI: http://github.com/joehoyle/JH-Portfolio
+Plugin Name: HM Portfolio
+Plugin URI: https://github.com/humanmade/HM-Portfolio
 Description: Web/Print Portfolio plugin
-Author: Joe Hoyle
-Version: 0.9.7 Beta 3
-Author URI: http://www.joehoyle.co.uk/
+Author: humanmade, Joe Hoyle, Matthew Haines-Young
+Version: 0.9.8
+Author URI: http://www.humanmade.co.uk/
 */
 
 define( 'JHPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
 define( 'JHPPATH', dirname( __FILE__ ) );
 
 //check comaptibility before anything
-jhp_check_plugin_compatibility();
+hmp_check_plugin_compatibility();
 
-function jhp_check_plugin_compatibility() {
+function hmp_check_plugin_compatibility() {
 
 	// check compatibility
 	global $wp_version;
@@ -39,21 +39,21 @@ define( 'TJ_ENABLE_ACCOUNTS', false );
 include_once('helper/helper.php');
 
 //Template rewrite
-include_once('jhp.functions.php');
-include_once('jhp.rewrite.php');
+include_once('hmp.functions.php');
+include_once('hmp.rewrite.php');
 include_once('admin/admin.php');
-include_once('jhp.hooks.php');
-include_once('jhp.upgrade.php');
+include_once('hmp.hooks.php');
+include_once('hmp.upgrade.php');
 
 //Widgets etc
-include_once('jhp.widgets.php');
+include_once('hmp.widgets.php');
 
 // upgrade old data
-register_activation_hook( __FILE__, 'jhp_upgrade' );
-register_activation_hook( __FILE__, 'jhp_activate_plugin' );
+register_activation_hook( __FILE__, 'hmp_upgrade' );
+register_activation_hook( __FILE__, 'hmp_activate_plugin' );
 
-add_action( 'init', 'jhp_register_post_types' );
-function jhp_register_post_types() {
+add_action( 'init', 'hmp_register_post_types' );
+function hmp_register_post_types() {
 	//register extra taxonomy
 	register_taxonomy( 'jh-portfolio-category', 'jh-portfolio', array( 
 		'hierarchical' => true,
@@ -99,7 +99,7 @@ function jhp_register_post_types() {
 				'edit_item' => 'Edit Entry',
 				'add_new_item' => 'Add New Entry' ),
 			'menu_icon' => str_replace( ABSPATH , trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) . '/admin/icon.png' ),
-			'rewrite' => array( 'slug' => jhp_get_single_permalink_structure() )
+			'rewrite' => array( 'slug' => hmp_get_single_permalink_structure() )
 		
 		)
 	);

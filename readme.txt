@@ -41,7 +41,7 @@ Some of your old data will be lost: Main Images, Additional Images and your Port
 
 = 0.9.6 =
 * Fixed bug with images not showing with WordPress installed in a subdir
-* Added functions: jhp_get_the_category, jhp_get_category_link, jhp_in_category, jhp_the_category, jhp_get_the_tags, jhp_get_the_tag_list, jhp_the_tags
+* Added functions: hmp_get_the_category, hmp_get_category_link, hmp_in_category, hmp_the_category, hmp_get_the_tags, hmp_get_the_tag_list, hmp_the_tags
 * Fixed bug with images uploaded on new entry not being attached to the post
 * Fixed bug with single entries returning a 404 header
 * Fixed bug with an empty single base permalink structure breaking templates

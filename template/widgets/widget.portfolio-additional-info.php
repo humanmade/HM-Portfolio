@@ -16,12 +16,12 @@
 		
 		?>
 		<!-- Additional Info -->
-		<?php if( jhp_has_info( null, 'url,related_work' ) ) : ?>
+		<?php if( hmp_has_info( null, 'url,related_work' ) ) : ?>
 			<h4>Additional Information</h4>
-			<?php if( $url = jhp_get_url() ) : ?>
+			<?php if( $url = hmp_get_url() ) : ?>
 				<p><strong>Visit</strong><br /><a target="_blank" href="<?php echo $url ?>"><?php echo $url ?></a></p>
 			<?php endif; ?>
-			<?php if( $related_work = jhp_get_related_work() ) : ?>
+			<?php if( $related_work = hmp_get_related_work() ) : ?>
 				<p><strong>Related Work</strong></p>
 				<ul id="related-work">
 					<?php foreach( $related_work as $post_id ) : ?>

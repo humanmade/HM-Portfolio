@@ -1,17 +1,17 @@
 <?php
 
-function jhp_upgrade() {
+function hmp_upgrade() {
   
-	jhp_upgrade_extra_taxonomy_to_tags();
-	jhp_upgrade_post_meta_to_prepend_underscores();
+	hmp_upgrade_extra_taxonomy_to_tags();
+	hmp_upgrade_post_meta_to_prepend_underscores();
 }
 
-function jhp_upgrade_extra_taxonomy_to_tags() {
+function hmp_upgrade_extra_taxonomy_to_tags() {
 	global $wpdb;
 	$wpdb->query( "UPDATE $wpdb->term_taxonomy SET taxonomy='jh-portfolio-tag' WHERE taxonomy='jh_portfolio_extra_taxonomy'" );
 }
 
-function jhp_upgrade_post_meta_to_prepend_underscores() {
+function hmp_upgrade_post_meta_to_prepend_underscores() {
 	global $wpdb;
 	
 	//use "brief" as the indicater if it needs updating
@@ -31,11 +31,11 @@ function jhp_upgrade_post_meta_to_prepend_underscores() {
 		error_log( 'JHP: Upgrading meta key: related_work...' );
 		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_related_work' WHERE meta_key = 'related_work';");
 		
-		error_log( 'JHP: Upgrading meta key: jhp_gallery_images...' );
-		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_jhp_gallery_images' WHERE meta_key = 'jhp_gallery_images';");
+		error_log( 'JHP: Upgrading meta key: hmp_gallery_images...' );
+		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_hmp_gallery_images' WHERE meta_key = 'hmp_gallery_images';");
 		
-		error_log( 'JHP: Upgrading meta key: jhp_main_image...' );
-		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_jhp_main_image' WHERE meta_key = 'jhp_main_image';");
+		error_log( 'JHP: Upgrading meta key: hmp_main_image...' );
+		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_hmp_main_image' WHERE meta_key = 'hmp_main_image';");
 
 		error_log( 'JHP: Upgrading meta keys done' );
 

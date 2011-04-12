@@ -15,7 +15,7 @@
 		?>
 		<!-- Title -->
 		<h3><?php the_title() ?></h3>
-		<?php if( $byline = jhp_get_byline() ) : ?>
+		<?php if( $byline = hmp_get_byline() ) : ?>
 			<p id="jh-portfolio-byline"><?php echo $byline ?></p>
 		<?php endif; ?>	
 		<?php

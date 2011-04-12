@@ -30,7 +30,7 @@ class WP_Widget_JH_Portfolio_Grid extends WP_Widget {
 						
 							<?php while( $jh_portfolio->have_posts() ): $jh_portfolio->the_post(); global $post; ?>
 								<li>
-									<?php if( $image = jhp_get_main_image( null, $image_width, $image_height, true ) ) : ?>
+									<?php if( $image = hmp_get_main_image( null, $image_width, $image_height, true ) ) : ?>
 										<a class="<?php if( $orig->post->ID == get_the_id() ) echo 'active' ?>" href="<?php the_permalink() ?>" rel="<?php echo get_the_id() ?>"><img id="main-image" alt="<?php the_title() ?>" src="<?php echo $image ?>" /></a>
 									<?php endif; ?>
 									<a class="<?php if( $orig->post->ID == get_the_id() ) echo 'active' ?>" href="<?php the_permalink() ?>" rel="<?php echo get_the_id() ?>"><?php echo $post->post_title ?></a>
