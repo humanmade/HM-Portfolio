@@ -39,11 +39,11 @@ function hmp_portfolio_time( $time ) {
 }
 
 if( get_option( 'hmp_use_styles', 'on' ) ) {
-	wp_enqueue_style( 'jh-portfolio', JHPURL . 'template/styles/style.css' );
-	wp_enqueue_style( 'lightbox.css', JHPURL . 'template/styles/jquery.lightbox-0.5.css' );
+	wp_enqueue_style( 'hmp-portfolio', HMPURL . 'template/styles/style.css' );
+	wp_enqueue_style( 'lightbox.css', HMPURL . 'template/styles/jquery.lightbox-0.5.css' );
 }
 if( get_option( 'hmp_use_scripts', 'on' ) ) {
-	wp_enqueue_script( 'lightbox', JHPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
+	wp_enqueue_script( 'lightbox', HMPURL . 'template/js/jquery.lightbox-0.5.min.js', array( 'jquery' ) );
 }
 
 if( file_exists( get_template_directory() . '/page.php' ) ) {

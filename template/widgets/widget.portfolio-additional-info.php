@@ -1,10 +1,10 @@
 <?php
-### Class: JH Portfolio Selector
- class WP_Widget_JH_Portfolio_Additional_Info extends WP_Widget {
+### Class: HM Portfolio Selector
+ class WP_Widget_hmp_Portfolio_Additional_Info extends WP_Widget {
 	// Constructor
-	function WP_Widget_JH_Portfolio_Additional_Info() {
+	function WP_Widget_hmp_Portfolio_Additional_Info() {
 		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s additional info (URL and Related Work)', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_additional_info', __( 'JHP Entry Additional Info' ), $widget_ops );
+		$this->WP_Widget( 'hmp_portfolio_additional_info', __( 'HMP Entry Additional Info' ), $widget_ops );
 	}
  
 	// Display Widget
@@ -12,7 +12,7 @@
 		extract( $args, EXTR_SKIP );
 				
 		echo $before_widget;
-		global $jh_portfolio;
+		global $hmp_portfolio;
 		
 		?>
 		<!-- Additional Info -->
@@ -39,8 +39,8 @@
  
  
 ### Function: Init Table News Widget
-add_action('widgets_init', 'widget_jh_portfolio_additional_info');
-function widget_jh_portfolio_additional_info() {
-	register_widget( 'WP_Widget_JH_Portfolio_Additional_Info' );
+add_action('widgets_init', 'widget_hmp_portfolio_additional_info');
+function widget_hmp_portfolio_additional_info() {
+	register_widget( 'WP_Widget_hmp_Portfolio_Additional_Info' );
 }
 ?>

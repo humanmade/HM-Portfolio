@@ -1,10 +1,10 @@
 <?php
-### Class: JH Portfolio Selector
- class WP_Widget_JH_Portfolio_Content extends WP_Widget {
+### Class: HM Portfolio Selector
+ class WP_Widget_hmp_Portfolio_Content extends WP_Widget {
 	// Constructor
-	function WP_Widget_JH_Portfolio_Content() {
+	function WP_Widget_hmp_Portfolio_Content() {
 		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s content', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_content', __( 'JHP Entry Content' ), $widget_ops );
+		$this->WP_Widget( 'hmp_portfolio_content', __( 'HMP Entry Content' ), $widget_ops );
 	}
  
 	// Display Widget
@@ -15,7 +15,7 @@
 		
 		?>
 		
-		<div id="jh-portfolio-content">
+		<div id="hmp-portfolio-content">
 			<?php 
 			
 			add_filter( 'get_the_content', 'wptexturize'        );
@@ -33,8 +33,8 @@
  
  
 ### Function: Init Table News Widget
-add_action('widgets_init', 'widget_jh_portfolio_content');
-function widget_jh_portfolio_content() {
-	register_widget( 'WP_Widget_JH_Portfolio_Content' );
+add_action('widgets_init', 'widget_hmp_portfolio_content');
+function widget_hmp_portfolio_content() {
+	register_widget( 'WP_Widget_hmp_Portfolio_Content' );
 }
 ?>

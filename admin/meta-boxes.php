@@ -1,6 +1,6 @@
 <?php
 
-function hmp_byline_meta_box( $post ) {
+function wp_enqueue_style( $post ) {
 	?>
 	<label for="hmp_byline">Byline
 		<input type="text" name="hmp_byline" value="<?php hmp_get_byline( $post ) ?>" class="widefat" />
@@ -28,7 +28,7 @@ function hmp_main_image_meta_box( $post ) {
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
 
 	tj_register_custom_media_button( 'hmp_main_image', 'Use as Main Image', true, false, 150, 150 );
-	$non_added_text = "No Main Image Added " .  ( ($jh_url = hmp_get_url( $post ) ) ? '| <a href="' . esc_url( $jh_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
+	$non_added_text = "No Main Image Added " .  ( ($hmp_url = hmp_get_url( $post ) ) ? '| <a href="' . esc_url( $hmp_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
 
 	tj_add_image_html_custom( 'hmp_main_image', ($ids ? 'Change' : 'Add') . ' Main Image', $post_image_id, $ids, false, 'width=150&height=150&crop=1', $non_added_text );
 
@@ -47,7 +47,7 @@ function hmp_gallery_meta_box( $post ) {
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
 
 	tj_register_custom_media_button( 'hmp_gallery_images', 'Add to Gallery', true, true, 150, 150 );
-	$non_added_text = "No Gallery Images Added " .  ( ( $jh_url = hmp_get_url( $post ) ) ? '| <a href="' . esc_url( $jh_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
+	$non_added_text = "No Gallery Images Added " .  ( ( $hmp_url = hmp_get_url( $post ) ) ? '| <a href="' . esc_url( $hmp_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
 
 	tj_add_image_html_custom( 'hmp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, 'sortable', 'width=150&height=150&crop=1', $non_added_text );
 }
@@ -61,12 +61,12 @@ function hmp_gallery_meta_box_submitted( $post ) {
 function hmp_category_meta_box( $post ) {
 	global $post;
 	?>
-	<p><label for="jh_portfolio_category">Category</label></p>
-	<select name="jh_portfolio_category">
+	<p><label for="hmp_portfolio_category">Category</label></p>
+	<select name="hmp_portfolio_category">
 		<option value="">Select Category...</option>
 		<?php
-		$cats = get_terms('jh-portfolio-category', array( 'hide_empty' => false ) );
-		$obj_cat = wp_get_object_terms($post->ID, 'jh-portfolio-category' );
+		$cats = get_terms('hmp-entry-category', array( 'hide_empty' => false ) );
+		$obj_cat = wp_get_object_terms($post->ID, 'hmp-entry-category' );
 		$obj_cat = $obj_cat[0];
 
 		foreach( $cats as $cat ) : ?>
@@ -75,18 +75,18 @@ function hmp_category_meta_box( $post ) {
 		endforeach;
 		?>
 	</select>
-	<p><label for="jh_portfolio_new_category">Add New Category</label></p>
-	<input name="jh_portfolio_new_category" type="text" />
+	<p><label for="hmp_portfolio_new_category">Add New Category</label></p>
+	<input name="hmp_portfolio_new_category" type="text" />
 	<?php
 }
 function hmp_category_meta_box_submitted( $post, $args = array() ) {
 
-	if( $_POST['jh_portfolio_new_category'] )
-		wp_set_object_terms( $post->ID, (string) $_POST['jh_portfolio_new_category'], 'jh-portfolio-category' );
-	elseif( $_POST['jh_portfolio_category'] )
-		wp_set_object_terms( $post->ID, (int) $_POST['jh_portfolio_category'], 'jh-portfolio-category' );
+	if( $_POST['hmp_portfolio_new_category'] )
+		wp_set_object_terms( $post->ID, (string) $_POST['hmp_portfolio_new_category'], 'hmp-entry-category' );
+	elseif( $_POST['hmp_portfolio_category'] )
+		wp_set_object_terms( $post->ID, (int) $_POST['hmp_portfolio_category'], 'hmp-entry-category' );
 	elseif( $args['default'] ) {
-		wp_set_object_terms( $post->ID, $args['default'], 'jh-portfolio-category' );
+		wp_set_object_terms( $post->ID, $args['default'], 'hmp-entry-category' );
 	}
 }
 

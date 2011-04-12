@@ -1,10 +1,10 @@
 <?php
-### Class: JH Portfolio Selector
- class WP_Widget_JH_Portfolio_Brief extends WP_Widget {
+### Class: HM Portfolio Selector
+ class WP_Widget_hmp_Portfolio_Brief extends WP_Widget {
 	// Constructor
-	function WP_Widget_JH_Portfolio_Brief() {
+	function WP_Widget_hmp_Portfolio_Brief() {
 		$widget_ops = array( 'description' => __( 'Shows the portfolio entry\'s brief', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_brief', __( 'JHP Entry Brief' ), $widget_ops );
+		$this->WP_Widget( 'hmp_portfolio_brief', __( 'HMP Entry Brief' ), $widget_ops );
 	}
  
 	// Display Widget
@@ -12,12 +12,12 @@
 		extract( $args, EXTR_SKIP );
 				
 		echo $before_widget;
-		global $jh_portfolio;
+		global $hmp_portfolio;
 		
 		?>
 		<!-- Brief -->
 		<?php if( $brief = hmp_get_brief() ) : ?>
-			<div id="jh-portfolio-brief">
+			<div id="hmp-portfolio-brief">
 				<h4>The Brief</h4>
 				<p><?php echo $brief ?></p>
 			</div>
@@ -30,8 +30,8 @@
  
  
 ### Function: Init Table News Widget
-add_action('widgets_init', 'widget_jh_portfolio_brief');
-function widget_jh_portfolio_brief() {
-	register_widget( 'WP_Widget_JH_Portfolio_Brief' );
+add_action('widgets_init', 'widget_hmp_portfolio_brief');
+function widget_hmp_portfolio_brief() {
+	register_widget( 'WP_Widget_hmp_Portfolio_Brief' );
 }
 ?>

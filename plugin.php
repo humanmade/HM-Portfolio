@@ -9,8 +9,8 @@ Version: 0.9.8
 Author URI: http://www.humanmade.co.uk/
 */
 
-define( 'JHPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
-define( 'JHPPATH', dirname( __FILE__ ) );
+define( 'HMPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
+define( 'HMPPATH', dirname( __FILE__ ) );
 
 //check comaptibility before anything
 hmp_check_plugin_compatibility();
@@ -24,11 +24,11 @@ function hmp_check_plugin_compatibility() {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );  
 	
 	if( version_compare( $wp_version, '3.0', '<') ) {
-		deactivate_plugins(JHPPATH . '/plugin.php'); 
-		die('JH Portfolio 0.9.7+ requires WordPress 3.0+, please download JH Portfolio 0.9.6 <a href="http://downloads.wordpress.org/plugin/jh-portfolio.0.9.6.zip">here</a> for older versions of WordPress. ');
+		deactivate_plugins(HMPPATH . '/plugin.php'); 
+		die('HM Portfolio 0.9.7+ requires WordPress 3.0+, please download HM Portfolio 0.9.6 <a href="http://downloads.wordpress.org/plugin/hmp-portfolio.0.9.6.zip">here</a> for older versions of WordPress. ');
   	} elseif( version_compare( $php_version, '5', '<') ) {
-  		deactivate_plugins(JHPPATH . '/plugin.php'); 
-		die('JH Portfolio requires PHP 5+');
+  		deactivate_plugins(HMPPATH . '/plugin.php'); 
+		die('HM Portfolio requires PHP 5+');
   	}
   	
 }
@@ -51,11 +51,13 @@ include_once('hmp.widgets.php');
 // upgrade old data
 register_activation_hook( __FILE__, 'hmp_upgrade' );
 register_activation_hook( __FILE__, 'hmp_activate_plugin' );
+// deprecated functions
+include_once('hmp.functions.deprecated.php');
 
 add_action( 'init', 'hmp_register_post_types' );
 function hmp_register_post_types() {
 	//register extra taxonomy
-	register_taxonomy( 'jh-portfolio-category', 'jh-portfolio', array( 
+	register_taxonomy( 'hmp-entry-category', 'hmp-entry', array( 
 		'hierarchical' => true,
 		'show-ui' => true,
 		'labels' => array( 
@@ -70,7 +72,7 @@ function hmp_register_post_types() {
 			
 		));
 		
-	register_taxonomy( 'jh-portfolio-tag', 'jh-portfolio', array( 
+	register_taxonomy( 'hmp-entry-tag', 'hmp-entry', array( 
 		'hierarchical' => false,
 		'show-ui' => true,
 		'labels' => array( 
@@ -84,11 +86,11 @@ function hmp_register_post_types() {
 			'view' => 'View Entry' ),
 		));
 	
-	register_post_type( 'jh-portfolio', array( 
+	register_post_type( 'hmp-entry', array( 
 			'singular_label' => 'Report',
 			'public' => true,
 			'inherit_type' => 'post',
-			'taxonomies' => array( 'jh-portfolio-category', 'jh-portfolio-tag' ),
+			'taxonomies' => array( 'hmp-entry-category', 'hmp-entry-tag' ),
 			'supports' => array( 'editor', 'title', 'revisions', 'custom-fields' ),
 			'labels' => array( 
 				'name' => 'Portfolio',

@@ -1,10 +1,10 @@
 <?php
-### Class: JH Portfolio Selector
- class WP_Widget_JH_Portfolio_Main_Image extends WP_Widget {
+### Class: HM Portfolio Selector
+ class WP_Widget_hmp_Portfolio_Main_Image extends WP_Widget {
 	// Constructor
-	function WP_Widget_JH_Portfolio_Main_Image() {
+	function WP_Widget_hmp_Portfolio_Main_Image() {
 		$widget_ops = array( 'description' => __( 'Shows the main image', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_main_image', __( 'JHP Main Image' ), $widget_ops );
+		$this->WP_Widget( 'hmp_portfolio_main_image', __( 'HMP Main Image' ), $widget_ops );
 	}
  
 	// Display Widget
@@ -14,7 +14,7 @@
 		$height = (int) $height;
 		echo $before_widget;
 		?>
-		<div id="jh-portfolio-main-image">
+		<div id="hmp-portfolio-main-image">
 			<?php if( $image = hmp_get_main_image( null, $width, $height, ($height ? true : false ) ) ) : ?>
 			    <img id="main-image" src="<?php echo $image ?>" />
 			<?php endif; ?>
@@ -65,8 +65,8 @@
  
  
 ### Function: Init Table News Widget
-add_action('widgets_init', 'widget_jh_portfolio_main_image');
-function widget_jh_portfolio_main_image() {
-	register_widget( 'WP_Widget_JH_Portfolio_Main_Image' );
+add_action('widgets_init', 'widget_hmp_portfolio_main_image');
+function widget_hmp_portfolio_main_image() {
+	register_widget( 'WP_Widget_hmp_Portfolio_Main_Image' );
 }
 ?>

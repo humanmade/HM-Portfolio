@@ -3,20 +3,20 @@ include_once('meta-boxes.php');
 
 add_action( 'admin_menu', 'hmp_add_meta_boxes' );
 function hmp_add_meta_boxes() {
-	add_meta_box( 'brief', 'Brief', 'hmp_brief_meta_box', 'jh-portfolio', 'normal', 'high' );
-	add_meta_box( 'main-image', 'Main Image', 'hmp_main_image_meta_box', 'jh-portfolio', 'normal', 'high' );
-	add_meta_box( 'additional-images', 'Gallery', 'hmp_gallery_meta_box', 'jh-portfolio', 'normal', 'high' );
-	add_meta_box( 'additional-info', 'Additional Information', 'hmp_additional_information_meta_box', 'jh-portfolio', 'side', 'low' );
+	add_meta_box( 'brief', 'Brief', 'hmp_brief_meta_box', 'hmp-entry', 'normal', 'high' );
+	add_meta_box( 'main-image', 'Main Image', 'hmp_main_image_meta_box', 'hmp-entry', 'normal', 'high' );
+	add_meta_box( 'additional-images', 'Gallery', 'hmp_gallery_meta_box', 'hmp-entry', 'normal', 'high' );
+	add_meta_box( 'additional-info', 'Additional Information', 'hmp_additional_information_meta_box', 'hmp-entry', 'side', 'low' );
 	
 	//register the options page
 	hmp_register_settings();
-	add_options_page('Portfolio Settings', 'JH Portfolio', 'manage_options', 'jh-portfolio-options', 'hmp_options_page');	
+	add_options_page('Portfolio Settings', 'HM Portfolio', 'manage_options', 'hmp-portfolio-options', 'hmp_options_page');	
 }
 
 add_action( 'wp_insert_post', 'hmp_insert_post', 10, 2 );
 function hmp_insert_post( $post_id, $post ) {
 	
-	if( $post->post_type !== 'jh-portfolio' )
+	if( $post->post_type !== 'hmp-entry' )
 		return;
 	
 	//fire all the beta box _submitted functions
@@ -28,17 +28,17 @@ function hmp_insert_post( $post_id, $post ) {
 
 function hmp_register_settings() {
 	
-	register_setting( 'jhp-settings', 'hmp_url_base' );
-	register_setting( 'jhp-settings', 'hmp_single_base' );
-	register_setting( 'jhp-settings', 'hmp_add_page_link' );
-	register_setting( 'jhp-settings', 'hmp_use_styles' );
-	register_setting( 'jhp-settings', 'hmp_use_scripts' );
-	register_setting( 'jhp-settings', 'hmp_title' );
-	register_setting( 'jhp-settings', 'hmp_template_single' );
-	register_setting( 'jhp-settings', 'hmp_template_home' );
-	register_setting( 'jhp-settings', 'hmp_template_category' );
-	register_setting( 'jhp-settings', 'hmp_template_tag' );
-	register_setting( 'jhp-settings', 'hmp_portfolio_menu_order' );
+	register_setting( 'hmp-settings', 'hmp_url_base' );
+	register_setting( 'hmp-settings', 'hmp_single_base' );
+	register_setting( 'hmp-settings', 'hmp_add_page_link' );
+	register_setting( 'hmp-settings', 'hmp_use_styles' );
+	register_setting( 'hmp-settings', 'hmp_use_scripts' );
+	register_setting( 'hmp-settings', 'hmp_title' );
+	register_setting( 'hmp-settings', 'hmp_template_single' );
+	register_setting( 'hmp-settings', 'hmp_template_home' );
+	register_setting( 'hmp-settings', 'hmp_template_category' );
+	register_setting( 'hmp-settings', 'hmp_template_tag' );
+	register_setting( 'hmp-settings', 'hmp_portfolio_menu_order' );
 	
 }
 
@@ -88,10 +88,10 @@ function hmp_options_page() {
 					<th scope="row"><strong>JavaScript & CSS</strong></th>
 					<td>
 						<input type="checkbox" name="hmp_use_scripts" id="hmp_use_scripts" <?php echo get_option('hmp_use_scripts', 'on') ? ' checked="checked" ' : '' ?> />
-						Use JH Portfolio JavaScript
+						Use HM Portfolio JavaScript
 						<p>
 							<input type="checkbox" name="hmp_use_styles" id="hmp_use_styles" <?php echo get_option('hmp_use_styles', 'on') ? ' checked="checked" ' : '' ?> />
-							Use JH Portfolio CSS
+							Use HM Portfolio CSS
 						</p>
 					</td>
 				</tr>
@@ -125,15 +125,15 @@ function hmp_options_page() {
 			</p>
 			
 			<?php 
-			settings_fields( 'jhp-settings' );
+			settings_fields( 'hmp-settings' );
 			
 			// Output any sections defined for page sl-settings
-			do_settings_sections('jhp-settings'); 
+			do_settings_sections('hmp-settings'); 
 			?>
 		</form>
 		
 		<div id="message">
-			<p><small>If you are having any issue with JH Portfolio please file a bug or question <a href="http://github.com/joehoyle/JH-Portfolio/issues" target="_blank">here.</a><small></small></p>
+			<p><small>If you are having any issue with HM Portfolio please file a bug or question <a href="http://github.com/joehoyle/hmp-Portfolio/issues" target="_blank">here.</a><small></small></p>
 		</div>
 	</div>
 	<?php

@@ -71,10 +71,10 @@ function hmp_has_info( $post = null, $string = '_url,_related_work' ) {
 function hmp_get_the_category( $post = null ) {
 	if( $post === null ) global $post;
 	
-	$categories = get_object_term_cache( $post->ID, 'jh-portfolio-category' );
+	$categories = get_object_term_cache( $post->ID, 'hmp-entry-category' );
 	if ( false === $categories ) {
-		$categories = wp_get_object_terms( $post->ID, 'jh-portfolio-category' );
-		wp_cache_add($post->ID, $categories, 'jh-portfolio-category_relationships');
+		$categories = wp_get_object_terms( $post->ID, 'hmp-entry-category' );
+		wp_cache_add($post->ID, $categories, 'hmp-entry-category_relationships');
 	}
 
 	if ( !empty( $categories ) )
@@ -93,7 +93,7 @@ function hmp_get_the_category( $post = null ) {
  * @see get_category_link()
 */
 function hmp_get_category_link( $id ) {
-	return get_term_link( $id, 'jh-portfolio-category' );
+	return get_term_link( $id, 'hmp-entry-category' );
 }
 
 
@@ -103,7 +103,7 @@ function hmp_get_category_link( $id ) {
 function hmp_in_category( $category, $post = null ) {
 	if( $post === null ) global $post;
 	
-	$r = is_object_in_term( $post->ID, 'jh-portfolio-category', $category );
+	$r = is_object_in_term( $post->ID, 'hmp-entry-category', $category );
 	if ( is_wp_error( $r ) )
 		return false;
 	
@@ -161,14 +161,14 @@ function hmp_the_category(  $separator = '', $parents='', $post = null ) {
  * @see get_the_tags
  */
 function hmp_get_the_tags( $id = 0 ) {
-	return apply_filters( 'get_the_tags', get_the_terms( $id, 'jh-portfolio-tag' ) );
+	return apply_filters( 'get_the_tags', get_the_terms( $id, 'hmp-entry-tag' ) );
 }
 
 /**
  * @see get_the_tag_list
  */
 function hmp_get_the_tag_list( $before = '', $sep = '', $after = '' ) {
-	return apply_filters( 'the_tags', get_the_term_list( 0, 'jh-portfolio-tag', $before, $sep, $after ), $before, $sep, $after);
+	return apply_filters( 'the_tags', get_the_term_list( 0, 'hmp-entry-tag', $before, $sep, $after ), $before, $sep, $after);
 }
 
 /**
@@ -216,12 +216,12 @@ function hmp_get_gallery_ids( $post = null ) {
 }
 
 /**
- * Get the array of wp_query vars that jh portfolio uses
+ * Get the array of wp_query vars that HMP Portfolio uses
  * 
  * @return array
  */
 function hmp_default_query_vars() {
-	$vars = array( 'post_type' => 'jh-portfolio' );
+	$vars = array( 'post_type' => 'hmp-entry' );
 	return $vars;
 }
 
@@ -244,7 +244,7 @@ function hmp_get_single_permalink_structure() {
 	$single_base = get_option( 'hmp_single_base', '/%category%/' );
 	$single_base = '/' . trim( $single_base, '/' );
 	
-	$single_base = str_replace( array( '%category%' ), '%jh-portfolio-category%', $single_base );
+	$single_base = str_replace( array( '%category%' ), '%hmp-entry-category%', $single_base );
 	
 	return get_option('hmp_url_base', 'portfolio') . $single_base;
 }

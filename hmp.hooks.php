@@ -76,10 +76,10 @@ function hmp_add_link_to_wp_list_pages_link( $link, $id ) {
  */
 function hmp_post_link( $link, $post ) {
 
-	if ( strpos( $link, '%jh-portfolio-category%' ) === false )
+	if ( strpos( $link, '%hmp-entry-category%' ) === false )
 		return $link;
 		
-	$terms = wp_get_object_terms( $post->ID, 'jh-portfolio-category' );
+	$terms = wp_get_object_terms( $post->ID, 'hmp-entry-category' );
 
 	if ( current( $terms ) ) :
 
@@ -123,10 +123,10 @@ add_filter( 'post_type_link', 'hmp_post_link', 10, 2 );
  */
 function hmp_term_link(  $termlink, $term, $taxonomy ) {
 
-	if( !in_array( $taxonomy, array( 'jh-portfolio-tag', 'jh-portfolio-category' ) ) )
+	if( !in_array( $taxonomy, array( 'hmp-entry-tag', 'hmp-entry-category' ) ) )
 		return $termlink;
 	
-	if( $taxonomy == 'jh-portfolio-tag' )
+	if( $taxonomy == 'hmp-entry-tag' )
 		return trailingslashit( get_bloginfo( 'portfolio_url', true ) ) . 'tag/' . $term->slug . '/';
 	
 	else

@@ -1,15 +1,15 @@
 <?php
-### Class: JH Portfolio Selector
-class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
+### Class: HM Portfolio Selector
+class WP_Widget_hmp_Portfolio_Selector extends WP_Widget {
 	// Constructor
-	function WP_Widget_JH_Portfolio_Selector() {
+	function WP_Widget_hmp_Portfolio_Selector() {
 		$widget_ops = array( 'description' => __( 'Show a list of all portfolio entries', 'table_rss_news' ) );
-		$this->WP_Widget( 'jh_portfolio_selector', __( 'JHP Selector' ), $widget_ops );
+		$this->WP_Widget( 'hmp_portfolio_selector', __( 'HMP Selector' ), $widget_ops );
 	}
  
 	// Display Widget
 	function widget( $args, $instance ) {	
-		global $jh_portfolio, $post, $wp_query;
+		global $hmp_portfolio, $post, $wp_query;
 		$post_backup = $post;
 		$wp_query_backup = $wp_query;
 		
@@ -18,15 +18,15 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 						
 		echo $before_widget;
 		?>
-		<div id="jh-portfolio-selector">
-			<?php foreach( get_terms( 'jh-portfolio-category', array( 'parent' => 0 ) ) as $cat ) :
+		<div id="hmp-portfolio-selector">
+			<?php foreach( get_terms( 'hmp-entry-category', array( 'parent' => 0 ) ) as $cat ) :
 			 ?>
 				<?php 
-				$jh_portfolio = new WP_Query( array( 'taxonomy' => 'jh-portfolio-category', 'term' => $cat->slug, 'showposts' => -1, 'orderby' => $sort_by, 'post_type' => 'jh-portfolio') );
+				$hmp_portfolio = new WP_Query( array( 'taxonomy' => 'hmp-entry-category', 'term' => $cat->slug, 'showposts' => -1, 'orderby' => $sort_by, 'post_type' => 'hmp-entry') );
 				?>
 				<ul id="<?php echo $cat->slug ?>">
 					<li><strong><?php echo $cat->name ?></strong></li>
-					<?php while( $jh_portfolio->have_posts() ): $jh_portfolio->the_post(); global $post; ?>
+					<?php while( $hmp_portfolio->have_posts() ): $hmp_portfolio->the_post(); global $post; ?>
 						<li><a class="<?php if( $orig->post->ID == get_the_id() ) echo 'active' ?>" href="<?php the_permalink() ?>" rel="<?php echo get_the_id() ?>"><?php echo $post->post_title ?></a></li>
 					<?php endwhile; ?>
 				</ul>
@@ -41,7 +41,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 				</div>
 			<?php endif; ?>
 		</div>	
-		<?php $jh_portfolio = $orig; ?>
+		<?php $hmp_portfolio = $orig; ?>
 		<?php
 		echo $after_widget;
 		
@@ -59,9 +59,9 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 		$instance['height'] = (int) strip_tags( $new_instance['height'] );
 		$instance['sort_by'] = strip_tags( $new_instance['sort_by'] );
 
-		global $jh_portfolio;
+		global $hmp_portfolio;
 		$hidden_cats = array();
-		foreach( get_terms('jh-portfolio-category') as $cat ) {
+		foreach( get_terms('hmp-entry-category') as $cat ) {
 			$instance['cat_' . $cat->term_id] = (int) strip_tags( $new_instance['cat_' . $cat->term_id] );
 			if( $new_instance['show_cat_' . $cat->term_id] !== 'on' )
 				$hidden_cats[(int) $cat->term_id] = (int) $cat->term_id;
@@ -81,7 +81,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 		$height = esc_attr( $instance['height'] );
 		$sort = esc_attr( $instance['sort_by'] );
 		
-		$jh_portfolio = new WP_Query('showposts=-1');
+		$hmp_portfolio = new WP_Query('showposts=-1');
 		
 		?>
 		<p>
@@ -107,7 +107,7 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
 		
 		<p>
 			<label><strong><?php _e('Category Order:'); ?></strong></label><br />
-			<?php foreach( get_terms('jh-portfolio-category') as $cat ) : ?>
+			<?php foreach( get_terms('hmp-entry-category') as $cat ) : ?>
 				<label for="<?php echo $this->get_field_id('cat_' . $cat->term_id); ?>" style="clear: both; display: block;">
 					<input type="checkbox" <?php if( !$instance['hidden_cats'][$cat->term_id] ) echo 'checked="checked"'; ?> name="<?php echo $this->get_field_name('show_cat_' . $cat->term_id); ?>" id="<?php echo $this->get_field_id('show_cat_' . $cat->term_id); ?>" />
 					<?php _e($cat->name); ?>
@@ -136,8 +136,8 @@ class WP_Widget_JH_Portfolio_Selector extends WP_Widget {
  
  
 ### Function: Init Table News Widget
-add_action('widgets_init', 'widget_jh_portfolio_selector');
-function widget_jh_portfolio_selector() {
-	register_widget( 'WP_Widget_JH_Portfolio_Selector' );
+add_action('widgets_init', 'widget_hmp_portfolio_selector');
+function widget_hmp_portfolio_selector() {
+	register_widget( 'WP_Widget_hmp_Portfolio_Selector' );
 }
 ?>
