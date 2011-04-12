@@ -1,16 +1,16 @@
 <?php
 
 // Register the global sidebar, needs low priority to register after other sidebar widgets
-add_action( 'init', 'jh_portfolio_register_sidebar', 99 );
+add_action( 'init', 'hmp_portfolio_register_sidebar', 99 );
 
-function jh_portfolio_register_sidebar() {
+function hmp_portfolio_register_sidebar() {
 	register_sidebar( array(
         'before_widget' => '<div class="widget">',
         'after_widget' 	=> '</div>',
         'before_title' 	=> '<h2>',
         'after_title' 	=> '</h2>',
         'name'			=> 'Portfolio Home',
-        'id'			=> 'jh-portfolio'
+        'id'			=> 'hmp-portfolio'
 	));
 	register_sidebar( array(
         'before_widget' => '<div class="widget">',
@@ -18,7 +18,7 @@ function jh_portfolio_register_sidebar() {
         'before_title' 	=> '<h2>',
         'after_title' 	=> '</h2>',
         'name'			=> 'Portfolio Single',
-        'id'			=> 'jh-portfolio-single'
+        'id'			=> 'hmp-portfolio-single'
 	));
 }
 
