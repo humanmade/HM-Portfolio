@@ -1,6 +1,6 @@
 <?php
 
-function wp_enqueue_style( $post ) {
+function hmp_byline_meta_box( $post ) {
 	?>
 	<label for="hmp_byline">Byline
 		<input type="text" name="hmp_byline" value="<?php hmp_get_byline( $post ) ?>" class="widefat" />
