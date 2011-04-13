@@ -182,12 +182,34 @@ function hmp_the_tags( $before = null, $sep = ', ', $after = '' ) {
 
 
 // image functions
-function hmp_get_main_image( $post = null, $w = 0, $h = 0, $crop = false ) {
+
+/**
+*	Get main image
+*	$width_or_size: either a string keyword (thumbnail, medium, large or full) or a 2-item array representing width and height in pixels, e.g. array(32,32).*
+*	You can pass a value for width and height seperately for backwards compatability. 
+*/
+function hmp_get_main_image( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
 	if( $post === null ) global $post;
+
 	$attachment_id = hmp_get_main_image_id($post);
 	if( !$attachment_id )
-		return null;
-	return tj_phpthumb_it( get_attached_file( $attachment_id ), $w, $h, $crop );
+		return null; 
+
+	if( is_numeric( $width_or_size ) ) {
+	 	$w = $width_or_size;
+	} elseif( is_array( $width_or_size ) ) {
+		$w = $width_or_size[0];
+		$h = $width_or_size[1];
+	} else {
+		$image = wp_get_attachment_image_src( $attachment_id, $width_or_size );
+		$w = $image[1];
+		$h = $image[2];
+	}
+		
+	$crop =  $crop ? '1' : '0';
+	
+	echo "<p>width=$w&height=$h&crop=$crop</p>";
+	return reset( wp_get_attachment_image_src( $attachment_id, "width=$w&height=$h&crop=$crop" ) );
 }
 
 function hmp_get_main_image_id( $post = null ) {

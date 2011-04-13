@@ -52,6 +52,10 @@ function hmp_upgrade_post_meta_to_prepend_underscores() {
 function hmp_upgrade_jhp() {
 	global $wpdb;
 	
+	//Change custom fields.
+	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_main_image' WHERE meta_key='_jhp_main_image'" );
+	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_gallery_images' WHERE meta_key='_jhp_gallery_images'" );
+	
 	//Change post type to new post type.
 	$wpdb->query( "UPDATE $wpdb->posts SET post_type='hmp-entry' WHERE post_type='jh-portfolio'" );
 	

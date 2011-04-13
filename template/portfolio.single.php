@@ -1,5 +1,5 @@
 <?php 
-add_filter( 'the_content', 'hmp_single_content' );
+//add_filter( 'the_content', 'hmp_single_content' );
 function hmp_single_content( $content ) {
 	global $post;
 	

@@ -48,6 +48,9 @@ include_once('hmp.upgrade.php');
 //Widgets etc
 include_once('hmp.widgets.php');
 
+//Filters
+include_once('hmp.filters.php');
+
 // upgrade old data
 register_activation_hook( __FILE__, 'hmp_upgrade' );
 register_activation_hook( __FILE__, 'hmp_activate_plugin' );
