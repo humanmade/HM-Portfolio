@@ -185,8 +185,7 @@ function hmp_the_tags( $before = null, $sep = ', ', $after = '' ) {
 
 /**
 *	Get main image
-*	$width_or_size: either a string keyword (thumbnail, medium, large or full) or a 2-item array representing width and height in pixels, e.g. array(32,32).*
-*	You can pass a value for width and height seperately for backwards compatability. 
+*	$width_or_size: either a width value or a string keyword (thumbnail, medium, large or full) - if keyword, $h and $crop is ignored. 
 */
 function hmp_get_main_image( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
 	if( $post === null ) global $post;
@@ -195,27 +194,21 @@ function hmp_get_main_image( $post = null, $width_or_size = 'full', $h = 0, $cro
 	if( !$attachment_id )
 		return null; 
 
-	if( is_numeric( $width_or_size ) ) {
-	 	$w = $width_or_size;
-	} elseif( is_array( $width_or_size ) ) {
-		$w = $width_or_size[0];
-		$h = $width_or_size[1];
-	} else {
-		$image = wp_get_attachment_image_src( $attachment_id, $width_or_size );
-		$w = $image[1];
-		$h = $image[2];
-	}
-		
 	$crop =  $crop ? '1' : '0';
 	
-	echo "<p>width=$w&height=$h&crop=$crop</p>";
-	return reset( wp_get_attachment_image_src( $attachment_id, "width=$w&height=$h&crop=$crop" ) );
+	if( is_numeric( $width_or_size ) ) { 
+		$r = reset( wp_get_attachment_image_src( $attachment_id, "width=$width_or_size&height=$h&crop=$crop" ) );
+	} else {
+		$r = reset( wp_get_attachment_image_src( $attachment_id, $width_or_size ) );
+	}
+	
+	return $r;
 }
-
 function hmp_get_main_image_id( $post = null ) {
 	if( $post === null ) global $post;
 	return (int) get_post_meta( $post->ID, '_hmp_main_image', true );
 }
+
 function hmp_get_gallery_images( $post = null, $w = 0, $h = 0, $crop = false ) {
 	if( $post === null ) global $post;
 	$images = array();
