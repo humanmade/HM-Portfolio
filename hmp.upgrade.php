@@ -35,7 +35,7 @@ function hmp_upgrade_post_meta_to_prepend_underscores() {
 		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_hmp_gallery_images' WHERE meta_key = 'hmp_gallery_images';");
 		
 		error_log( 'HMP: Upgrading meta key: hmp_main_image...' );
-		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_hmp_main_image' WHERE meta_key = 'hmp_main_image';");
+		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_thumbnail_id' WHERE meta_key = 'hmp_main_image';");
 
 		error_log( 'HMP: Upgrading meta keys done' );
 

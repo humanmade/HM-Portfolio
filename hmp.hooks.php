@@ -102,7 +102,7 @@ function hmp_post_link( $link, $post ) {
 
 	$category_string = ( isset( $category_string ) && $category_string ) ? $category_string : 'uncategorized';
 	
-	$link = hmp_get_single_permastruct();
+	//$link = hmp_get_single_permastruct();
 	
 	$link = str_replace( '%category%', $category_string, $link );
 	$link = str_replace( '%post_name%', $post->post_name, $link );

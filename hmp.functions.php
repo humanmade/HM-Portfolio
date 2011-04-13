@@ -183,7 +183,46 @@ function hmp_the_tags( $before = null, $sep = ', ', $after = '' ) {
 
 // image functions
 
+
 /**
+*
+*	Easy function
+*
+*	Output the whole gallery.
+*
+*	Size is either keyword or array($width, $height, $crop [true/false])
+*/
+
+function hmp_the_gallery ( $post = null, $size = 'full', $before = null, $after = null, $show_main = true ) {
+	
+	if( $post === null ) global $post;
+	
+	if( is_array( $size ) ) {
+		$size = 'width=' . $size[0] . '&height=' . $size[1] . '&crop=' . $size[2];
+	} 
+		
+	if( $show_main ) {
+		$r .= $before;
+		$r .= hmp_get_the_main_image( $post, $size );
+		$r .= $after;
+	}
+		
+	$gallery = hmp_get_the_gallery_images( $post, $size );
+	if( is_array( $gallery )) {
+		foreach ( $gallery as $img ) { 
+			$r .= $before;
+			$r .= $img;
+			$r .= $after;
+		}
+	}
+	
+	return $r;
+
+}
+
+
+/**
+*	Deprecated. Use hmp_get_the_main_image() instead.
 *	Get main image
 *	$width_or_size: either a width value or a string keyword (thumbnail, medium, large or full) - if keyword, $h and $crop is ignored. 
 */
@@ -197,29 +236,94 @@ function hmp_get_main_image( $post = null, $width_or_size = 'full', $h = 0, $cro
 	$crop =  $crop ? '1' : '0';
 	
 	if( is_numeric( $width_or_size ) ) { 
-		$r = reset( wp_get_attachment_image_src( $attachment_id, "width=$width_or_size&height=$h&crop=$crop" ) );
+		return reset( wp_get_attachment_image_src( $attachment_id, "width=$width_or_size&height=$h&crop=$crop" ) );
 	} else {
-		$r = reset( wp_get_attachment_image_src( $attachment_id, $width_or_size ) );
+		return reset( wp_get_attachment_image_src( $attachment_id, $width_or_size ) );
 	}
-	
-	return $r;
-}
-function hmp_get_main_image_id( $post = null ) {
-	if( $post === null ) global $post;
-	return (int) get_post_meta( $post->ID, '_hmp_main_image', true );
 }
 
-function hmp_get_gallery_images( $post = null, $w = 0, $h = 0, $crop = false ) {
+
+/**
+*
+*	Returns Main <img>
+*
+*/
+function hmp_get_the_main_image( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
+	if( $post === null ) global $post;
+
+	$attachment_id = hmp_get_main_image_id($post);
+	if( !$attachment_id )
+		return null; 
+
+	$crop =  $crop ? '1' : '0';
+	
+	if( is_numeric( $width_or_size ) ) { 
+		return wp_get_attachment_image( $attachment_id, "width=$width_or_size&height=$h&crop=$crop" );
+	} else {
+		return wp_get_attachment_image( $attachment_id, $width_or_size );
+	}
+}
+
+
+function hmp_get_main_image_id( $post = null ) {
+	if( $post === null ) global $post;
+	return (int) get_post_meta( $post->ID, '_thumbnail_id', true );
+}
+
+/**
+*	Deprecated.
+*
+*	Use hmp_get_the_gallery_images() instead
+*
+*/
+function hmp_get_gallery_images( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
 	if( $post === null ) global $post;
 	$images = array();
+	
 	$attachment_ids = hmp_get_gallery_ids($post);
 	if( !$attachment_ids )
 		return array();
-	foreach( $attachment_ids as $id ) {
-		$images[$id] = tj_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
+	
+	if( is_numeric( $width_or_size ) ) {
+		$crop =  $crop ? '1' : '0'; 
+		foreach( $attachment_ids as $id ) {
+			$images[$id] = reset( wp_get_attachment_image_src( $id, "width=$width_or_size&height=$h&crop=$crop" ) );
+		}
+	} else {
+		foreach( $attachment_ids as $id ) {
+			$images[$id] = reset( wp_get_attachment_image_src( $id, $width_or_size ) );
+		}
 	}
 	return $images;
 }
+
+/**
+*
+*	Return an array of <img> for gallery. 
+*	Does not return main image. 
+*
+*/
+function hmp_get_the_gallery_images( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
+	if( $post === null ) global $post;
+	$images = array();
+	
+	$attachment_ids = hmp_get_gallery_ids($post);
+	if( !$attachment_ids )
+		return array();
+	
+	if( is_numeric( $width_or_size ) ) {
+		$crop =  $crop ? '1' : '0'; 
+		foreach( $attachment_ids as $id ) {
+			$images[$id] = wp_get_attachment_image( $id, "width=$width_or_size&height=$h&crop=$crop" );
+		}
+	} else {
+		foreach( $attachment_ids as $id ) {
+			$images[$id] = wp_get_attachment_image( $id, $width_or_size );
+		}
+	}
+	return $images;
+}
+
 
 function hmp_get_gallery_image( $id, $w = 0, $h = 0, $crop = false ) {
 	return tj_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );

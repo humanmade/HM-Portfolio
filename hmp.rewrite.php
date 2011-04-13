@@ -1,4 +1,7 @@
 <?php
+
+/*
+
 $portfolio_base = get_option('hmp_url_base', 'portfolio');
 
 //portfolio home
@@ -37,5 +40,7 @@ function hmp_get_single_permastruct() {
 	return get_bloginfo( 'url' ) . '/' . get_option('hmp_url_base', 'portfolio') . '/' . trim( get_option('hmp_single_base', '%category%'), '/' ) . '/%post_name%/'; 
 
 }
+
+*/
 
 ?>

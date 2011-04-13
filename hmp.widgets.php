@@ -1,5 +1,5 @@
 <?php
-
+/*
 // Register the global sidebar, needs low priority to register after other sidebar widgets
 add_action( 'init', 'hmp_portfolio_register_sidebar', 99 );
 
@@ -32,4 +32,7 @@ include_once('template/widgets/widget.portfolio-gallery.php');
 include_once('template/widgets/widget.portfolio-additional-info.php');
 include_once('template/widgets/widget.portfolio-main-image.php');
 include_once('template/widgets/widget.portfolio-extra-taxonomy.php');
+
+*/
+
 ?>

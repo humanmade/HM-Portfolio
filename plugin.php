@@ -64,13 +64,13 @@ function hmp_register_post_types() {
 		'hierarchical' => true,
 		'show-ui' => true,
 		'labels' => array( 
-			'name' => 'Categories',
-			'singular_name' => 'Category',
-			'search_items' => 'Search Categories',
-			'edit_item' => 'Edit Category',
-			'all_items' => 'All Categories',
-			'add_new_item' => 'Add Category',
-			'new_item_name' => 'New Category Name',
+			'name' => 'Portfolio Categories',
+			'singular_name' => 'Portfolio Category',
+			'search_items' => 'Search Portfolio Categories',
+			'edit_item' => 'Edit Portfolio Category',
+			'all_items' => 'All Portfolio Categories',
+			'add_new_item' => 'Add Portfolio Category',
+			'new_item_name' => 'New Portfolio Category Name',
 			'view' => 'View Entry' ),
 			
 		));
@@ -79,13 +79,13 @@ function hmp_register_post_types() {
 		'hierarchical' => false,
 		'show-ui' => true,
 		'labels' => array( 
-			'name' => 'Tags',
-			'singular_name' => 'Tag',
-			'search_items' => 'Search Tags',
-			'edit_item' => 'Edit Tag',
-			'all_items' => 'All Tags',
-			'add_new_item' => 'Add Tag',
-			'new_item_name' => 'New Tag Name',
+			'name' => 'Portfolio Tags',
+			'singular_name' => 'Portfolio Tag',
+			'search_items' => 'Search Portfolio Tags',
+			'edit_item' => 'Edit Portfolio Tag',
+			'all_items' => 'All Portfolio Tags',
+			'add_new_item' => 'Add Portfolio Tag',
+			'new_item_name' => 'New Portfolio Tag Name',
 			'view' => 'View Entry' ),
 		));
 	
