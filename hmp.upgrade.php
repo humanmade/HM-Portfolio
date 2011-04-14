@@ -35,7 +35,7 @@ function hmp_upgrade_post_meta_to_prepend_underscores() {
 		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_hmp_gallery_images' WHERE meta_key = 'hmp_gallery_images';");
 		
 		error_log( 'HMP: Upgrading meta key: hmp_main_image...' );
-		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_thumbnail_id' WHERE meta_key = 'hmp_main_image';");
+		$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key = '_thumbnail_id' WHERE meta_key = 'thumbnail_id';");
 
 		error_log( 'HMP: Upgrading meta keys done' );
 
@@ -54,6 +54,7 @@ function hmp_upgrade_jhp() {
 	
 	//Change custom fields.
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_main_image' WHERE meta_key='_jhp_main_image'" );
+	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_thumbnail_id' WHERE meta_key='_hmp_main_image'" );
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_gallery_images' WHERE meta_key='_jhp_gallery_images'" );
 	
 	//Change post type to new post type.
@@ -61,6 +62,34 @@ function hmp_upgrade_jhp() {
 	
 	//Change Taxonomies
    	$wpdb->query( "UPDATE $wpdb->term_taxonomy SET taxonomy='hmp-entry-category' WHERE taxonomy='jh-portfolio-category'" );
+	
+	//Change portfolio-tags to normal tags.	
+	
+	//Need to register the old taxonomy so I can check for it. 
+	register_taxonomy( 'jh-portfolio-tag', 'hmp-entry' );	
+	
+	$hmp_query = new WP_Query('post_type=hmp-entry');
+	while( $hmp_query->have_posts() ) : $hmp_query->the_post(); 
+		global $post; 
+		$terms = wp_get_object_terms( $post->ID, 'jh-portfolio-tag' );
+		
+		if( is_array( $terms )) {
+			$term_names = array();
+			foreach( $terms as $term ) {
+				$term_names[] = $term->name;								
+			}
+			$new_terms = wp_set_object_terms( $post->ID, $term_names, 'post_tag' );
+		}
+	endwhile;
+
+	$args = array( 'hide_empty' => false );
+	$terms = get_terms('hmp-entry-tag', $args);
+	//error_log( print_r( $terms, true ) );
+	
+	
+	foreach( $terms as $term ) {
+		wp_delete_term( $term->term_id, 'hmp-entry-tag'  );
+	}	
 	
 	//Change options
 	$value = get_option( 'jhp_url_base' );

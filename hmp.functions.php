@@ -55,7 +55,7 @@ function hmp_has_info( $post = null, $string = '_url,_related_work' ) {
 	$return = false;
 	foreach( $infos as $meta_key ) {
 		//backwards compat for no underscores on meta_keys
-		if( in_array( $meta_key, array( 'brief', 'byline', 'url', 'related_work', 'hmp_main_image', 'hmp_gallery_images' ) ) ) {
+		if( in_array( $meta_key, array( 'brief', 'byline', 'url', 'related_work', 'thumbnail_id', 'hmp_gallery_images' ) ) ) {
 			$meta_key = '_' . $meta_key;
 		}
 		
@@ -196,6 +196,8 @@ function hmp_the_tags( $before = null, $sep = ', ', $after = '' ) {
 function hmp_the_gallery ( $post = null, $size = 'full', $before = null, $after = null, $show_main = true ) {
 	
 	if( $post === null ) global $post;
+	
+	$r = '';
 	
 	if( is_array( $size ) ) {
 		$size = 'width=' . $size[0] . '&height=' . $size[1] . '&crop=' . $size[2];

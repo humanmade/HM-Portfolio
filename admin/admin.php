@@ -4,7 +4,7 @@ include_once('meta-boxes.php');
 add_action( 'admin_menu', 'hmp_add_meta_boxes' );
 function hmp_add_meta_boxes() {
 	add_meta_box( 'brief', 'Brief', 'hmp_brief_meta_box', 'hmp-entry', 'normal', 'high' );
-	add_meta_box( 'main-image', 'Main Image', 'hmp_main_image_meta_box', 'hmp-entry', 'normal', 'high' );
+	add_meta_box( 'main-image', 'Main Image', 'thumbnail_id_meta_box', 'hmp-entry', 'normal', 'high' );
 	add_meta_box( 'additional-images', 'Gallery', 'hmp_gallery_meta_box', 'hmp-entry', 'normal', 'high' );
 	add_meta_box( 'additional-info', 'Additional Information', 'hmp_additional_information_meta_box', 'hmp-entry', 'side', 'low' );
 	
@@ -21,7 +21,7 @@ function hmp_insert_post( $post_id, $post ) {
 	
 	//fire all the beta box _submitted functions
 	hmp_brief_meta_box_submitted( $post );
-	hmp_main_image_meta_box_submitted( $post );
+	thumbnail_id_meta_box_submitted( $post );
 	hmp_gallery_meta_box_submitted( $post );
 	hmp_additional_information_meta_box_submitted( $post );
 }

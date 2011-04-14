@@ -47,22 +47,25 @@ function hmp_add_link_to_get_pages( $data, $arg ) {
 	//set the queried object for wp_query here to make current_page work in wp_list_pages
 	global $wp_query;
 
-	if( !empty($wp_query->is_portfolio) || !empty($wp_query->is_portfolio_single) ) {
+	if( !empty($wp_query->is_portfolio) || !empty($wp_query->is_portfolio_single) ) {	
 		$wp_query->queried_object = $item;
 		$wp_query->queried_object_id = $item->ID;
 	}
-
+	
 	return $data;
 }
 
 
 add_filter( 'page_link', 'hmp_add_link_to_wp_list_pages_link', 10, 2 );
 function hmp_add_link_to_wp_list_pages_link( $link, $id ) {
+	
 	if( $id !== 987654321 )
 		return $link;
 	$portfolio_base = get_option('hmp_url_base', 'portfolio');
 	if( $portfolio_base != '' )
 		 $portfolio_base .= '/';
+	echo 'true';
+	echo trailingslashit( get_bloginfo('url') ) . $portfolio_base;
 	return trailingslashit( get_bloginfo('url') ) . $portfolio_base;
 }
 
@@ -104,7 +107,7 @@ function hmp_post_link( $link, $post ) {
 	
 	//$link = hmp_get_single_permastruct();
 	
-	$link = str_replace( '%category%', $category_string, $link );
+	$link = str_replace( '%hmp-entry-category%', $category_string, $link );
 	$link = str_replace( '%post_name%', $post->post_name, $link );
 	
 	return $link;

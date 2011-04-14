@@ -63,6 +63,8 @@ function hmp_register_post_types() {
 	register_taxonomy( 'hmp-entry-category', 'hmp-entry', array( 
 		'hierarchical' => true,
 		'show-ui' => true,
+		'rewrite' => array( 'slug' =>  get_option('hmp_url_base', 'portfolio') ),
+		'query_var' => 'term',
 		'labels' => array( 
 			'name' => 'Portfolio Categories',
 			'singular_name' => 'Portfolio Category',
@@ -72,28 +74,12 @@ function hmp_register_post_types() {
 			'add_new_item' => 'Add Portfolio Category',
 			'new_item_name' => 'New Portfolio Category Name',
 			'view' => 'View Entry' ),
-			
-		));
-		
-	register_taxonomy( 'hmp-entry-tag', 'hmp-entry', array( 
-		'hierarchical' => false,
-		'show-ui' => true,
-		'labels' => array( 
-			'name' => 'Portfolio Tags',
-			'singular_name' => 'Portfolio Tag',
-			'search_items' => 'Search Portfolio Tags',
-			'edit_item' => 'Edit Portfolio Tag',
-			'all_items' => 'All Portfolio Tags',
-			'add_new_item' => 'Add Portfolio Tag',
-			'new_item_name' => 'New Portfolio Tag Name',
-			'view' => 'View Entry' ),
-		));
-	
+		));	
 	register_post_type( 'hmp-entry', array( 
 			'singular_label' => 'Report',
 			'public' => true,
 			'inherit_type' => 'post',
-			'taxonomies' => array( 'hmp-entry-category', 'hmp-entry-tag' ),
+			'taxonomies' => array( 'hmp-entry-category', 'post_tag' ),
 			'supports' => array( 'editor', 'title', 'revisions', 'custom-fields' ),
 			'labels' => array( 
 				'name' => 'Portfolio',
@@ -104,7 +90,8 @@ function hmp_register_post_types() {
 				'edit_item' => 'Edit Entry',
 				'add_new_item' => 'Add New Entry' ),
 			'menu_icon' => str_replace( ABSPATH , trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) . '/admin/icon.png' ),
-			'rewrite' => array( 'slug' => hmp_get_single_permalink_structure() )
+			'rewrite' => array( 'slug' => get_option('hmp_url_base', 'portfolio') . '/%hmp-entry-category%' )
+			//'rewrite' => array( 'slug' => 'portfolio' )
 		
 		)
 	);
