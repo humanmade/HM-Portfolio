@@ -82,24 +82,11 @@ function hmp_options_page() {
 		
 		<form method="post" action="options.php">
 			<table class="form-table">
-				
-				<tr valign="top">
-					<th scope="row"><strong>General</strong></th>
-					<td>
-						<input type="text" name="hmp_title" value="<?php echo get_option('hmp_title', 'Portfolio'); ?>" />
-						<span class="description">Portfolio page title (default: Portfolio)</span>
-					</td>
-				</tr>
-				
 				<tr valign="top">
 					<th scope="row"><strong>Permalinks</strong></th>
 					<td>
 						<input type="text" name="hmp_url_base" value="<?php echo get_option('hmp_url_base', 'portfolio'); ?>" />
 						<span class="description">Portfolio home URL (default: /portfolio/)</span>
-						<p>
-							<input type="text" name="hmp_single_base" value="<?php echo get_option('hmp_single_base', '/%category%/'); ?>" />
-							<span class="description">Relative to the Portfolio URL. Use <code>%category%</code> for the category name. (default: /%category%/)</span>
-						</p>
 					</td>
 				</tr>
 				
