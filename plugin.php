@@ -80,7 +80,7 @@ function hmp_register_post_types() {
 			'public' => true,
 			'inherit_type' => 'post',
 			'taxonomies' => array( 'hmp-entry-category', 'post_tag' ),
-			'supports' => array( 'editor', 'title', 'revisions', 'custom-fields' ),
+			'supports' => array( 'editor', 'title', 'revisions', 'custom-fields', 'thumbnail' ),
 			'labels' => array( 
 				'name' => 'Portfolio',
 				'singular_name' => 'Entry',
@@ -90,7 +90,8 @@ function hmp_register_post_types() {
 				'edit_item' => 'Edit Entry',
 				'add_new_item' => 'Add New Entry' ),
 			'menu_icon' => str_replace( ABSPATH , trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) . '/admin/icon.png' ),
-			'rewrite' => array( 'slug' => get_option('hmp_url_base', 'portfolio') . '/%hmp-entry-category%' )
+			'rewrite' => array( 'slug' => get_option('hmp_url_base', 'portfolio') . '/%hmp-entry-category%' ),
+			'has_archive' => true
 			//'rewrite' => array( 'slug' => 'portfolio' )
 		
 		)

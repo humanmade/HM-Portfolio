@@ -3,9 +3,15 @@ include_once('meta-boxes.php');
 
 add_action( 'admin_menu', 'hmp_add_meta_boxes' );
 function hmp_add_meta_boxes() {
+	
+	$hmp_gallery_post_types =  get_option('hmp_post_type', array('hmp-entry') );
+
 	add_meta_box( 'brief', 'Brief', 'hmp_brief_meta_box', 'hmp-entry', 'normal', 'high' );
-	add_meta_box( 'main-image', 'Main Image', 'thumbnail_id_meta_box', 'hmp-entry', 'normal', 'high' );
-	add_meta_box( 'additional-images', 'Gallery', 'hmp_gallery_meta_box', 'hmp-entry', 'normal', 'high' );
+	//add_meta_box( 'main-image', 'Main Image', 'thumbnail_id_meta_box', 'hmp-entry', 'normal', 'high' );
+	
+	foreach( $hmp_gallery_post_types as $post_type ) {
+		add_meta_box( 'additional-images', 'Gallery', 'hmp_gallery_meta_box', $post_type, 'normal', 'high' );
+	}
 	add_meta_box( 'additional-info', 'Additional Information', 'hmp_additional_information_meta_box', 'hmp-entry', 'side', 'low' );
 	
 	//register the options page
@@ -31,19 +37,25 @@ function hmp_register_settings() {
 	register_setting( 'hmp-settings', 'hmp_url_base' );
 	register_setting( 'hmp-settings', 'hmp_single_base' );
 	register_setting( 'hmp-settings', 'hmp_add_page_link' );
-	register_setting( 'hmp-settings', 'hmp_use_styles' );
-	register_setting( 'hmp-settings', 'hmp_use_scripts' );
+	//register_setting( 'hmp-settings', 'hmp_use_styles' );
+	//register_setting( 'hmp-settings', 'hmp_use_scripts' );
 	register_setting( 'hmp-settings', 'hmp_title' );
-	register_setting( 'hmp-settings', 'hmp_template_single' );
-	register_setting( 'hmp-settings', 'hmp_template_home' );
-	register_setting( 'hmp-settings', 'hmp_template_category' );
-	register_setting( 'hmp-settings', 'hmp_template_tag' );
+	//register_setting( 'hmp-settings', 'hmp_template_single' );
+	//register_setting( 'hmp-settings', 'hmp_template_home' );
+	//register_setting( 'hmp-settings', 'hmp_template_category' );
+	//register_setting( 'hmp-settings', 'hmp_template_tag' );
 	register_setting( 'hmp-settings', 'hmp_portfolio_menu_order' );
+	register_setting( 'hmp-settings', 'hmp_post_type' );
 	
 }
 
-function hmp_options_page() {
+function hmp_is_checked( $post_type, $enabled_post_types ) {
+	
+	if( in_array( $post_type, $enabled_post_types ) ) 
+		echo 'checked="checked"';
+}
 
+function hmp_options_page() {
 	?>
 	
 	<div class="wrap">
@@ -59,7 +71,7 @@ function hmp_options_page() {
 						<span class="description">Portfolio page title (default: Portfolio)</span>
 					</td>
 				</tr>
-				
+				<?php /*
 				<tr valign="top">
 					<th scope="row"><strong>Portfolio Link</strong></th>
 					<td>
@@ -71,7 +83,7 @@ function hmp_options_page() {
 						</p>
 					</td>
 				</tr>
-
+				*/ ?>
 				<tr valign="top">
 					<th scope="row"><strong>Permalinks</strong></th>
 					<td>
@@ -85,37 +97,24 @@ function hmp_options_page() {
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row"><strong>JavaScript & CSS</strong></th>
+					<th scope="row"><strong>Enable Gallery for Post Type</strong></th>
 					<td>
-						<input type="checkbox" name="hmp_use_scripts" id="hmp_use_scripts" <?php echo get_option('hmp_use_scripts', 'on') ? ' checked="checked" ' : '' ?> />
-						Use HM Portfolio JavaScript
-						<p>
-							<input type="checkbox" name="hmp_use_styles" id="hmp_use_styles" <?php echo get_option('hmp_use_styles', 'on') ? ' checked="checked" ' : '' ?> />
-							Use HM Portfolio CSS
-						</p>
+					<?php 
+						$hmp_enable_post_type =  get_option('hmp_post_type', array('hmp-entry') ); 
+						$args = array( 'public'   => true, '_builtin' => false );
+						$custom_post_types = get_post_types( $args, 'objects' );
+					?>	
+						<label for="hmp_post_type_post"><input type="checkbox" id="hmp_post_type_post" name="hmp_post_type[]" value="post" <?php hmp_is_checked( 'post', $hmp_enable_post_type ); ?>/> post</label><br/>
+						<label for="hmp_post_type_page"><input type="checkbox" id="hmp_post_type_page" name="hmp_post_type[]" value="page" <?php hmp_is_checked( 'page', $hmp_enable_post_type ); ?>/> page</label><br/>
+					<?php 
+						foreach( $custom_post_types as $post_type ) { ?>
+							<label for="hmp_post_type_<?php echo $post_type->name; ?>"><input type="checkbox" id="hmp_post_type_<?php echo $post_type->name; ?>" name="hmp_post_type[]" value="<?php echo $post_type->name; ?>" <?php hmp_is_checked( $post_type->name, $hmp_enable_post_type ); ?>/> <?php echo $post_type->name; ?></label><br/>
+						<?php }
+					?>		
+						<small class="description">Enable the gallery for other post types.</small>
 					</td>
 				</tr>
-				
-				<tr valign="top">
-					<th scope="row"><strong>Custom Templates</strong></th>
-					<td>
-						<input type="text" name="hmp_template_home" value="<?php echo get_option('hmp_template_home', 'portfolio-home.php'); ?>" />
-						<span class="description">Home Template</span>
-						<p>
-							<input type="text" name="hmp_template_single" value="<?php echo get_option('hmp_template_single', 'portfolio-single.php'); ?>" />
-							<span class="description">Single Template</span>
-						</p>
-						<p>
-							<input type="text" name="hmp_template_category" value="<?php echo get_option('hmp_template_category', 'portfolio-category.php'); ?>" />
-							<span class="description">Category Template</span>
-						</p>
-						<p>
-							<input type="text" name="hmp_template_tag" value="<?php echo get_option('hmp_template_tag', 'portfolio-tag.php'); ?>" />
-							<span class="description">Tag Template</span>
-						</p>
-					</td>
-				</tr>
-				
+								
 			</table>
 			
 			<input type="hidden" name="action" value="update" />
