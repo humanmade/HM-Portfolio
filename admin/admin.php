@@ -53,7 +53,7 @@ function hmp_upgrade_jhp_notice() {
 	
 	if( isset( $_GET['hmp_migrate'] )) {
 		hmp_upgrade_jhp();
-		echo '<div id="message" class="updated below-h2"><p>Success</p></div>';
+		echo '<div id="message" class="updated below-h2"><p>Done</p></div>';
 		return;
 	}
 	
