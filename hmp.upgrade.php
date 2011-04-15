@@ -56,6 +56,7 @@ function hmp_upgrade_jhp() {
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_thumbnail_id' WHERE meta_key='_hmp_main_image'" );
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_gallery_images' WHERE meta_key='_jhp_gallery_images'" );
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_brief' WHERE meta_key='_brief'" );
+	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_url' WHERE meta_key='_url'" );
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_related_work' WHERE meta_key='_related_work'" );
 	
 	//Change post type to new post type.
@@ -65,7 +66,6 @@ function hmp_upgrade_jhp() {
    	$wpdb->query( "UPDATE $wpdb->term_taxonomy SET taxonomy='hmp-entry-category' WHERE taxonomy='jh-portfolio-category'" );
 	
 	//Change portfolio-tags to normal tags.	
-	
 	//Need to register the old taxonomy so I can check for it. 
 	register_taxonomy( 'jh-portfolio-tag', 'hmp-entry' );	
 	
@@ -84,8 +84,7 @@ function hmp_upgrade_jhp() {
 	endwhile;
 
 	$args = array( 'hide_empty' => false );
-	$terms = get_terms('hmp-entry-tag', $args);
-	//error_log( print_r( $terms, true ) );
+	$terms = get_terms('jh-portfolio-tag', $args);
 	
 	foreach( $terms as $term ) {
 		wp_delete_term( $term->term_id, 'jh-portfolio-tag'  );

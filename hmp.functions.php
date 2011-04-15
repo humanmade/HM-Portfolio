@@ -7,7 +7,7 @@
  */
 function hmp_get_byline( $post = null ) {
 	global $post;
-	return (string) get_post_meta( $post->ID, '_byline', true );
+	return (string) get_post_meta( $post->ID, '_hmp_byline', true );
 }
 
 /**
@@ -18,7 +18,7 @@ function hmp_get_byline( $post = null ) {
  */
 function hmp_get_brief( $post = null ) {
 	if( $post === null ) global $post;
-	return (string) get_post_meta( $post->ID, '_brief', true );
+	return (string) get_post_meta( $post->ID, '_hmp_brief', true );
 }
 
 /**
@@ -29,7 +29,7 @@ function hmp_get_brief( $post = null ) {
  */
 function hmp_get_url( $post = null ) {
 	if( $post === null ) global $post;
-	return (string) get_post_meta( $post->ID, '_url', true );
+	return (string) get_post_meta( $post->ID, '_hmp_url', true );
 }
 
 /**
@@ -40,7 +40,7 @@ function hmp_get_url( $post = null ) {
  */
 function hmp_get_related_work( $post = null) {
 	if( $post === null ) global $post;
-	return array_filter((array) get_post_meta( $post->ID, '_related_work', true ));
+	return array_filter((array) get_post_meta( $post->ID, '_hmp_related_work', true ));
 }
 /**
  * Checks whether the post has a set of meta info e.g. brief, url, related_work

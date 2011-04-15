@@ -45,9 +45,6 @@ include_once('admin/admin.php');
 include_once('hmp.hooks.php');
 include_once('hmp.upgrade.php');
 
-//Widgets etc
-include_once('hmp.widgets.php');
-
 //Filters
 include_once('hmp.filters.php');
 
