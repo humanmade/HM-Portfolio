@@ -3,7 +3,6 @@
 function hmp_upgrade() {
 	hmp_upgrade_extra_taxonomy_to_tags();
 	hmp_upgrade_post_meta_to_prepend_underscores();
-	hmp_upgrade_jhp();
 }
 
 function hmp_upgrade_extra_taxonomy_to_tags() {
@@ -56,6 +55,8 @@ function hmp_upgrade_jhp() {
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_main_image' WHERE meta_key='_jhp_main_image'" );
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_thumbnail_id' WHERE meta_key='_hmp_main_image'" );
 	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_gallery_images' WHERE meta_key='_jhp_gallery_images'" );
+	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_brief' WHERE meta_key='_brief'" );
+	$wpdb->query( "UPDATE $wpdb->postmeta SET meta_key='_hmp_related_work' WHERE meta_key='_related_work'" );
 	
 	//Change post type to new post type.
 	$wpdb->query( "UPDATE $wpdb->posts SET post_type='hmp-entry' WHERE post_type='jh-portfolio'" );
@@ -86,10 +87,9 @@ function hmp_upgrade_jhp() {
 	$terms = get_terms('hmp-entry-tag', $args);
 	//error_log( print_r( $terms, true ) );
 	
-	
 	foreach( $terms as $term ) {
-		wp_delete_term( $term->term_id, 'hmp-entry-tag'  );
-	}	
+		wp_delete_term( $term->term_id, 'jh-portfolio-tag'  );
+	}
 	
 	//Change options
 	$value = get_option( 'jhp_url_base' );

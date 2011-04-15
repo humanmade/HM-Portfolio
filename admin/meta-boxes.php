@@ -18,30 +18,6 @@ function hmp_brief_meta_box_submitted( $post ) {
 		update_post_meta( $post->ID, '_brief', esc_html($_POST['brief']) );
 }
 
-/*
-function hmp_thumbnail_id_meta_box( $post ) {
-	$ids = array_filter( array( hmp_get_main_image_id( $post ) ) );
-
-	global $temp_ID;
-    $post_image_id = $post->ID ? $post->ID : $temp_ID;
-
-	global $temp_ID;
-    $post_image_id = $post->ID ? $post->ID : $temp_ID;
-
-	tj_register_custom_media_button( 'thumbnail_id', 'Use as Main Image', true, false, 150, 150 );
-	$non_added_text = "No Main Image Added " .  ( ($hmp_url = hmp_get_url( $post ) ) ? '| <a href="' . esc_url( $hmp_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
-
-	tj_add_image_html_custom( 'thumbnail_id', ($ids ? 'Change' : 'Add') . ' Main Image', $post_image_id, $ids, false, 'width=150&height=150&crop=1', $non_added_text );
-
-}
-
-function hmp_thumbnail_id_meta_box_submitted( $post ) {
-	if ( isset( $_POST['thumbnail_id'] ) )
-		update_post_meta( $post->ID, '_thumbnail_id', (int) $_POST['thumbnail_id'] );
-}
-*/
-
-
 function hmp_gallery_meta_box( $post ) {
 	$image_ids = hmp_get_gallery_ids( $post );
 

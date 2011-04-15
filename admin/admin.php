@@ -36,20 +36,40 @@ function hmp_insert_post( $post_id, $post ) {
 }
 
 function hmp_register_settings() {
-	
 	register_setting( 'hmp-settings', 'hmp_url_base' );
 	register_setting( 'hmp-settings', 'hmp_single_base' );
 	register_setting( 'hmp-settings', 'hmp_add_page_link' );
 	register_setting( 'hmp-settings', 'hmp_title' );
 	register_setting( 'hmp-settings', 'hmp_portfolio_menu_order' );
 	register_setting( 'hmp-settings', 'hmp_post_type' );
-	
 }
 
 function hmp_is_checked( $post_type, $enabled_post_types ) {
-	
 	if( in_array( $post_type, $enabled_post_types ) ) 
 		echo 'checked="checked"';
+}
+
+function hmp_upgrade_jhp_notice() {
+	
+	if( isset( $_GET['hmp_migrate'] )) {
+		hmp_upgrade_jhp();
+		echo '<div id="message" class="updated below-h2"><p>Success</p></div>';
+		return;
+	}
+	
+	global $wpdb;
+	$results = $wpdb->get_var( "SELECT * FROM $wpdb->posts WHERE post_type = 'jh-portfolio'" );
+	
+	if ( !$results ) 
+		return;
+	
+	?>
+	<div id="message" class="updated below-h2">
+	    <p>Looks like you have been using JH-Portfolio. You can migrate your data and settings HM-Portfolio.</p>
+	    <p><em><b>Note:</b> this plugin is much simpler and some settings will not be reversible. Please backup your data first.</em></p>
+	    <p><a class="button" href="<?php echo admin_url('options-general.php?page=hmp-portfolio-options&hmp_migrate=true'); ?>">Update Now</a></p>
+	</div>
+	<?php
 }
 
 function hmp_options_page() {
@@ -57,6 +77,8 @@ function hmp_options_page() {
 	
 	<div class="wrap">
 		<h2>Portfolio Settings</h2>
+	
+		<?php hmp_upgrade_jhp_notice() ?>		
 		
 		<form method="post" action="options.php">
 			<table class="form-table">
