@@ -13,8 +13,6 @@ function  hmp_content_filter( $content ) {
 	
 	$content .= hmp_the_gallery(  );
 	
-	$terms = wp_get_object_terms( $post->ID, 'hmp-entry-category' );
-	
 	return $content; 
 }
 
