@@ -91,9 +91,7 @@ function hmp_register_post_types() {
 				'add_new_item' => 'Add New Entry' ),
 			'menu_icon' => str_replace( ABSPATH , trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) . '/admin/icon.png' ),
 			'rewrite' => array( 'slug' => get_option('hmp_url_base', 'portfolio') . '/%hmp-entry-category%' ),
-			'has_archive' => true
-			//'rewrite' => array( 'slug' => 'portfolio' )
-		
+			'has_archive' => true	
 		)
 	);
 }

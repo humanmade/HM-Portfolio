@@ -8,7 +8,6 @@ function hmp_add_meta_boxes() {
 
 	add_meta_box( 'brief', 'Brief', 'hmp_brief_meta_box', 'hmp-entry', 'normal', 'high' );
 	//add_meta_box( 'main-image', 'Main Image', 'thumbnail_id_meta_box', 'hmp-entry', 'normal', 'high' );
-	
 	foreach( $hmp_gallery_post_types as $post_type ) {
 		add_meta_box( 'additional-images', 'Gallery', 'hmp_gallery_meta_box', $post_type, 'normal', 'high' );
 	}
@@ -22,14 +21,20 @@ function hmp_add_meta_boxes() {
 add_action( 'wp_insert_post', 'hmp_insert_post', 10, 2 );
 function hmp_insert_post( $post_id, $post ) {
 	
-	if( $post->post_type !== 'hmp-entry' )
-		return;
-	
 	//fire all the beta box _submitted functions
-	hmp_brief_meta_box_submitted( $post );
-	thumbnail_id_meta_box_submitted( $post );
-	hmp_gallery_meta_box_submitted( $post );
-	hmp_additional_information_meta_box_submitted( $post );
+	//gallery could be on other post types too.
+		
+	if( $post->post_type == 'hmp-entry' ) :
+		hmp_brief_meta_box_submitted( $post );
+		thumbnail_id_meta_box_submitted( $post );
+		hmp_gallery_meta_box_submitted( $post );
+		hmp_additional_information_meta_box_submitted( $post );
+	elseif( in_array( $post->post_type, get_option('hmp_post_type', array('hmp-entry') ) ) ) :
+		hmp_gallery_meta_box_submitted( $post );
+	else:
+		return;
+	endif;
+		
 }
 
 function hmp_register_settings() {
@@ -37,13 +42,7 @@ function hmp_register_settings() {
 	register_setting( 'hmp-settings', 'hmp_url_base' );
 	register_setting( 'hmp-settings', 'hmp_single_base' );
 	register_setting( 'hmp-settings', 'hmp_add_page_link' );
-	//register_setting( 'hmp-settings', 'hmp_use_styles' );
-	//register_setting( 'hmp-settings', 'hmp_use_scripts' );
 	register_setting( 'hmp-settings', 'hmp_title' );
-	//register_setting( 'hmp-settings', 'hmp_template_single' );
-	//register_setting( 'hmp-settings', 'hmp_template_home' );
-	//register_setting( 'hmp-settings', 'hmp_template_category' );
-	//register_setting( 'hmp-settings', 'hmp_template_tag' );
 	register_setting( 'hmp-settings', 'hmp_portfolio_menu_order' );
 	register_setting( 'hmp-settings', 'hmp_post_type' );
 	
@@ -71,19 +70,7 @@ function hmp_options_page() {
 						<span class="description">Portfolio page title (default: Portfolio)</span>
 					</td>
 				</tr>
-				<?php /*
-				<tr valign="top">
-					<th scope="row"><strong>Portfolio Link</strong></th>
-					<td>
-						<input type="checkbox" name="hmp_add_page_link" id="hmp_add_page_link" <?php echo get_option('hmp_add_page_link', 'on') ? ' checked="checked" ' : '' ?> />
-						Add Link to Portfolio in main menu
-						<p>
-							<input class="small-text" type="text" name="hmp_portfolio_menu_order" value="<?php echo get_option('hmp_portfolio_menu_order', '0'); ?>" />
-						<span class="description">Portfolio Menu Order</span>
-						</p>
-					</td>
-				</tr>
-				*/ ?>
+				
 				<tr valign="top">
 					<th scope="row"><strong>Permalinks</strong></th>
 					<td>
