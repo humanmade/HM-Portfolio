@@ -7,7 +7,6 @@ function hmp_add_meta_boxes() {
 	$hmp_gallery_post_types =  get_option('hmp_post_type', array('hmp-entry') );
 
 	add_meta_box( 'brief', 'Brief', 'hmp_brief_meta_box', 'hmp-entry', 'normal', 'high' );
-	//add_meta_box( 'main-image', 'Main Image', 'hmp_thumbnail_id_meta_box', 'hmp-entry', 'normal', 'high' );
 	foreach( $hmp_gallery_post_types as $post_type ) {
 		add_meta_box( 'additional-images', 'Gallery', 'hmp_gallery_meta_box', $post_type, 'normal', 'high' );
 	}
@@ -26,7 +25,6 @@ function hmp_insert_post( $post_id, $post ) {
 		
 	if( $post->post_type == 'hmp-entry' ) :
 		hmp_brief_meta_box_submitted( $post );
-		hmp_thumbnail_id_meta_box_submitted( $post );
 		hmp_gallery_meta_box_submitted( $post );
 		hmp_additional_information_meta_box_submitted( $post );
 	elseif( in_array( $post->post_type, get_option('hmp_post_type', array('hmp-entry') ) ) ) :
