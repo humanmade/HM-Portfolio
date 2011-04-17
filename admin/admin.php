@@ -42,11 +42,16 @@ function hmp_register_settings() {
 	register_setting( 'hmp-settings', 'hmp_title' );
 	register_setting( 'hmp-settings', 'hmp_portfolio_menu_order' );
 	register_setting( 'hmp-settings', 'hmp_post_type' );
+	register_setting( 'hmp-settings', 'hmp_append_gallery' );
 }
 
 function hmp_is_checked( $post_type, $enabled_post_types ) {
 	if( in_array( $post_type, $enabled_post_types ) ) 
 		echo 'checked="checked"';
+}
+function hmp_is_selected( $option = 1, $true = 1  ) {
+	if( $option == 1 && $true == true || $option == 0 && $selected == false )
+		echo 'selected="selected"';
 }
 
 function hmp_upgrade_jhp_notice() {
@@ -106,6 +111,18 @@ function hmp_options_page() {
 						<?php }
 					?>		
 						<small class="description">Enable the gallery for other post types.</small>
+					</td>
+				</tr>
+				
+				<tr valign="top">
+					<th scope="row"><strong>Append Gallery to Content.</strong></th>
+					<td>
+						<select name="hmp_append_gallery" id="hmp_append_gallery">
+							<option value="0" <?php hmp_is_selected( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>Off</option>
+							<option value="1" <?php hmp_is_selected( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>On</option>
+						</select>
+						<br/>
+						<small class="description">Enabled by default so that the plugin works out of the box. Disable if you want greater control over how the gallery is displayed.</small>
 					</td>
 				</tr>
 								
