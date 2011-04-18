@@ -45,11 +45,11 @@ function hmp_register_settings() {
 	register_setting( 'hmp-settings', 'hmp_append_gallery' );
 }
 
-function hmp_is_checked( $post_type, $enabled_post_types ) {
+function hmp_is_checked_post_type( $post_type, $enabled_post_types ) {
 	if( in_array( $post_type, $enabled_post_types ) ) 
 		echo 'checked="checked"';
 }
-function hmp_is_selected( $option = 1, $true = 1  ) {
+function hmp_is_selected_append( $option = 1, $true = 1  ) {
 	if( $option == 1 && $true == true || $option == 0 && $selected == false )
 		echo 'selected="selected"';
 }
@@ -103,11 +103,11 @@ function hmp_options_page() {
 						$args = array( 'public'   => true, '_builtin' => false );
 						$custom_post_types = get_post_types( $args, 'objects' );
 					?>	
-						<label for="hmp_post_type_post"><input type="checkbox" id="hmp_post_type_post" name="hmp_post_type[]" value="post" <?php hmp_is_checked( 'post', $hmp_enable_post_type ); ?>/> post</label><br/>
-						<label for="hmp_post_type_page"><input type="checkbox" id="hmp_post_type_page" name="hmp_post_type[]" value="page" <?php hmp_is_checked( 'page', $hmp_enable_post_type ); ?>/> page</label><br/>
+						<label for="hmp_post_type_post"><input type="checkbox" id="hmp_post_type_post" name="hmp_post_type[]" value="post" <?php hmp_is_checked_post_type( 'post', $hmp_enable_post_type ); ?>/> post</label><br/>
+						<label for="hmp_post_type_page"><input type="checkbox" id="hmp_post_type_page" name="hmp_post_type[]" value="page" <?php hmp_is_checked_post_type( 'page', $hmp_enable_post_type ); ?>/> page</label><br/>
 					<?php 
 						foreach( $custom_post_types as $post_type ) { ?>
-							<label for="hmp_post_type_<?php echo $post_type->name; ?>"><input type="checkbox" id="hmp_post_type_<?php echo $post_type->name; ?>" name="hmp_post_type[]" value="<?php echo $post_type->name; ?>" <?php hmp_is_checked( $post_type->name, $hmp_enable_post_type ); ?>/> <?php echo $post_type->name; ?></label><br/>
+							<label for="hmp_post_type_<?php echo $post_type->name; ?>"><input type="checkbox" id="hmp_post_type_<?php echo $post_type->name; ?>" name="hmp_post_type[]" value="<?php echo $post_type->name; ?>" <?php hmp_is_checked_post_type( $post_type->name, $hmp_enable_post_type ); ?>/> <?php echo $post_type->name; ?></label><br/>
 						<?php }
 					?>		
 						<small class="description">Enable the gallery for other post types.</small>
@@ -118,8 +118,8 @@ function hmp_options_page() {
 					<th scope="row"><strong>Append Gallery to Content.</strong></th>
 					<td>
 						<select name="hmp_append_gallery" id="hmp_append_gallery">
-							<option value="0" <?php hmp_is_selected( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>Off</option>
-							<option value="1" <?php hmp_is_selected( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>On</option>
+							<option value="0" <?php hmp_is_selected_append( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>Off</option>
+							<option value="1" <?php hmp_is_selected_append( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>On</option>
 						</select>
 						<br/>
 						<small class="description">Enabled by default so that the plugin works out of the box. Disable if you want greater control over how the gallery is displayed.</small>
