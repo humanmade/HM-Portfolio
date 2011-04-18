@@ -229,7 +229,7 @@ function hmp_the_tags( $before = null, $sep = ', ', $after = '' ) {
 *	Size is either keyword or array($width, $height, $crop [true/false])
 */
 
-function hmp_the_gallery ( $post = null, $size = 'full', $before = null, $after = null, $show_main = true, $crop  = false ) {
+function hmp_the_gallery ( $post = null, $size = 'full', $before = null, $after = null, $show_main = true ) {
 	
 	if( $post === null ) global $post;
 	
@@ -244,11 +244,11 @@ function hmp_the_gallery ( $post = null, $size = 'full', $before = null, $after 
 		
 	if( $show_main ) {
 		$r .= $before;
-		$r .= hmp_get_the_main_image( $post, $size, $h = null, $crop );
+		$r .= hmp_get_the_main_image( $post, $size, $h = null );
 		$r .= $after;
 	}
 		
-	$gallery = hmp_get_the_gallery_images( $post, $size, $h = null, $crop );
+	$gallery = hmp_get_the_gallery_images( $post, $size );
 	if( is_array( $gallery )) {
 		foreach ( $gallery as $img ) { 
 			$r .= $before;
