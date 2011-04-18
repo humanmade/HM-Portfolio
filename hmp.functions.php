@@ -346,11 +346,13 @@ function hmp_get_gallery_images( $post = null, $width_or_size = 'full', $h = 0, 
 	if( is_numeric( $width_or_size ) ) {
 		$crop =  $crop ? '1' : '0'; 
 		foreach( $attachment_ids as $id ) {
-			$images[$id] = reset( wp_get_attachment_image_src( $id, "width=$width_or_size&height=$h&crop=$crop" ) );
+			if( $image = wp_get_attachment_image_src( $id, "width=$width_or_size&height=$h&crop=$crop" ) )
+				$images[$id] = reset( $image );
 		}
 	} else {
 		foreach( $attachment_ids as $id ) {
-			$images[$id] = reset( wp_get_attachment_image_src( $id, $width_or_size ) );
+			if( $image = wp_get_attachment_image_src( $id, $width_or_size ) )
+				$images[$id] = reset( $image );
 		}
 	}
 	return $images;
