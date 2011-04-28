@@ -143,7 +143,7 @@ function hmp_options_page() {
 		</form>
 		
 		<div id="message">
-			<p><small>If you are having any issue with HM Portfolio please file a bug or question <a href="http://github.com/joehoyle/hmp-Portfolio/issues" target="_blank">here.</a><small></small></p>
+			<p><small>If you are having any issue with HM Portfolio please file a bug or question <a href="https://github.com/humanmade/HM-Portfolio" target="_blank">here.</a><small></small></p>
 		</div>
 	</div>
 	<?php
