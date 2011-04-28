@@ -104,6 +104,7 @@ function hmp_icons() {
 		#menu-posts-hmp-entry:hover .wp-menu-image, #menu-posts-hmp-entry.wp-has-current-submenu .wp-menu-image {
             background-position:0 bottom !important;
         }
+        #icon-options-hmp-entry { background: url(<?php echo $url; ?>/admin/icon_large.png) no-repeat; }
         <?php if (($_GET['post_type'] == 'hmp-entry') || ($post_type == 'hmp-entry')) : ?>
 			#icon-edit { background: url(<?php echo $url; ?>/admin/icon_large.png) no-repeat; }		
 			.icon32 { margin: 11px 6px 3px 0; }

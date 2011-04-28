@@ -81,7 +81,7 @@ function hmp_options_page() {
 	?>
 	
 	<div class="wrap">
-		<h2>Portfolio Settings</h2>
+		<div id="icon-options-hmp-entry" class="icon32"></div><h2>Portfolio Settings</h2>
 	
 		<?php hmp_upgrade_jhp_notice() ?>		
 		
