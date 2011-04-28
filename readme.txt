@@ -5,7 +5,7 @@ Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: 0.9.6
 
-HM Portfolio adds a Portfolio section to the WP-Admin and provides portfolio templating either via widgets or template files.
+Gallery and Portfolio management for your WordPress site. 
 
 == Description ==
 
