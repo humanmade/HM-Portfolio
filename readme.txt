@@ -2,7 +2,7 @@
 Contributors: joehoyle
 Tags: portfolio, hm-portfolio, jh, humanmade, hmportfolio, gallery
 Requires at least: 3.0
-Tested up to: 3.0
+Tested up to: 3.1.2
 Stable tag: 1.0.1
 
 Gallery and Portfolio management for your WordPress site. 
