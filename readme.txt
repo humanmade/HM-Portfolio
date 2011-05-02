@@ -1,5 +1,5 @@
 === HM Portfolio ===
-Contributors: joehoyle
+Contributors: humanmade, mattheu, joehoyle, willmot
 Tags: portfolio, hm-portfolio, jh, humanmade, hmportfolio, gallery
 Requires at least: 3.0
 Tested up to: 3.1.2
