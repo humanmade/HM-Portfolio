@@ -1,9 +1,9 @@
 === HM Portfolio ===
 Contributors: joehoyle
-Tags: portfolio, hmp-portfolio, jh
+Tags: portfolio, hm-portfolio, jh, humanmade, hmportfolio, gallery
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 0.9.6
+Stable tag: 1.0.1
 
 Gallery and Portfolio management for your WordPress site. 
 
