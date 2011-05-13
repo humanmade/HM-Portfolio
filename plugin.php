@@ -34,9 +34,9 @@ function hmp_check_plugin_compatibility() {
 }
 
 
-//helper setup
-define( 'TJ_ENABLE_ACCOUNTS', false );
-include_once('helper/helper.php');
+//HM Core setup
+define( 'HM_ENABLE_ACCOUNTS', false );
+include_once('HM Core/hm_core.php');
 
 //Template rewrite
 include_once('hmp.functions.php');
