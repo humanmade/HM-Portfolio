@@ -24,10 +24,10 @@ function hmp_gallery_meta_box( $post ) {
 	global $temp_ID;
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
 
-	tj_register_custom_media_button( 'hmp_gallery_images', 'Add to Gallery', true, true, 150, 150 );
+	hm_register_custom_media_button( 'hmp_gallery_images', 'Add to Gallery', true, true, 150, 150 );
 	$non_added_text = "No Gallery Images Added " .  ( ( $hmp_url = hmp_get_url( $post ) ) ? '| <a href="' . esc_url( $hmp_url ) . '" target="_blank">Screenshot your site now</a>' : '' );
 
-	tj_add_image_html_custom( 'hmp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, 'sortable', 'width=150&height=150&crop=1', $non_added_text );
+	hm_add_image_html_custom( 'hmp_gallery_images', 'Add Gallery Images', $post_image_id, $image_ids, 'sortable', 'width=150&height=150&crop=1', $non_added_text );
 }
 
 function hmp_gallery_meta_box_submitted( $post ) {

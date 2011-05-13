@@ -392,7 +392,7 @@ function hmp_get_the_gallery_images( $post = null, $width_or_size = 'full', $h =
 
 
 function hmp_get_gallery_image( $id, $w = 0, $h = 0, $crop = false ) {
-	return tj_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
+	return hm_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
 }
 
 function hmp_get_gallery_ids( $post = null ) {
