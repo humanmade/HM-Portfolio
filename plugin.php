@@ -36,7 +36,8 @@ function hmp_check_plugin_compatibility() {
 
 //HM Core setup
 define( 'HM_ENABLE_ACCOUNTS', false );
-include_once('HM Core/hm_core.php');
+if( !function_exists( 'hm' ) )
+	include_once('HM Core/hm_core.php');
 
 //Template rewrite
 include_once('hmp.functions.php');
@@ -90,23 +91,4 @@ function hmp_register_post_types() {
 			'has_archive' => true	
 		)
 	);
-}
-// Admin Icons
-add_action( 'admin_head', 'hmp_icons' );
-function hmp_icons() {
-	$url = WP_PLUGIN_URL.'/'.str_replace(basename( __FILE__),"",plugin_basename(__FILE__));
-    ?>
-    <style type="text/css" media="screen">
-        #menu-posts-hmp-entry .wp-menu-image {
-            background: url(<?php echo $url; ?>/admin/icon.png) no-repeat 0 top !important;
-        }
-		#menu-posts-hmp-entry:hover .wp-menu-image, #menu-posts-hmp-entry.wp-has-current-submenu .wp-menu-image {
-            background-position:0 bottom !important;
-        }
-        #icon-options-hmp-entry { background: url(<?php echo $url; ?>/admin/icon_large.png) no-repeat; }
-        <?php if (($_GET['post_type'] == 'hmp-entry') || ($post_type == 'hmp-entry')) : ?>
-			#icon-edit { background: url(<?php echo $url; ?>/admin/icon_large.png) no-repeat; }		
-			.icon32 { margin: 11px 6px 3px 0; }
-		<?php endif; ?>
-    </style><?php
 }
