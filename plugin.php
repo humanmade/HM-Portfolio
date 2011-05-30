@@ -92,3 +92,10 @@ function hmp_register_post_types() {
 		)
 	);
 }
+
+function hmp_remove_featured() {
+	error_log( 'hola' );
+	if( get_option( 'hmp_manage_featured', true ) )
+		remove_theme_support( 'post-thumbnails' );
+}
+add_action( 'after_setup_theme', 'hmp_remove_featured' );
