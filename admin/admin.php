@@ -63,6 +63,7 @@ function hmp_register_settings() {
 	register_setting( 'hmp-settings', 'hmp_portfolio_menu_order' );
 	register_setting( 'hmp-settings', 'hmp_post_type' );
 	register_setting( 'hmp-settings', 'hmp_append_gallery' );
+	register_setting( 'hmp-settings', 'hmp_manage_featured' );
 }
 
 function hmp_is_checked_post_type( $post_type, $enabled_post_types ) {
@@ -143,6 +144,16 @@ function hmp_options_page() {
 						</select>
 						<br/>
 						<small class="description">Enabled by default so that the plugin works out of the box. Disable if you want greater control over how the gallery is displayed.</small>
+					</td>
+				</tr>
+				
+				<tr valign="top">
+					<th scope="row"><strong>Gallery to set Thumbnail.</strong></th>
+					<td>
+						<label for="hmp_manage_featured">
+							<input type="checkbox" name="hmp_manage_featured" id="hmp_manage_featured" value="1" <?php if( get_option('hmp_manage_featured', true) ) echo 'checked="checked"'; ?>>
+							Use the gallery box to choose the featured post. The first (highlighted) image will be used. 
+						</label>
 					</td>
 				</tr>
 								

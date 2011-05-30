@@ -22,7 +22,7 @@ function hmp_gallery_meta_box( $post ) {
 	$image_ids = hmp_get_gallery_ids( $post );
 	
 	//Prepend the _thumbnail_id to the array of gallery images if the gallery is set to manage the thumbnail 
-	if( get_option( 'hmp-manage-featured', true ) ) {
+	if( get_option( 'hmp_manage_featured', true ) ) {
 		$featured = array( 0 =>  get_post_meta($post->ID, '_thumbnail_id', true ) );
 		$image_ids = array_merge( $featured, $image_ids );
 	}
