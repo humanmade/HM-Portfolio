@@ -4,14 +4,15 @@ jQuery(document).ready(function($) {
 		delete_custom_image(this);
 	});
 
+	$('.image-wrapper:first').addClass('first');
 	
 	if ( typeof( $.fn.sortable ) != 'undefined' ) {
    		$( '.sortable' ).sortable( {
 		containment : 'parent',
    			update: function( event, ui ) {
    				write_image_ids_to_input( jQuery(this).attr( 'rel' ) );
-				$('.image-wrapper').removeClass('featured');
- 				$('.image-wrapper:first').addClass('featured');
+				$('.image-wrapper').removeClass('first');
+ 				$('.image-wrapper:first').addClass('first');
    			}
 		} );
 	}

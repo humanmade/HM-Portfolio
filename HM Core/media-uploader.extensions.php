@@ -238,8 +238,8 @@ function hm_add_image_html_custom( $button_id, $title, $post_id, $image_ids, $cl
 		.image-wrapper { text-align: center; display: block; padding: 5px; border: 1px solid #DFDFDF; float: left; margin-right: 7px; margin-bottom: 7px; background-color: #F1F1F1; -moz-border-radius: 4px; border-radius: 4px; }
 		.sortable .image-wrapper { cursor: move; }
 		<?php if( get_option( 'hmp_manage_featured', true ) ) { ?>
-			.sortable .image-wrapper:first-child,
-			.sortable .image-wrapper.featured { background-color: #FFFFE0; border-color: #E6DB55; }
+			.sortable .image-wrapper.first { background-color: #FFFFE0; border-color: #E6DB55; }
+			.sortable .first .delete_custom_image:before { content: '(Featured) - '; font-weight: bold; }
 		<?php } ?>
 		.sortable .image-wrapper:hover { border-style: dashed; }
 		.ui-sortable-placeholder { visibility: visible !important; background-color: transparent; border-style: dashed; }
