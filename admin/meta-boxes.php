@@ -20,6 +20,12 @@ function hmp_brief_meta_box_submitted( $post ) {
 
 function hmp_gallery_meta_box( $post ) {
 	$image_ids = hmp_get_gallery_ids( $post );
+	
+	//Prepend the _thumbnail_id to the array of gallery images if the gallery is set to manage the thumbnail 
+	if( get_option( 'hmp-manage-featured', true ) ) {
+		$featured = array( 0 =>  get_post_meta($post->ID, '_thumbnail_id', true ) );
+		$image_ids = array_merge( $featured, $image_ids );
+	}
 
 	global $temp_ID;
     $post_image_id = $post->ID ? $post->ID : $temp_ID;
@@ -38,9 +44,11 @@ function hmp_gallery_meta_box_submitted( $post ) {
 	if( !$gallery_images && !is_array( $gallery_images ) )
 		return; 
 	
-	if( get_option( 'hmp_manage_featured', true ) )
+	if( get_option( 'hmp_manage_featured', true ) ) {
 		update_post_meta( $post->ID, '_thumbnail_id', $gallery_images[0] );
-		
+		unset( $gallery_images[0] );
+	}
+	
 	update_post_meta( $post->ID, '_hmp_gallery_images', array_filter( $gallery_images ) );
 }
 
