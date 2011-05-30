@@ -165,7 +165,7 @@ function hmp_admin_styles() {
 	if( get_option( 'hmp_manage_featured', true ) ) { 
 	echo '<style type="text/css">
    		.sortable .image-wrapper.first { background-color: #FFFFE0; border-color: #E6DB55; }
-		.sortable:before { content: \'Featured Image\'; font-weight: bold; display: block; clear: both; width: 160px; text-align: center; margin: 5px 8px 8px }           
+		.sortable:before { content: \'Featured Image\'; font-weight: bold; display: block; position: absolute; width: 160px; text-align: center; margin: 12px 6px 12px; top: 0; left: 0;  }           
          </style>';
 	}
 }
