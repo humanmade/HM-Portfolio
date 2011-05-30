@@ -94,8 +94,10 @@ function hmp_register_post_types() {
 }
 
 function hmp_remove_featured() {
-	error_log( 'hola' );
-	if( get_option( 'hmp_manage_featured', true ) )
-		remove_theme_support( 'post-thumbnails' );
+	if( get_option( 'hmp_manage_featured', true ) && get_option( 'hmp_post_type' ) ) {
+		foreach( get_option( 'hmp_post_type' ) as $post_type ) {	
+			remove_meta_box( 'postimagediv', $post_type, 'side' );
+		} 	
+	}
 }
-add_action( 'after_setup_theme', 'hmp_remove_featured' );
+add_action( 'do_meta_boxes', 'hmp_remove_featured' );
