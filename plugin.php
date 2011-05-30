@@ -9,6 +9,15 @@ Version: 1.0.1
 Author URI: http://www.humanmade.co.uk/
 */
 
+
+/*
+
+	=TO DO=
+
+	* Admin/GUI
+
+*/
+
 define( 'HMPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
 define( 'HMPPATH', dirname( __FILE__ ) );
 
@@ -32,7 +41,6 @@ function hmp_check_plugin_compatibility() {
   	}
   	
 }
-
 
 //HM Core setup
 define( 'HM_ENABLE_ACCOUNTS', false );
