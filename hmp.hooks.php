@@ -160,3 +160,14 @@ function hmp_bloginfo_filters( $arg, $arg2 ) {
 }
 add_filter( 'bloginfo', 'hmp_bloginfo_filters', 10, 2 ); 
 add_filter( 'bloginfo_url', 'hmp_bloginfo_filters', 10, 2 );
+
+function hmp_admin_styles() {
+	if( get_option( 'hmp_manage_featured', true ) ) { 
+	echo '<style type="text/css">
+   		.sortable .image-wrapper.first { background-color: #FFFFE0; border-color: #E6DB55; }
+		.sortable:before { content: \'Featured Image\'; font-weight: bold; display: block; clear: both; width: 160px; text-align: center; margin: 5px 8px 8px }           
+         </style>';
+	}
+}
+
+add_action('admin_head', 'hmp_admin_styles');
