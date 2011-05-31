@@ -165,7 +165,7 @@ function hmp_admin_styles() {
 	if( get_option( 'hmp_manage_featured', true ) ) { 
 	echo '<style type="text/css">
    		#additional-images .sortable .image-wrapper.first { background-color: #FFFFE0; border-color: #E6DB55; }
-		#additional-images .sortable:before { content: \'Featured Image\'; font-weight: bold; display: block; position: absolute; width: 110px; text-align: center; margin: 12px 26px; top: 0; left: 0;  }           
+		#additional-images .sortable:before { content: \'Featured Image\'; font-weight: bold; display: block; position: absolute; width: 162px; text-align: center; margin: 12px 7px 12px 10px; top: 0; left: 0; }           
 		#side-sortables p.hmp_gallery_images_submit { padding: 0; margin: 12px 6px !important; display: block; }
 		#side-sortables #additional-images .sortable:before { content: \'\' }
          </style>';
