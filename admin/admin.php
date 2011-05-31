@@ -102,57 +102,57 @@ function hmp_options_page() {
 	?>
 	
 	<div class="wrap">
-		<?php screen_icon( 'icon_hm-portfolio' ); ?><h2>Portfolio Settings</h2>
+		<?php screen_icon( 'icon_hm-portfolio' ); ?><h2><?php _e( 'Portfolio Settings', 'hmp' ); ?></h2>
 	
 		<?php hmp_upgrade_jhp_notice() ?>		
 		
 		<form method="post" action="options.php">
 			<table class="form-table">
 				<tr valign="top">
-					<th scope="row"><strong>Permalinks</strong></th>
+					<th scope="row"><strong><?php _e( 'Permalinks' , 'hmp' ); ?></strong></th>
 					<td>
 						<input type="text" name="hmp_url_base" value="<?php echo get_option('hmp_url_base', 'portfolio'); ?>" />
-						<span class="description">Portfolio home URL (default: /portfolio/)</span>
+						<span class="description"><?php _e( 'Portfolio home URL (default: /portfolio/)' , 'hmp' ); ?></span>
 					</td>
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row"><strong>Enable Gallery for Post Type</strong></th>
+					<th scope="row"><strong><?php _e( 'Enable Gallery for Post Type', 'hmp' ); ?></strong></th>
 					<td>
 					<?php 
 						$hmp_enable_post_type =  get_option('hmp_post_type', array('hmp-entry') ); 
 						$args = array( 'public'   => true, '_builtin' => false );
 						$custom_post_types = get_post_types( $args, 'objects' );
 					?>	
-						<label for="hmp_post_type_post"><input type="checkbox" id="hmp_post_type_post" name="hmp_post_type[]" value="post" <?php hmp_is_checked_post_type( 'post', $hmp_enable_post_type ); ?>/> post</label><br/>
-						<label for="hmp_post_type_page"><input type="checkbox" id="hmp_post_type_page" name="hmp_post_type[]" value="page" <?php hmp_is_checked_post_type( 'page', $hmp_enable_post_type ); ?>/> page</label><br/>
+						<label for="hmp_post_type_post"><input type="checkbox" id="hmp_post_type_post" name="hmp_post_type[]" value="post" <?php hmp_is_checked_post_type( 'post', $hmp_enable_post_type ); ?>/> <?php _e( 'post', 'hmp' ); ?></label><br/>
+						<label for="hmp_post_type_page"><input type="checkbox" id="hmp_post_type_page" name="hmp_post_type[]" value="page" <?php hmp_is_checked_post_type( 'page', $hmp_enable_post_type ); ?>/> <?php _e( 'page', 'hmp' ); ?></label><br/>
 					<?php 
 						foreach( $custom_post_types as $post_type ) { ?>
 							<label for="hmp_post_type_<?php echo $post_type->name; ?>"><input type="checkbox" id="hmp_post_type_<?php echo $post_type->name; ?>" name="hmp_post_type[]" value="<?php echo $post_type->name; ?>" <?php hmp_is_checked_post_type( $post_type->name, $hmp_enable_post_type ); ?>/> <?php echo $post_type->name; ?></label><br/>
 						<?php }
 					?>		
-						<small class="description">Enable the gallery for other post types.</small>
+						<small class="description"><?php _e( 'Enable the gallery for other post types.', 'hmp' ); ?></small>
 					</td>
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row"><strong>Append Gallery to Content.</strong></th>
+					<th scope="row"><strong><?php _e( 'Append Gallery to Content.', 'hmp' ); ?></strong></th>
 					<td>
 						<select name="hmp_append_gallery" id="hmp_append_gallery">
-							<option value="0" <?php hmp_is_selected_append( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>Off</option>
-							<option value="1" <?php hmp_is_selected_append( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>>On</option>
+							<option value="0" <?php hmp_is_selected_append( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>><?php _e( 'Off', 'hmp' ); ?></option>
+							<option value="1" <?php hmp_is_selected_append( 1, get_option( 'hmp_append_gallery', 1 ) ); ?>><?php _e( 'On', 'hmp' ); ?></option>
 						</select>
 						<br/>
-						<small class="description">Enabled by default so that the plugin works out of the box. Disable if you want greater control over how the gallery is displayed.</small>
+						<small class="description"><?php _e( 'Enabled by default so that the plugin works out of the box. Disable if you want greater control over how the gallery is displayed.', 'hmp' ); ?></small>
 					</td>
 				</tr>
 				
 				<tr valign="top">
-					<th scope="row"><strong>Gallery to set Thumbnail.</strong></th>
+					<th scope="row"><strong><?php _e( 'Gallery to set Thumbnail.', 'hmp' ); ?></strong></th>
 					<td>
 						<label for="hmp_manage_featured">
 							<input type="checkbox" name="hmp_manage_featured" id="hmp_manage_featured" value="1" <?php if( get_option('hmp_manage_featured', true) ) echo 'checked="checked"'; ?>>
-							Use the gallery box to choose the featured post. The first (highlighted) image will be used. 
+							<?php _e('Use the gallery box to choose the featured post. The first (highlighted) image will be used.', 'hmp' ); ?> 
 						</label>
 					</td>
 				</tr>
