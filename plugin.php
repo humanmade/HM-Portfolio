@@ -4,7 +4,7 @@
 Plugin Name: HM Portfolio
 Plugin URI: https://github.com/humanmade/HM-Portfolio
 Description: Web/Print Portfolio plugin
-Author: humanmade limited, Joe Hoyle, Tom Wilmott, Matthew Haines-Young
+Author: Human Made Limited
 Version: 1.1.1
 Author URI: http://www.humanmade.co.uk/
 */

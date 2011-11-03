@@ -1,8 +1,8 @@
 === HM Portfolio ===
-Contributors: humanmade, mattheu, joehoyle, willmot
+Contributors: humanmade, joehoyle, mattheu, tcrsavage, willmot
 Tags: portfolio, hm-portfolio, jh, humanmade, hmportfolio, gallery
 Requires at least: 3.0
-Tested up to: 3.2-beta2
+Tested up to: 3.2.1
 Stable tag: 1.1.1
 
 Gallery and Portfolio management for your WordPress site. 
