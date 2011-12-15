@@ -40,11 +40,11 @@ function hmp_gallery_meta_box_submitted( $post ) {
 
 	if ( isset( $_POST['hmp_gallery_images'] ) )
 		$gallery_images = explode( ',', $_POST['hmp_gallery_images'] );
-
-	if( !$gallery_images && !is_array( $gallery_images ) )
+  	
+	if ( empty( $gallery_images ) )
 		return; 
 	
-	if( get_option( 'hmp_manage_featured', true ) ) {
+	if ( get_option( 'hmp_manage_featured', true ) ) {
 		update_post_meta( $post->ID, '_thumbnail_id', $gallery_images[0] );
 		unset( $gallery_images[0] );
 	}
