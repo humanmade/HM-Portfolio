@@ -45,7 +45,7 @@ function hmp_check_plugin_compatibility() {
 //HM Core setup
 define( 'HM_ENABLE_ACCOUNTS', false );
 if( !function_exists( 'hm' ) )
-	include_once('HM Core/hm-core.plugin.php');
+	include_once('hm-core/hm-core.plugin.php');
 
 //Template rewrite
 include_once('hmp.functions.php');
