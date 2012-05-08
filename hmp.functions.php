@@ -5,14 +5,15 @@
  * @param object $post. (default: global $post)
  * @return string
  */
-function hmp_get_byline( $post = null ) {
-	global $post;
+function hmp_get_byline( $post_id = null ) {
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
-
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
+	
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 		
-	return (string) get_post_meta( $post, '_hmp_byline', true );
+	return (string) get_post_meta( $post_id, '_hmp_byline', true );
 }
 
 /**
@@ -21,14 +22,15 @@ function hmp_get_byline( $post = null ) {
  * @param post ID or object $post. (default: global $post)
  * @return string
  */
-function hmp_get_brief( $post = null ) {
+function hmp_get_brief( $post_id = null ) {
 	
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
-	return (string) get_post_meta( $post, '_hmp_brief', true );
+	return (string) get_post_meta( $post_id, '_hmp_brief', true );
 }
 
 /**
@@ -37,14 +39,15 @@ function hmp_get_brief( $post = null ) {
  * @param post ID or object $post. (default: global $post)
  * @return string
  */
-function hmp_get_url( $post = null ) {
+function hmp_get_url( $post_id = null ) {
 
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
-	return (string) get_post_meta( $post, '_hmp_url', true );
+	return (string) get_post_meta( $post_id, '_hmp_url', true );
 }
 
 /**
@@ -53,14 +56,15 @@ function hmp_get_url( $post = null ) {
  * @param post id or object $post. (default: global $post)
  * @return array (post ids)
  */
-function hmp_get_related_work( $post = null) {
+function hmp_get_related_work( $post_id = null) {
 
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
-	return array_filter((array) get_post_meta( $post, '_hmp_related_work', true ));
+	return array_filter((array) get_post_meta( $post_id, '_hmp_related_work', true ));
 
 }
 /**
@@ -71,18 +75,22 @@ function hmp_get_related_work( $post = null) {
  * @return bool
  */
 function hmp_has_info( $post = null, $string = '_url,_related_work' ) {
-	if( $post === null ) global $post;
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
+	
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
+
 	$infos = explode( ',', $string );
 	$return = false;
-	foreach( $infos as $meta_key ) {
+	foreach ( $infos as $meta_key ) {
 		//backwards compat for no underscores on meta_keys
-		if( in_array( $meta_key, array( 'brief', 'byline', 'url', 'related_work', 'thumbnail_id', 'hmp_gallery_images' ) ) ) {
+		if ( in_array( $meta_key, array( 'brief', 'byline', 'url', 'related_work', 'thumbnail_id', 'hmp_gallery_images' ) ) ) {
 			$meta_key = '_' . $meta_key;
 		}
 		
-	    return (bool) get_post_meta( $post, $meta_key, true );
+	    return (bool) get_post_meta( $post_id, $meta_key, true );
 	}	
 	return false;
 }
@@ -93,9 +101,9 @@ function hmp_has_info( $post = null, $string = '_url,_related_work' ) {
 */
 function hmp_get_the_category( $post = null ) {
 
-	if( $post === null ) global $post;
+	if ( $post === null ) global $post;
 	
-	if( !is_numeric( $post ) ) 
+	if ( ! is_numeric( $post ) ) 
 		$post = $post->ID;
 	
 	$categories = get_object_term_cache( $post, 'hmp-entry-category' );
@@ -104,7 +112,7 @@ function hmp_get_the_category( $post = null ) {
 		wp_cache_add($post, $categories, 'hmp-entry-category_relationships');
 	}
 
-	if ( !empty( $categories ) )
+	if ( ! empty( $categories ) )
 		usort( $categories, '_usort_terms_by_name' );
 	else
 		$categories = array();
@@ -129,9 +137,9 @@ function hmp_get_category_link( $id ) {
 */
 function hmp_in_category( $category, $post = null ) {
 	
-	if( $post === null ) global $post;
+	if ( $post === null ) global $post;
 	
-	if( !is_numeric( $post ) ) 
+	if ( ! is_numeric( $post ) ) 
 		$post = $post->ID;
 	
 	$r = is_object_in_term( $post, 'hmp-entry-category', $category );
@@ -146,9 +154,9 @@ function hmp_in_category( $category, $post = null ) {
 */
 function hmp_the_category(  $separator = '', $parents='', $post = null ) {
 
-	if( $post === null ) global $post;
+	if ( $post === null ) global $post;
 	
-	if( !is_numeric( $post ) ) 
+	if ( ! is_numeric( $post ) ) 
 		$post = $post->ID;
 
 	$categories = hmp_get_the_category( $post );
@@ -231,25 +239,25 @@ function hmp_the_tags( $before = null, $sep = ', ', $after = '' ) {
 
 function hmp_the_gallery ( $post = null, $size = 'full', $before = null, $after = null, $show_main = true ) {
 	
-	if( $post === null ) global $post;
+	if ( $post === null ) global $post;
 	
-	if( !is_numeric( $post ) ) 
+	if ( ! is_numeric( $post ) ) 
 		$post = $post->ID;
 
 	$r = '';
 	
-	if( is_array( $size ) ) {
+	if ( is_array( $size ) ) {
 		$size = 'width=' . $size[0] . '&height=' . $size[1] . '&crop=' . $size[2];
 	} 
 		
-	if( $show_main ) {
+	if ( $show_main ) {
 		$r .= $before;
 		$r .= hmp_get_the_main_image( $post, $size, $h = null );
 		$r .= $after;
 	}
 		
 	$gallery = hmp_get_the_gallery_images( $post, $size );
-	if( is_array( $gallery )) {
+	if ( is_array( $gallery )) {
 		foreach ( $gallery as $img ) { 
 			$r .= $before;
 			$r .= $img;
@@ -267,20 +275,22 @@ function hmp_the_gallery ( $post = null, $size = 'full', $before = null, $after 
 *	Get main image
 *	$width_or_size: either a width value or a string keyword (thumbnail, medium, large or full) - if keyword, $h and $crop is ignored. 
 */
-function hmp_get_main_image( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
+function hmp_get_main_image( $post_id = null, $width_or_size = 'full', $h = 0, $crop = false ) {
 
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
+		
+	$attachment_id = hmp_get_main_image_id( $post_id );
 
-	$attachment_id = hmp_get_main_image_id($post);
-	if( !$attachment_id )
+	if ( ! $attachment_id )
 		return null; 
 
 	$crop =  $crop ? '1' : '0';
 	
-	if( is_numeric( $width_or_size ) ) { 
+	if ( is_numeric( $width_or_size ) ) { 
 		return reset( wp_get_attachment_image_src( $attachment_id, "width=$width_or_size&height=$h&crop=$crop" ) );
 	} else {
 		return reset( wp_get_attachment_image_src( $attachment_id, $width_or_size ) );
@@ -293,20 +303,22 @@ function hmp_get_main_image( $post = null, $width_or_size = 'full', $h = 0, $cro
 *	Returns Main <img>
 *
 */
-function hmp_get_the_main_image( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
+function hmp_get_the_main_image( $post_id = null, $width_or_size = 'full', $h = 0, $crop = false ) {
 	
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
-	$attachment_id = hmp_get_main_image_id( $post );
-	if( !$attachment_id )
+	$attachment_id = hmp_get_main_image_id( $post_id );
+	
+	if ( ! $attachment_id )
 		return null; 
 
 	$crop =  $crop ? '1' : '0';
 	
-	if( is_numeric( $width_or_size ) ) { 
+	if ( is_numeric( $width_or_size ) ) { 
 		return wp_get_attachment_image( $attachment_id, "width=$width_or_size&height=$h&crop=$crop" );
 	} else {
 		return wp_get_attachment_image( $attachment_id, $width_or_size );
@@ -314,14 +326,15 @@ function hmp_get_the_main_image( $post = null, $width_or_size = 'full', $h = 0, 
 }
 
 
-function hmp_get_main_image_id( $post = null ) {
+function hmp_get_main_image_id( $post_id = null ) {
 
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
-	return (int) get_post_meta( $post, '_thumbnail_id', true );
+	return (int) get_post_meta( $post_id, '_thumbnail_id', true );
 }
 
 /**
@@ -330,28 +343,30 @@ function hmp_get_main_image_id( $post = null ) {
 *	Use hmp_get_the_gallery_images() instead
 *
 */
-function hmp_get_gallery_images( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
+function hmp_get_gallery_images( $post_id = null, $width_or_size = 'full', $h = 0, $crop = false ) {
 
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
 	$images = array();
 	
-	$attachment_ids = hmp_get_gallery_ids($post);
-	if( !$attachment_ids )
+	$attachment_ids = hmp_get_gallery_ids( $post_id );
+
+	if ( ! $attachment_ids )
 		return array();
 	
-	if( is_numeric( $width_or_size ) ) {
+	if ( is_numeric( $width_or_size ) ) {
 		$crop =  $crop ? '1' : '0'; 
-		foreach( $attachment_ids as $id ) {
-			if( $image = wp_get_attachment_image_src( $id, "width=$width_or_size&height=$h&crop=$crop" ) )
+		foreach ( $attachment_ids as $id ) {
+			if ( $image = wp_get_attachment_image_src( $id, "width=$width_or_size&height=$h&crop=$crop" ) )
 				$images[$id] = reset( $image );
 		}
 	} else {
-		foreach( $attachment_ids as $id ) {
-			if( $image = wp_get_attachment_image_src( $id, $width_or_size ) )
+		foreach ( $attachment_ids as $id ) {
+			if ( $image = wp_get_attachment_image_src( $id, $width_or_size ) )
 				$images[$id] = reset( $image );
 		}
 	}
@@ -364,26 +379,28 @@ function hmp_get_gallery_images( $post = null, $width_or_size = 'full', $h = 0, 
 *	Does not return main image. 
 *
 */
-function hmp_get_the_gallery_images( $post = null, $width_or_size = 'full', $h = 0, $crop = false ) {
+function hmp_get_the_gallery_images( $post_id = null, $width_or_size = 'full', $h = 0, $crop = false ) {
 
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
 	$images = array();
 	
-	$attachment_ids = hmp_get_gallery_ids($post);
-	if( !$attachment_ids )
+	$attachment_ids = hmp_get_gallery_ids( $post_id );
+
+	if ( ! $attachment_ids )
 		return array();
 	
-	if( is_numeric( $width_or_size ) ) {
+	if ( is_numeric( $width_or_size ) ) {
 		$crop =  $crop ? '1' : '0'; 
-		foreach( $attachment_ids as $id ) {
+		foreach ( $attachment_ids as $id ) {
 			$images[$id] = wp_get_attachment_image( $id, "width=$width_or_size&height=$h&crop=$crop" );
 		}
 	} else {
-		foreach( $attachment_ids as $id ) {
+		foreach ( $attachment_ids as $id ) {
 			$images[$id] = wp_get_attachment_image( $id, $width_or_size );
 		}
 	}
@@ -395,14 +412,15 @@ function hmp_get_gallery_image( $id, $w = 0, $h = 0, $crop = false ) {
 	return hm_phpthumb_it( get_attached_file( $id ), $w, $h, $crop );
 }
 
-function hmp_get_gallery_ids( $post = null ) {
+function hmp_get_gallery_ids( $post_id = null ) {
 
-	if( $post === null ) global $post;
+	if ( $post_id === null ) 
+		$post_id = get_the_ID();
 	
-	if( !is_numeric( $post ) ) 
-		$post = $post->ID;
+	if ( ! is_numeric( $post_id ) ) 
+		$post_id = $post_id->ID;
 
-	return array_filter( (array) get_post_meta( $post, '_hmp_gallery_images', true ) );
+	return array_filter( (array) get_post_meta( $post_id, '_hmp_gallery_images', true ) );
 }
 
 /**
