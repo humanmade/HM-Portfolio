@@ -10,12 +10,12 @@ function hmp_byline_meta_box( $post ) {
 
 function hmp_brief_meta_box( $post ) {
 	?>
-	<textarea name="brief" class="widefat"><?php echo hmp_get_brief() ?></textarea>
+	<textarea name="hmp_brief" class="widefat"><?php echo hmp_get_brief() ?></textarea>
 	<?php
 }
 function hmp_brief_meta_box_submitted( $post ) {
-	if ( isset( $_POST['brief'] ) )
-		update_post_meta( $post->ID, '_brief', esc_html($_POST['brief']) );
+	if ( isset( $_POST['hmp_brief'] ) )
+		update_post_meta( $post->ID, '_hmp_brief', esc_html($_POST['hmp_brief']) );
 }
 
 function hmp_gallery_meta_box( $post ) {
