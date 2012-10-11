@@ -95,8 +95,8 @@ function hmp_register_post_types() {
 				'search_items' => 'Search Entries',
 				'edit_item' => 'Edit Entry',
 				'add_new_item' => 'Add New Entry' ),
-			'rewrite' => array( 'slug' => get_option('hmp_url_base', 'portfolio') . '/%hmp-entry-category%' ),
 			'has_archive' => true	
+			'rewrite' => array( 'slug' => apply_filters( 'hm-portfolio-entry-rewrite-rule', get_option( 'hmp_url_base', 'portfolio' ) . '/%hmp-entry-category%' ) ),
 		)
 	);
 }
