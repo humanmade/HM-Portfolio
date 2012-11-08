@@ -2,3 +2,6 @@
 [submodule "hm-core"]
 	path = hm-core
 	url = git@github.com:humanmade/hm-core.git
+[submodule "custom-meta-boxes"]
+	path = custom-meta-boxes
+	url = git@github.com:humanmade/Custom-Meta-Boxes.git

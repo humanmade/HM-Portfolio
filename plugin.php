@@ -42,17 +42,15 @@ function hmp_check_plugin_compatibility() {
 
 }
 
-//HM Core setup
-define( 'HM_ENABLE_ACCOUNTS', false );
-if( !function_exists( 'hm' ) )
-	include_once('hm-core/hm-core.plugin.php');
+include_once(HMPPATH . '/hm-core/hm-core.plugin.php');
+include_once(HMPPATH . '/custom-meta-boxes/init.php');
 
 //Template rewrite
-include_once('hmp.functions.php');
-include_once('hmp.rewrite.php');
-include_once('admin/admin.php');
-include_once('hmp.hooks.php');
-include_once('hmp.upgrade.php');
+include_once(HMPPATH . '/hmp.functions.php');
+include_once(HMPPATH . '/hmp.rewrite.php');
+include_once(HMPPATH . '/admin/admin.php');
+include_once(HMPPATH . '/hmp.hooks.php');
+include_once(HMPPATH . '/hmp.upgrade.php');
 
 //Filters
 include_once('hmp.filters.php');
