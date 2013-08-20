@@ -17,8 +17,8 @@ Author URI: http://www.humanmade.co.uk/
 	* Admin/GUI
 
 */
-define( 'HMP_PLUGIN_URL', WP_PLUGIN_URL . DIRECTORY_SEPARATOR . end( explode( '/', dirname( __FILE__ )  ) ) );
-define( 'HMPURL', str_replace( ABSPATH, trailingslashit(get_bloginfo('wpurl')), dirname( __FILE__ ) ) . '/' );
+define( 'HMP_PLUGIN_URL', trailingslashit( WP_PLUGIN_URL ) . basename( dirname( __FILE__ ) ) );
+define( 'HMPURL', str_replace( ABSPATH, trailingslashit( get_bloginfo( 'wpurl' ) ), trailingslashit( dirname( __FILE__ ) ) ) );
 define( 'HMPPATH', dirname( __FILE__ ) );
 
 //check comaptibility before anything
