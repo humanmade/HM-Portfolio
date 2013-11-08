@@ -9,13 +9,13 @@ Gallery and Portfolio management for your WordPress site.
 
 == Description ==
 
-Portfolio management for your WordPress site. HM Portfolio allows you to manage a gallery of images from the Add New/Edit Entry Page of the Wordpress admin. It also creates a Portfolio post type that can be used to keep it separate from the main blog posts. The gallery management box can also be enabled for other post types. 
+Portfolio management for your WordPress site. HM Portfolio allows you to manage a gallery of images from the Add New/Edit Entry Page of the WordPress admin. It also creates a Portfolio post type that can be used to keep it separate from the main blog posts. The gallery management box can also be enabled for other post types. 
 
 This plugin is aimed at theme developers as it requires some knowledge of editing template files. No CSS styles are applied, allowing full customisation by the developer. 
 
 This plugin is a fork of the JH Portfolio Plugin. It will prompt you to upgrade all the database entries - but it may require you to edit the theme files. 
 
-Support questions should be made using the wordpress support forums: http://wordpress.org/tags/hm-portfolio?forum_id=10
+Support questions should be made using the WordPress support forums: http://wordpress.org/tags/hm-portfolio?forum_id=10
 
 Report any issues/feature requests here: https://github.com/humanmade/HM-Portfolio issues or you can twitter #humanmadeltd for feedback etc.
 
@@ -56,6 +56,6 @@ Report any issues/feature requests here: https://github.com/humanmade/HM-Portfol
 
 = The plugin doesn't work, what do I do? =
 
-Support questions should be made using the wordpress support forums: http://wordpress.org/tags/hm-portfolio?forum_id=10
+Support questions should be made using the WordPress support forums: http://wordpress.org/tags/hm-portfolio?forum_id=10
 
 Visit the Issues page of the plugin homepage at: https://github.com/humanmade/HM-Portfolio/issues
