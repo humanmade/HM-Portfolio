@@ -5,3 +5,6 @@
 [submodule "custom-meta-boxes"]
 	path = custom-meta-boxes
 	url = git@github.com:humanmade/Custom-Meta-Boxes.git
+[submodule "hm-rewrite"]
+	path = hm-rewrite
+	url = git@github.com:humanmade/hm-rewrite.git
