@@ -85,7 +85,7 @@ function hmp_register_post_types() {
 			'public' => true,
 			'inherit_type' => 'post',
 			'taxonomies' => array( 'hmp-entry-category', 'post_tag' ),
-			'supports' => array( 'editor', 'title', 'revisions', 'custom-fields', 'thumbnail' ),
+			'supports' => array( 'editor', 'title', 'revisions', 'custom-fields', 'thumbnail', 'page-attributes' ),
 			'labels' => array(
 				'name' => 'Portfolio',
 				'singular_name' => 'Entry',
