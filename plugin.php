@@ -43,7 +43,10 @@ function hmp_check_plugin_compatibility() {
 }
 
 include_once(HMPPATH . '/hm-core/hm-core.plugin.php');
-include_once(HMPPATH . '/hm-rewrite/hm-rewrites.php' );
+
+if ( ! class_exists( 'HM_Rewrite' ) )
+	include_once( HMPPATH . '/hm-rewrite/hm-rewrites.php' );
+
 include_once(HMPPATH . '/custom-meta-boxes/init.php');
 
 //Template rewrite
